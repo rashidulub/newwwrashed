@@ -6,8 +6,8 @@ import gellary4 from "@/asstes/gellary4.jpg";
 
 const MoreInfo = () => {
 	return (
-		<div className="grid grid-cols-2 gap-4 mt-20">
-			<div className="container grid grid-cols-2 gap-y-4 p-4 mx-auto ">
+		<div className="grid grid-cols-2 px-[1.3rem] gap-4 mt-20 w-full">
+			<div className="w-fit grid grid-cols-2 gap-4">
 				<Image
 					width={250}
 					height={100}
@@ -38,8 +38,8 @@ const MoreInfo = () => {
 				/>
 			</div>
 			<div>
-				<h1 className="text-4xl text-primary font-medium">Learn more</h1>
-				<p className="mt-3 text-3xl">
+				<h1 className="text-4xl text-[#0083db] font-medium">Learn more</h1>
+				<p className="mt-3">
 					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem modi
 					minus veniam. Maiores, obcaecati ipsa debitis quisquam odit neque.
 					Nam, ipsum? Fugit, tenetur dolores minus esse assumenda similique
