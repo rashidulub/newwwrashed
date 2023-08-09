@@ -1,9 +1,14 @@
+import Banner from '@/Components/home/Banner/Banner'
+import Counter from '@/Components/home/Counter/Counter'
+import MoreInfo from '@/Components/home/MoreInfo/MoreInfo'
 import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className='text-7xl'>OnlineEd Nexus</h1>
+    <main className="max-[80%] px-5 mx-auto mt-12">
+      <Banner />
+      <MoreInfo />
+      <Counter />
     </main>
   )
 }
