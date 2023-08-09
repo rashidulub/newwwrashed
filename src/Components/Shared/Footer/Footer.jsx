@@ -2,7 +2,9 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <div className='bg-[#0083db]'>
+      <div className='w-3/4 mx-auto'></div>
+    </div>
   )
 }
 
