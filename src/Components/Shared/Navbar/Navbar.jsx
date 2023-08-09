@@ -6,20 +6,25 @@ const Navbar = () => {
 	//#0083db
 	const menu = (
 		<>
-			<li>
-				<Link href={"/"}>HOME</Link>
-			</li>
-			<li>
-				<Link href={"/courses"}>COURSES</Link>
-			</li>
-			<li>
-				<Link href={"/blogs"}>BLOGS</Link>
-			</li>
-			{/* <button className='btn btn-sm btn-primary'>SignUp</button> */}
+			<div className="lg:flex">
+				<li>
+					<Link href={"/"}>Home</Link>
+				</li>
+				<li>
+					<Link href={"/courses"}>Courses</Link>
+				</li>
+				<li>
+					<Link href={"/blogs"}>Blogs</Link>
+				</li>
+				<li>
+					<Link href={"/login"}>Login</Link>
+				</li>
+				{/* <button className='btn btn-sm btn-primary'>SignUp</button> */}
+			</div>
 		</>
 	);
 	return (
-		<div className="navbar pt-10 pb-20">
+		<div className="navbar pt-10 pb-20 lg:w-3/4 mx-auto">
 			<div className="navbar-start">
 				<div className="dropdown">
 					<label tabIndex={0} className="btn btn-ghost lg:hidden">
