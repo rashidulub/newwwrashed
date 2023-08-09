@@ -8,7 +8,11 @@ const Counter = () => {
 			<div className="flex gap-4 justify-around items-center px-6 py-5">
 				<div className="flex flex-col justify-between items-center">
 					<div className="flex justify-center items-center">
-						<CountUp delay={2} end={95} className="text-white text-6xl font-semibold" />
+						<CountUp
+							delay={2}
+							end={100}
+							className="text-white text-6xl font-semibold"
+						/>
 						<p className="text-white text-6xl font-semibold">K+</p>
 					</div>
 					<p className="text-white text-2xl font-semibold">Users</p>
@@ -16,7 +20,11 @@ const Counter = () => {
 				<div className="divider divider-horizontal"></div>
 				<div className="flex flex-col justify-center items-center">
 					<div className="flex justify-center items-center">
-						<CountUp delay={2} end={9} className="text-white text-6xl font-semibold" />
+						<CountUp
+							delay={2}
+							end={50}
+							className="text-white text-6xl font-semibold"
+						/>
 						{/* <p className="text-white text-6xl font-semibold">K+</p> */}
 					</div>
 					<p className="text-white text-2xl font-semibold">Awards</p>
@@ -24,7 +32,11 @@ const Counter = () => {
 				<div className="divider divider-horizontal"></div>
 				<div className="flex flex-col justify-center items-center">
 					<div className="flex justify-center items-center">
-						<CountUp delay={2} end={8} className="text-white text-6xl font-semibold" />
+						<CountUp
+							delay={2}
+							end={8}
+							className="text-white text-6xl font-semibold"
+						/>
 						<p className="text-white text-6xl font-semibold">K+</p>
 					</div>
 					<p className="text-white text-2xl font-semibold">VIP Users</p>
