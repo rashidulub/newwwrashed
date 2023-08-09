@@ -7,7 +7,7 @@ import gellary4 from "@/asstes/gellary4.jpg";
 const MoreInfo = () => {
 	return (
 		<div className="grid grid-cols-2 gap-4 mt-20">
-			<div className="container grid grid-cols-2 gap-y-4 p-4 mx-auto ">
+			<div className="container grid grid-cols-2 gap-y-4 p-4 mx-auto">
 				<Image
 					width={250}
 					height={100}

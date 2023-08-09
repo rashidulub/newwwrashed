@@ -18,7 +18,7 @@ const Features = () => {
 					width={70}
 					height={70}
 				/>
-				<h1 className="text-blue-500 font-serif font-semibold text-lg">
+				<h1 className="text-blue-500 font-semibold text-lg">
 					Intuitive Interface
 				</h1>
 				<p className="font-semibold font-sans">
@@ -33,7 +33,7 @@ const Features = () => {
 					width={70}
 					height={70}
 				/>
-				<h1 className="text-blue-500 font-serif font-semibold text-lg">
+				<h1 className="text-blue-500 font-semibold text-lg">
 					Seamless collaboration
 				</h1>
 				<p className="font-semibold font-sans">
@@ -48,7 +48,7 @@ const Features = () => {
 					width={70}
 					height={70}
 				/>
-				<h1 className="text-blue-500 font-serif font-semibold text-lg">
+				<h1 className="text-blue-500 font-semibold text-lg">
 					Customizable Features
 				</h1>
 				<p className="font-semibold font-sans">
@@ -63,7 +63,7 @@ const Features = () => {
 					width={70}
 					height={70}
 				/>
-				<h1 className="text-blue-500 font-serif font-semibold text-lg">
+				<h1 className="text-blue-500 font-semibold text-lg">
 					Efficient Grading
 				</h1>
 				<p className="font-semibold font-sans">
@@ -78,7 +78,7 @@ const Features = () => {
 					width={70}
 					height={70}
 				/>
-				<h1 className="text-blue-500 font-serif font-semibold text-lg">
+				<h1 className="text-blue-500 font-semibold text-lg">
 					Secure Environment
 				</h1>
 				<p className="font-semibold font-sans">
@@ -93,7 +93,7 @@ const Features = () => {
 					width={70}
 					height={70}
 				/>
-				<h1 className="text-blue-500 font-serif font-semibold text-lg">
+				<h1 className="text-blue-500 font-semibold text-lg">
 					Advanced Analytics
 				</h1>
 				<p className="font-semibold font-sans">
