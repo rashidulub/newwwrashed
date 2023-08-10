@@ -61,10 +61,10 @@ const Navbar = () => {
 				<div className="dropdown dropdown-end">
 					<label
 						tabIndex={0}
-						className="btn btn-ghost btn-circle avatar bg-[#0083db]"
+						className="btn btn-ghost btn-circle avatar bg-[#0083db] mr-3"
 					>
 						<div className="w-10 rounded-full">
-							<FaUserGraduate className="flex justify-center items-center text-white text-lg ml-[10px] mt-[10px]" />
+							<FaUserGraduate className="flex justify-center items-center text-white text-xl ml-[10px] mt-[10px]" />
 						</div>
 					</label>
 					<ul

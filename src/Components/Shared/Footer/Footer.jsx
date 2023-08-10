@@ -4,8 +4,8 @@ import { FaGithubSquare, FaFacebookSquare, FaLinkedin, FaInstagram } from 'react
 const Footer = () => {
   return (
     <footer className="p-10 bg-[#0083db] text-white">
-      <div className='flex justify-between w-3/4 mx-auto'>
-        <div className='flex flex-col'>
+      <div className='lg:flex md:flex lg:flex-row md:flex-row grid grid-cols-2 justify-between lg:w-3/4 w-11/12 mx-auto'>
+        <div className='flex flex-col pb-10 lg:pb-0 md:pb-0'>
           <span className="font-semibold text-2xl pb-3">Services</span>
           <a className="link link-hover">Branding</a>
           <a className="link link-hover">Design</a>
