@@ -15,7 +15,7 @@ import Image from "next/image";
 const Slider = () => {
 	return (
 		<>
-			<h1 className="text-center text-blue-500 text-3xl my-2">
+			<h1 className="text-center text-[#0083db] font-semibold text-4xl my-2">
 				Insights from Our Users
 			</h1>
 			<p className="text-center font-seminbold my-4">
@@ -39,94 +39,45 @@ const Slider = () => {
 			>
 				<SwiperSlide>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-8">
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
 							<div className="w-24 h-24 mx-auto rounded-full text-center">
 								<img
-									className="rounded-full border-4 border-blue-500 text-center"
+									className="rounded-full border-4 border-[#0083db] text-center"
 									src={person.src}
 									alt="user photo"
 								/>
 							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
 							<p>5 star</p>
 							<p>
 								Best best best Best best best Best best best Best best best Best
 								best best
 							</p>
 						</div>
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
 							<div className="w-24 h-24 mx-auto rounded-full text-center">
 								<img
-									className="rounded-full border-4 border-blue-500 text-center"
+									className="rounded-full border-4 border-[#0083db] text-center"
 									src={person.src}
 									alt="user photo"
 								/>
 							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
 							<p>5 star</p>
 							<p>
 								Best best best Best best best Best best best Best best best Best
 								best best
 							</p>
 						</div>
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
 							<div className="w-24 h-24 mx-auto rounded-full text-center">
 								<img
-									className="rounded-full border-4 border-blue-500 text-center"
+									className="rounded-full border-4 border-[#0083db] text-center"
 									src={person.src}
 									alt="user photo"
 								/>
 							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
-							<p>5 star</p>
-							<p>
-								Best best best Best best best Best best best Best best best Best
-								best best
-							</p>
-						</div>
-					</div>
-				</SwiperSlide>
-				<SwiperSlide>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-8">
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
-							<div className="w-24 h-24 mx-auto rounded-full text-center">
-								<img
-									className="rounded-full border-4 border-blue-500 text-center"
-									src={person.src}
-									alt="user photo"
-								/>
-							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
-							<p>5 star</p>
-							<p>
-								Best best best Best best best Best best best Best best best Best
-								best best
-							</p>
-						</div>
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
-							<div className="w-24 h-24 mx-auto rounded-full text-center">
-								<img
-									className="rounded-full border-4 border-blue-500 text-center"
-									src={person.src}
-									alt="user photo"
-								/>
-							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
-							<p>5 star</p>
-							<p>
-								Best best best Best best best Best best best Best best best Best
-								best best
-							</p>
-						</div>
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
-							<div className="w-24 h-24 mx-auto rounded-full text-center">
-								<img
-									className="rounded-full border-4 border-blue-500 text-center"
-									src={person.src}
-									alt="user photo"
-								/>
-							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
 							<p>5 star</p>
 							<p>
 								Best best best Best best best Best best best Best best best Best
@@ -137,45 +88,45 @@ const Slider = () => {
 				</SwiperSlide>
 				<SwiperSlide>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-8">
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
 							<div className="w-24 h-24 mx-auto rounded-full text-center">
 								<img
-									className="rounded-full border-4 border-blue-500 text-center"
+									className="rounded-full border-4 border-[#0083db] text-center"
 									src={person.src}
 									alt="user photo"
 								/>
 							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
 							<p>5 star</p>
 							<p>
 								Best best best Best best best Best best best Best best best Best
 								best best
 							</p>
 						</div>
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
 							<div className="w-24 h-24 mx-auto rounded-full text-center">
 								<img
-									className="rounded-full border-4 border-blue-500 text-center"
+									className="rounded-full border-4 border-[#0083db] text-center"
 									src={person.src}
 									alt="user photo"
 								/>
 							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
 							<p>5 star</p>
 							<p>
 								Best best best Best best best Best best best Best best best Best
 								best best
 							</p>
 						</div>
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
 							<div className="w-24 h-24 mx-auto rounded-full text-center">
 								<img
-									className="rounded-full border-4 border-blue-500 text-center"
+									className="rounded-full border-4 border-[#0083db] text-center"
 									src={person.src}
 									alt="user photo"
 								/>
 							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
 							<p>5 star</p>
 							<p>
 								Best best best Best best best Best best best Best best best Best
@@ -186,45 +137,94 @@ const Slider = () => {
 				</SwiperSlide>
 				<SwiperSlide>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-8">
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
 							<div className="w-24 h-24 mx-auto rounded-full text-center">
 								<img
-									className="rounded-full border-4 border-blue-500 text-center"
+									className="rounded-full border-4 border-[#0083db] text-center"
 									src={person.src}
 									alt="user photo"
 								/>
 							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
 							<p>5 star</p>
 							<p>
 								Best best best Best best best Best best best Best best best Best
 								best best
 							</p>
 						</div>
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
 							<div className="w-24 h-24 mx-auto rounded-full text-center">
 								<img
-									className="rounded-full border-4 border-blue-500 text-center"
+									className="rounded-full border-4 border-[#0083db] text-center"
 									src={person.src}
 									alt="user photo"
 								/>
 							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
 							<p>5 star</p>
 							<p>
 								Best best best Best best best Best best best Best best best Best
 								best best
 							</p>
 						</div>
-						<div className="text-center border-4 border-blue-500 py-5 px-3 space-y-2 rounded-2xl">
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
 							<div className="w-24 h-24 mx-auto rounded-full text-center">
 								<img
-									className="rounded-full border-4 border-blue-500 text-center"
+									className="rounded-full border-4 border-[#0083db] text-center"
 									src={person.src}
 									alt="user photo"
 								/>
 							</div>
-							<h1 className="text-blue-500">christian Bale</h1>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
+							<p>5 star</p>
+							<p>
+								Best best best Best best best Best best best Best best best Best
+								best best
+							</p>
+						</div>
+					</div>
+				</SwiperSlide>
+				<SwiperSlide>
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-8">
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
+							<div className="w-24 h-24 mx-auto rounded-full text-center">
+								<img
+									className="rounded-full border-4 border-[#0083db] text-center"
+									src={person.src}
+									alt="user photo"
+								/>
+							</div>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
+							<p>5 star</p>
+							<p>
+								Best best best Best best best Best best best Best best best Best
+								best best
+							</p>
+						</div>
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
+							<div className="w-24 h-24 mx-auto rounded-full text-center">
+								<img
+									className="rounded-full border-4 border-[#0083db] text-center"
+									src={person.src}
+									alt="user photo"
+								/>
+							</div>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
+							<p>5 star</p>
+							<p>
+								Best best best Best best best Best best best Best best best Best
+								best best
+							</p>
+						</div>
+						<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
+							<div className="w-24 h-24 mx-auto rounded-full text-center">
+								<img
+									className="rounded-full border-4 border-[#0083db] text-center"
+									src={person.src}
+									alt="user photo"
+								/>
+							</div>
+							<h1 className="text-[#0083db] text-2xl font-semibold">Christian Bale</h1>
 							<p>5 star</p>
 							<p>
 								Best best best Best best best Best best best Best best best Best
