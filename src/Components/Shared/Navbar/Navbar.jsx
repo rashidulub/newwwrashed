@@ -6,7 +6,7 @@ const Navbar = () => {
 	//#0083db
 	const menu = (
 		<>
-			<div className="lg:flex">
+			<div className="lg:flex text-2xl">
 				<li>
 					<Link href={"/"}>Home</Link>
 				</li>
@@ -19,7 +19,6 @@ const Navbar = () => {
 				<li>
 					<Link href={"/login"}>Login</Link>
 				</li>
-				{/* <button className='btn btn-sm btn-primary'>SignUp</button> */}
 			</div>
 		</>
 	);
@@ -51,7 +50,7 @@ const Navbar = () => {
 					</ul>
 				</div>
 				<a className="btn btn-ghost normal-case text-4xl text-[#0083db]">
-					Nexus
+					ED_NEXUS
 				</a>
 			</div>
 			<div className="navbar-center hidden lg:flex">
