@@ -6,34 +6,26 @@ import gellary4 from "@/asstes/gellary4.jpg";
 
 const MoreInfo = () => {
 	return (
-		<div className="flex px-[1.3rem] gap-4 mt-20 w-full py-20">
+		<div className="flex flex-col md:flex-col lg:flex-row px-[1.3rem] gap-4 mt-20 w-full py-20">
 			<div className="w-fit grid grid-cols-2 gap-4">
 				<Image
-					width={500}
-					height={100}
 					alt="carGallary"
-					className=" rounded shadow-sm min-h-12 dark:bg-gray-500 "
+					className=" rounded shadow-sm min-h-12 dark:bg-gray-500 h-auto w-[600px]"
 					src={gellary1}
 				/>
 				<Image
 					alt="foodGallary"
-					width={500}
-					height={100}
-					className=" rounded shadow-sm min-h-48 dark:bg-gray-500 "
+					className=" rounded shadow-sm min-h-48 dark:bg-gray-500 h-auto w-[600px]"
 					src={gellary3}
 				/>
 				<Image
 					alt="carGallary"
-					width={500}
-					height={100}
-					className="rounded shadow-sm min-h-48 dark:bg-gray-500 "
+					className="rounded shadow-sm min-h-48 dark:bg-gray-500 h-auto w-[600px]"
 					src={gellary2}
 				/>
 				<Image
-					width={500}
-					height={100}
 					alt="foodGallary"
-					className="rounded shadow-sm min-h-48 dark:bg-gray-500 "
+					className="rounded shadow-sm min-h-48 dark:bg-gray-500 h-auto w-[600px]"
 					src={gellary4}
 				/>
 			</div>

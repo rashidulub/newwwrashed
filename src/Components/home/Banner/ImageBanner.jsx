@@ -4,11 +4,9 @@ import bannerImage from '../../../asstes/banner.jpg'
 
 const ImageBanner = () => {
     return (
-        <div className='pr-14'>
-            <Image className='rounded-br-[60px]'
+        <div className='w-[500px] pr-14 pt-14'>
+            <Image className='rounded-br-[60px] h-auto'
                 src={bannerImage}
-                width={600}
-                height={600}
                 alt="Picture of the author"
             />
         </div>

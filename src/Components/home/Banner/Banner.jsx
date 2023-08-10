@@ -5,13 +5,13 @@ import ImageBanner from "./ImageBanner";
 const Banner = () => {
 	return (
 		<div className="px-[1.3rem]">
-			<div className="flex gap-10 items-center justify-between">
+			<div className="flex flex-col lg:flex-row gap-20 items-center justify-between">
 				<div className="">
 					<ContentBanner />
 				</div>
-				<div className="">
+				<div className="relative -right-[18.2%] pr-64 -top-5">
 					<ImageBanner />
-					<div className="bg-[#0083db] rounded-tl-[80px] rounded-br-[80px] h-[22.5rem] w-[260px] absolute top-40 right-64 -z-10"></div>
+					<div className="bg-[#0083db] absolute right-64 top-0 -z-10 rounded-tl-[80px] rounded-br-[80px] h-[25.5rem] w-[300px]"></div>
 				</div>
 			</div>
 		</div>
