@@ -10,7 +10,6 @@ import "swiper/css/navigation";
 
 import "./styles.css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import Image from "next/image";
 
 const Slider = () => {
 	return (

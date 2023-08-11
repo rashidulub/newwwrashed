@@ -2,28 +2,26 @@ import Link from "next/link";
 import { FaUserGraduate } from "react-icons/fa";
 
 const Navbar = () => {
-	//FaUserGraduate
-	//#0083db
 	const menu = (
 		<>
 			<div className="lg:flex text-2xl">
 				<li>
-					<Link href={"/"}>Home</Link>
+					<Link href="/">Home</Link>
 				</li>
 				<li>
-					<Link href={"/courses"}>Courses</Link>
+					<Link href="/courses">Courses</Link>
 				</li>
 				<li>
-					<Link href={"/blogs"}>Blogs</Link>
+					<Link href="/blogs">Blogs</Link>
 				</li>
 				<li>
-					<Link href={"/login"}>Login</Link>
+					<Link href="/login">Login</Link>
 				</li>
 			</div>
 		</>
 	);
 	return (
-		<div className="navbar pt-10 pb-20 lg:w-3/4 mx-auto">
+		<div className="navbar z-50 pt-10 pb-20 lg:w-3/4 mx-auto">
 			<div className="navbar-start">
 				<div className="dropdown">
 					<label tabIndex={0} className="btn btn-ghost lg:hidden">

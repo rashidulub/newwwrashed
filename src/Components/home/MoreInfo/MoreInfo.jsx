@@ -29,13 +29,14 @@ const MoreInfo = () => {
 					src={gellary4}
 				/>
 			</div>
-			<div>
+			<div className="space-y-3">
 				<h1 className="text-4xl text-[#0083db] font-semibold">Learn more</h1>
-				<p className="mt-3">
-					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem modi
-					minus veniam. Maiores, obcaecati ipsa debitis quisquam odit neque.
-					Nam, ipsum? Fugit, tenetur dolores minus esse assumenda similique
-					quidem enim?
+				<p className="text-justify">
+					Are you ready to embark on an exciting journey of education and
+					discovery? Look no further than Ed Nexus, your all-in-one learning hub
+					designed to empower educators and learners alike. Just like Google
+					Classroom, Ed Nexus is here to revolutionize the way you teach, learn,
+					and engage with educational content.
 				</p>
 			</div>
 		</div>
