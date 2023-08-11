@@ -47,7 +47,7 @@ const Navbar = () => {
 						{menu}
 					</ul>
 				</div>
-				<a className="btn btn-ghost normal-case text-4xl text-[#0083db]">
+				<a className="btn btn-ghost normal-case text-xl md:text-4xl text-[#0083db]">
 					ED_NEXUS
 				</a>
 			</div>
