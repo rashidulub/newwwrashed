@@ -6,7 +6,7 @@ import bannerImage from '../../../asstes/banner.png'
 const Banner = () => {
 	return (
 		<div className="px-[1.3rem]">
-			<div className="flex flex-col lg:flex-row gap-20 lg:gap-0 items-center justify-between">
+			<div className="flex flex-col lg:flex-row gap-20 lg:gap-10 items-center justify-between">
 				<ContentBanner />
 				<div>
 					<Image className='rounded-br-[60px] h-auto'

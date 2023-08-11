@@ -5,14 +5,14 @@ const ContentBanner = () => {
 	return (
 		<div className="space-y-3">
 			<div className="top-10">
-				<h1 className="text-5xl font-semibold">
-					Where Teaching and Learning
-					<span className='text-blue-500'> Unite for Growth</span>
+				<h1 className="text-6xl font-semibold">
+					Where Teaching <br /> and Learning
+					<div className='text-[#0083db]'> Unite for Growth</div>
 				</h1>
-				<p>
+				<p className="py-5">
 					Nurturing knowledge and fostering connections in a dynamic realm of collaborative education. Join us to shape the future of learning together
 				</p>
-				<button className="btn btn-primary bg-[#0083db] btn-md mt-5">
+				<button className="btn btn-primary text-white bg-[#0083db] btn-md">
 					Get Started
 				</button>
 			</div>

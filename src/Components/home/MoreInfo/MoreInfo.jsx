@@ -10,22 +10,22 @@ const MoreInfo = () => {
 			<div className="w-fit grid grid-cols-2 gap-4">
 				<Image
 					alt="carGallary"
-					className=" rounded shadow-sm min-h-12 dark:bg-gray-500 h-auto w-[600px]"
+					className=" rounded shadow-sm min-h-12 dark:bg-gray-500 h-auto w-[800px]"
 					src={gellary1}
 				/>
 				<Image
 					alt="foodGallary"
-					className=" rounded shadow-sm min-h-48 dark:bg-gray-500 h-auto w-[600px]"
+					className=" rounded shadow-sm min-h-48 dark:bg-gray-500 h-auto w-[800px]"
 					src={gellary3}
 				/>
 				<Image
 					alt="carGallary"
-					className="rounded shadow-sm min-h-48 dark:bg-gray-500 h-auto w-[600px]"
+					className="rounded shadow-sm min-h-48 dark:bg-gray-500 h-auto w-[800px]"
 					src={gellary2}
 				/>
 				<Image
 					alt="foodGallary"
-					className="rounded shadow-sm min-h-48 dark:bg-gray-500 h-auto w-[600px]"
+					className="rounded shadow-sm min-h-48 dark:bg-gray-500 h-auto w-[800px]"
 					src={gellary4}
 				/>
 			</div>
