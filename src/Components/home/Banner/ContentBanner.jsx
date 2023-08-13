@@ -13,7 +13,7 @@ const ContentBanner = () => {
 					collaborative education. Join us to shape the future of learning
 					together
 				</p>
-				<button className="btn btn-primary text-white bg-[#0083db] btn-md">
+				<button className="text-white bg-[#0083db] btn-md rounded-md font-semibold text-xl">
 					Get Started
 				</button>
 			</div>
