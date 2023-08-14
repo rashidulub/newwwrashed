@@ -2,8 +2,8 @@ import React from "react";
 
 const Blogs = () => {
 	return (
-		<div className="text-justify px-7 mb-10">
-			<h1 className="text-center text-3xl text-blue-500">
+		<div className="text-justify px-7 mb-10 ">
+			<h1 className="text-center text-3xl text-blue-500 ">
 				Why Choose Ed Nexus?
 			</h1>
 			<p className="text-justify">

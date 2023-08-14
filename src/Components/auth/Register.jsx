@@ -1,8 +1,11 @@
+'use client'
 import React, { useState } from 'react';
 import Lottie from 'lottie-react';
 import { FaCamera, FaKey, FaMailBulk, FaUser } from 'react-icons/fa';
-import eating from '../../assets/LottieAnimation/eating.json'
+import eating from '../../assets/LottieAnimation/education.json'
 import SocialLogin from './SocialLogin';
+import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -43,9 +46,9 @@ const Register = () => {
         }
     }
     return (
-        <div className="relative">
+        <div className="relative ">
             <img
-                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdHVyYW50JTIwZm9vZHxlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60"
+                src="https://i.ibb.co/LpjxG3k/494.jpg"
                 className="absolute inset-0 object-cover w-full h-full"
                 alt=""
             />
@@ -56,8 +59,8 @@ const Register = () => {
                             {<Lottie animationData={eating} loop={true}></Lottie>}
                         </div>
                         <div className="w-full max-w-xl xl:px-8 lg:w-5/12">
-                            <div className="bg-yellow rounded shadow-2xl p-7 sm:p-10">
-                                <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
+                            <div className="bg-[#0083db] rounded shadow-2xl p-7 sm:p-10 ">
+                                <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl text-white">
                                     Register
                                 </h3>
                                 <form onSubmit={createUserHandle}>
@@ -122,10 +125,9 @@ const Register = () => {
                                     </div>
                                 </form>
                                 <div>
-                                    <h3 className='text-center font-semibold text-xl py-2'>Or</h3>
                                     <SocialLogin></SocialLogin>
                                     <p className="text-xs text-gray-600 sm:text-sm mt-5">
-                                        Already have an account ? <Link to="/login" className='font-semibold'> Login</Link>
+                                        Already have an account ? <Link href='/login' className='font-semibold'> Login</Link>
                                     </p>
                                 </div>
                             </div>

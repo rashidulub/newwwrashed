@@ -1,10 +1,12 @@
+'use client'
 import Link from 'next/link'
 import { useState } from 'react';
 import { FaKey, FaMailBulk } from 'react-icons/fa';
 import Lottie from 'lottie-react';
-import eating from '../../assets/LottieAnimation/eating.json'
+import eating from '../../assets/LottieAnimation/education.json'
+import SocialLogin from './SocialLogin';
 
-const Login = () => {
+const SignIn = ({ callbackUrl }) => {
     const [formData, setFormData] = useState({
         email: "",
         password: ""
@@ -18,22 +20,27 @@ const Login = () => {
         setFormData({ ...formData, [name]: value })
     }
 
+    //user sign in 
+    const userSignInHandle = (e) => {
+        console.log('hello')
+    }
+
     return (
         <div className="relative">
             <img
-                src="https://images.unsplash.com/photo-1592861956120-e524fc739696?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWF0aW5nfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                src="https://i.ibb.co/KVX8GhJ/3659672.jpg"
                 className="absolute inset-0 object-cover w-full h-full"
                 alt=""
             />
-            <div className="relative bg-gray-900 bg-opacity-75">
+            <div className="relative bg-gray-900 bg-opacity-75 ">
                 <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
                     <div className="flex flex-col-reverse items-center justify-between lg:flex-row ">
                         <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
                             {<Lottie animationData={eating} loop={true}></Lottie>}
                         </div>
                         <div className="w-full max-w-xl xl:px-8 lg:w-5/12">
-                            <div className="bg-yellow rounded shadow-2xl p-7 sm:p-10">
-                                <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
+                            <div className="bg-[#0083db] rounded shadow-2xl p-7 sm:p-10">
+                                <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl text-white">
                                     Login
                                 </h3>
                                 <form onSubmit={userSignInHandle}>
@@ -73,9 +80,8 @@ const Login = () => {
                                     </div>
                                 </form>
                                 <div>
-                                    <h3 className='text-center font-semibold text-xl py-2'>Or</h3>
-                                    <SocialLogin></SocialLogin>
-                                    <p className="text-xs text-gray-600 sm:text-sm mt-5">
+                                    <SocialLogin callbackUrl={callbackUrl}></SocialLogin>
+                                    <p className="text-xs text-gray-600 sm:text-sm mt-5 cursor-pointer">
                                         Create an account? <Link href='/signUp' className='font-semibold'> Register Now</Link>
                                     </p>
                                 </div>
@@ -88,4 +94,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default SignIn
