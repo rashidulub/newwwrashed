@@ -17,7 +17,6 @@ const Counter = () => {
 					</div>
 					<p className="text-white text-2xl font-semibold">Users</p>
 				</div>
-				<div className="divider divider-horizontal"></div>
 				<div className="flex flex-col justify-center lg:border-x-2 border-y-2 lg:border-y-0 md:border-y-0 md:border-x-2 border-white my-10 lg:my-0 lg:px-[15%] md:px-[15%] py-20 lg:py-0 md:py-0 px-10 items-center">
 					<div className="flex justify-center items-center">
 						<CountUp
@@ -29,7 +28,6 @@ const Counter = () => {
 					</div>
 					<p className="text-white text-2xl font-semibold">Awards</p>
 				</div>
-				<div className="divider divider-horizontal"></div>
 				<div className="flex flex-col justify-center items-center">
 					<div className="flex justify-center items-center">
 						<CountUp
