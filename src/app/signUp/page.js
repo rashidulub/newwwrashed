@@ -1,10 +1,10 @@
 import Register from '@/Components/auth/Register'
 import React from 'react'
 
-const signUp = () => {
+const signUp = ({ searchParams: { callbackUrl } }) => {
     return (
         <div>
-            <Register />
+            <Register callbackUrl={callbackUrl || "/dashboard"} />
         </div>
     )
 }

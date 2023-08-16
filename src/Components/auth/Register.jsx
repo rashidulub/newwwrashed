@@ -1,49 +1,50 @@
 'use client'
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Lottie from 'lottie-react';
 import { FaCamera, FaKey, FaMailBulk, FaUser } from 'react-icons/fa';
 import eating from '../../assets/LottieAnimation/education.json'
 import SocialLogin from './SocialLogin';
 import Link from 'next/link';
-import { toast } from 'react-toastify';
+import { useRouter } from "next/navigation";
+// import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
-const Register = () => {
-    const [formData, setFormData] = useState({
-        userName: "",
-        email: "",
-        photoURL: "",
-        password: ""
-    })
-    const { userName, email, photoURL, password } = formData
+const Register = ({ callbackUrl }) => {
+    const router = useRouter();
+    const [load, setLoad] = useState(false)
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const createUserHandle = async (data) => {
+        // setLoad(true)
+        const name = data.name
+        const email = data.email
+        const password = data.password
+        const image = data.image[0]
+        const newUser = { name, email, password }
+        const formData = new FormData()
+        formData.append('image', image)
+        try {
+            const res = await axios.post("http://localhost:3000/api/register", { newUser });
+            console.log("Response:", res);
+            const data = res.data;
+            console.log(data);
+            // const res = await fetch("http://localhost:3000/api/topics", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-type": "application/json",
+            //     },
+            //     body: JSON.stringify({ title, description }),
+            // });
+            // if (!data.user) return null;
+            // await signIn('credentials', {
+            //   username: data.user.username,
+            //   password: form.get('password'),
+            //   callbackUrl: '/',
+            // });
+        } catch (error) {
+            console.log("Error during registration: ", error);
+        }
 
-    // get input value
-    const handleInputData = (event) => {
-        const name = event.target.name
-        const value = event.target.value
-        if (name === "password" && value.length < 6) {
-            toast.error("Password should be at least 6 character", { autoClose: 1500 })
-            return setFormData({ ...formData, [name]: "" })
-        }
-        else {
-            setFormData({ ...formData, [name]: value })
-        }
-    }
-    // create user
-    const createUserHandle = (event) => {
-        event.preventDefault()
-        if (userName && email && password && photoURL) {
-            createUser(email, password)
-                .then(result => {
-                    updateProfileHandle()
-                    toast.success("Register successfull,please log in", { autoClose: 1500 })
-                    logOut()
-                    navigate('/login')
-                })
-                .catch(error => {
-                    setLoading(false)
-                    toast.error(error.message, { autoClose: 1500 })
-                })
-        }
     }
     return (
         <div className="relative ">
@@ -63,55 +64,54 @@ const Register = () => {
                                 <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl text-white">
                                     Register
                                 </h3>
-                                <form onSubmit={createUserHandle}>
+                                <form onSubmit={handleSubmit(createUserHandle)}>
                                     <div className="mb-1 sm:mb-2">
                                         <div className='relative  mb-3'>
                                             <FaUser className='absolute left-4 top-[30%] text-black '></FaUser>
                                             <input
-                                                onBlur={handleInputData}
-                                                placeholder="Username"
-                                                required
+                                                {...register("name", { required: "Name is required!" })}
+                                                placeholder="Your Name Here"
                                                 type="text"
                                                 className="py-3 w-full bg-white border border-gray-300 rounded-full shadow-sm flex-grow px-4  transition duration-200 placeholder:text-black font-medium  outline-none pl-12 bg-none"
-                                                id="userName"
-                                                name="userName"
                                             />
+                                            {errors?.name && <p className='text-red-600'>{errors.name?.message}</p>}
                                         </div>
                                         <div className='relative  mb-3'>
                                             <FaMailBulk className='absolute left-4 top-[30%] text-black '></FaMailBulk>
                                             <input
-                                                onBlur={handleInputData}
-                                                placeholder="email"
-                                                required
-                                                type="email"
+                                                {...register("email", {
+                                                    required: "Email is required",
+                                                    pattern: { value: /\S+@\S+\.\S+/, message: 'Email is not valid!' }
+                                                })}
+                                                placeholder="Type Your Email"
+                                                type="text"
                                                 className="py-3 w-full bg-white border border-gray-300 rounded-full shadow-sm flex-grow px-4  transition duration-200 placeholder:text-black font-medium  outline-none pl-12 bg-none"
-                                                id="email"
-                                                name="email"
                                             />
+                                            {errors?.email && <p className='text-red-600'>{errors?.email.message}</p>}
                                         </div>
                                         <div className='relative mb-3'>
                                             <FaCamera className='absolute left-4 top-[30%] text-black '></FaCamera>
                                             <input
-                                                onBlur={handleInputData}
-                                                placeholder="photoURL"
-                                                required
-                                                type="text"
+                                                {...register("image", { required: "image is required!" })}
+                                                placeholder="Upload Image"
+                                                type="file"
                                                 className="py-3 w-full bg-white border border-gray-300 rounded-full shadow-sm flex-grow px-4  transition duration-200 placeholder:text-black font-medium  outline-none pl-12 bg-none"
-                                                id="photoURL"
-                                                name="photoURL"
                                             />
+                                            {errors?.image && <p className='text-red-600'>{errors?.image.message}</p>}
                                         </div>
                                         <div className='relative mb-3'>
                                             <FaKey className='absolute left-4 top-[30%] text-black '></FaKey>
                                             <input
-                                                onBlur={handleInputData}
+                                                {...register("password", {
+                                                    required: "Password is required!",
+                                                    pattern: { value: /(?=.*[!@#$&*])/, message: 'password should be minimum one special character' },
+                                                    minLength: { value: 6, message: 'password should be must 6 characters' }
+                                                })}
                                                 placeholder="password"
-                                                required
                                                 type="password"
                                                 className="py-3 w-full bg-white border border-gray-300 rounded-full shadow-sm flex-grow px-4  transition duration-200 placeholder:text-black font-medium  outline-none pl-12 bg-none"
-                                                id="password"
-                                                name="password"
                                             />
+                                            {errors?.password && <p className='text-red-600'>{errors?.password.message}</p>}
                                         </div>
                                     </div>
 
@@ -120,12 +120,14 @@ const Register = () => {
                                             type="submit"
                                             className="inline-flex items-center justify-center w-full py-3 px-6 font-medium hover:bg-gray-700 tracking-wide text-white transition duration-200 rounded-full shadow-md outline-none bg-black"
                                         >
-                                            Register
+                                            {
+                                                load ? <span className='border-2 border-dashed border-white animate-spin w-7 h-7 rounded-full'></span> : ' Register'
+                                            }
                                         </button>
                                     </div>
                                 </form>
                                 <div>
-                                    <SocialLogin></SocialLogin>
+                                    <SocialLogin callbackUrl={callbackUrl}></SocialLogin>
                                     <p className="text-xs text-gray-600 sm:text-sm mt-5">
                                         Already have an account ? <Link href='/login' className='font-semibold'> Login</Link>
                                     </p>

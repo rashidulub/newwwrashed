@@ -1,8 +1,42 @@
-import React from "react";
+'use client'
+import axios from "axios";
+import { useState } from "react";
 
 const Blogs = () => {
+	const [formData, setFormData] = useState({
+		fastName: "",
+		lastName: "",
+	})
+	const { fastName, lastName } = formData
+
+	// get input value
+	const handleInputData = (event) => {
+		const name = event.target.name
+		const value = event.target.value
+
+		setFormData({ ...formData, [name]: value })
+	}
+	const handleUser = async (event) => {
+		event.preventDefault()
+		const newUser = { fastName, lastName }
+		console.log(newUser)
+		try {
+			const res = await axios.post("/api/blogs", { newUser })
+			const data = res.data
+			console.log(data)
+
+		} catch (error) {
+			console.log(error)
+		}
+	}
 	return (
 		<div className="text-justify px-7 mb-10 ">
+
+			<form onSubmit={handleUser}>
+				<input className="inline-flex items-center justify-center w-full py-3 px-6 font-medium hover:bg-gray-700 tracking-wide text-white transition duration-200 rounded-full shadow-md outline-none bg-black" onBlur={handleInputData} name="fastName" placeholder="type Your fast name" type="text" />
+				<input className="inline-flex items-center justify-center w-full py-3 px-6 font-medium hover:bg-gray-700 tracking-wide text-white transition duration-200 rounded-full shadow-md outline-none bg-black" onBlur={handleInputData} name='lastName' placeholder="type Your last name" type="text" />
+				<button type="submit">Submit</button>
+			</form>
 			<h1 className="text-center text-3xl text-blue-500 ">
 				Why Choose Ed Nexus?
 			</h1>

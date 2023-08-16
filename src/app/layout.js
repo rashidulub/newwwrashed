@@ -4,7 +4,7 @@ import { Saira } from 'next/font/google'
 import Footer from '@/Components/Shared/Footer/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Provider from '@/Context/ProviderSession/Provider';
+import AuthProvider from '@/Context/authContext/AuthProvider';
 
 const inter = Saira({ subsets: ['latin'] })
 
@@ -19,12 +19,12 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div>
           <Navbar />
-          <Provider>
+          <AuthProvider>
             <main className=''>
               {children}
               <ToastContainer />
             </main>
-          </Provider>
+          </AuthProvider>
           <Footer />
         </div>
       </body>
