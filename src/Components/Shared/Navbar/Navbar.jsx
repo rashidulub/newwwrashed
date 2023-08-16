@@ -87,7 +87,7 @@ const Navbar = () => {
 								<div>
 									<div className="flex items-center gap-2">
 										<CgProfile className="text-lg" />
-										<a className="justify-between">Profile</a>
+										<Link href="/profile" className="justify-between">Profile</Link>
 									</div>
 									<div className="badge bg-[#0083db] text-white">New</div>
 								</div>
@@ -96,7 +96,7 @@ const Navbar = () => {
 								<div>
 									<div className="flex items-center gap-2">
 										<FiSettings className="text-lg" />
-										<a className="justify-between">Settings</a>
+										<Link href="/settings" className="justify-between">Settings</Link>
 									</div>
 								</div>
 							</li>
