@@ -1,8 +1,8 @@
 import Image from "next/image";
-import gellary1 from "@/asstes/gellary1.jpg";
-import gellary2 from "@/asstes/gellary2.jpg";
-import gellary3 from "@/asstes/gellary3.jpg";
-import gellary4 from "@/asstes/gellary4.jpg";
+import gellary1 from "@/assets/gellary1.jpg";
+import gellary2 from "@/assets/gellary2.jpg";
+import gellary3 from "@/assets/gellary3.jpg";
+import gellary4 from "@/assets/gellary4.jpg";
 
 const MoreInfo = () => {
 	return (
