@@ -4,7 +4,8 @@ import { FiSettings, FiLogOut } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import SignOut from "@/Components/auth/SignOut";
+import LogOut from "@/Components/auth/LogOut";
+
 
 const Navbar = async () => {
 	const session = await getServerSession(authOptions)
@@ -99,7 +100,7 @@ const Navbar = async () => {
 									<div className="flex items-center gap-2">
 
 										<FiLogOut className="text-lg" />
-										<SignOut />
+										<LogOut />
 									</div>
 								</div>
 							</li>
