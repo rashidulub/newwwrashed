@@ -17,6 +17,11 @@ const Navbar = () => {
 				<li>
 					<Link href="/login">Login</Link>
 				</li>
+
+
+
+
+
 			</div>
 		</>
 	);
