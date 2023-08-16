@@ -19,6 +19,9 @@ const Navbar = () => {
 				<li>
 					<Link href="/hello">Hello</Link>
 				</li>
+				<li>
+					<Link href="/hello">world</Link>
+				</li>
 			</div>
 		</>
 	);
