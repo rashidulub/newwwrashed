@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Lottie from 'react-lottie';
+// import Lottie from 'react-lottie';
 // import myImage from '../../asstes/images/secure.png';
 import classroomAnimate from "../../../public/classroom.json";
 import Link from 'next/link';
