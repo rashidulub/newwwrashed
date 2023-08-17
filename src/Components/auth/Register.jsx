@@ -5,42 +5,51 @@ import { FaCamera, FaKey, FaMailBulk, FaUser } from 'react-icons/fa';
 import eating from '../../assets/LottieAnimation/education.json'
 import SocialLogin from './SocialLogin';
 import Link from 'next/link';
-import { useRouter } from "next/navigation";
-// import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { signIn } from 'next-auth/react';
+import { toast } from 'react-toastify';
+import { imageUpload } from '@/apiHook/imageUpload';
 
 const Register = ({ callbackUrl }) => {
-    const router = useRouter();
+    const [photo, setPhoto] = useState('')
     const [load, setLoad] = useState(false)
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const createUserHandle = async (data) => {
-        // setLoad(true)
+        setLoad(true)
         const name = data.name
         const email = data.email
         const password = data.password
         const image = data.image[0]
-        const newUser = { name, email, password }
+
         const formData = new FormData()
         formData.append('image', image)
         try {
-            const res = await axios.post("http://localhost:3000/api/register", { newUser });
-            console.log("Response:", res);
+            imageUpload(formData)
+                .then(data => {
+                    if (data.success) {
+                        setPhoto(data.data.display_url)
+                    }
+                })
+                .catch(error => {
+                    setLoad(false)
+                })
+            console.log(photo)
+            const res = await axios.post("http://localhost:3000/api/register", { name, email, password, image: photo });
             const data = res.data;
-            console.log(data);
-            // const res = await fetch("http://localhost:3000/api/topics", {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-type": "application/json",
-            //     },
-            //     body: JSON.stringify({ title, description }),
-            // });
-            // if (!data.user) return null;
-            // await signIn('credentials', {
-            //   username: data.user.username,
-            //   password: form.get('password'),
-            //   callbackUrl: '/',
-            // });
+            console.log(data.user);
+            if (!data.user) {
+                console.log('user unll')
+                return null;
+            }
+            await signIn('credentials', {
+                email,
+                password,
+                callbackUrl: '/dashboard',
+            });
+            reset()
+            setLoad(false)
+            toast.success('user register successfuly', { position: "top-center" })
         } catch (error) {
             console.log("Error during registration: ", error);
         }
