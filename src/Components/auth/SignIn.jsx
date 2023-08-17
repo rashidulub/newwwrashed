@@ -5,24 +5,27 @@ import { FaKey, FaMailBulk } from 'react-icons/fa';
 import Lottie from 'lottie-react';
 import eating from '../../assets/LottieAnimation/education.json'
 import SocialLogin from './SocialLogin';
+import { useForm } from 'react-hook-form';
+import { signIn } from 'next-auth/react';
+import { toast } from 'react-toastify';
 
 const SignIn = ({ callbackUrl }) => {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    })
-    const { email, password } = formData
+    const [load, setLoad] = useState(false)
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const handleLoginUser = async (data) => {
+        setLoad(true)
+        const email = data.email
+        const password = data.password
 
-    // get input value
-    const handleInputData = (event) => {
-        const name = event.target.name
-        const value = event.target.value
-        setFormData({ ...formData, [name]: value })
-    }
+        await signIn('credentials', {
+            email,
+            password,
+            callbackUrl: '/dashboard',
+        });
+        reset();
+        setLoad(false);
+        toast.success('Welcome our ED_Nexus', { position: "top-center" })
 
-    //user sign in 
-    const userSignInHandle = (e) => {
-        console.log('hello')
     }
 
     return (
@@ -43,31 +46,34 @@ const SignIn = ({ callbackUrl }) => {
                                 <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl text-white">
                                     Login
                                 </h3>
-                                <form onSubmit={userSignInHandle}>
+                                <form onSubmit={handleSubmit(handleLoginUser)}>
                                     <div className="mb-1 sm:mb-2">
                                         <div className='relative  mb-3'>
                                             <FaMailBulk className='absolute left-4 top-[30%] text-black '></FaMailBulk>
                                             <input
-                                                onBlur={handleInputData}
-                                                placeholder="email"
-                                                required
-                                                type="email"
+                                                {...register("email", {
+                                                    required: "Email is required",
+                                                    pattern: { value: /\S+@\S+\.\S+/, message: 'Email is not valid!' }
+                                                })}
+                                                placeholder="Type Your Email"
+                                                type="text"
                                                 className="py-3 w-full bg-white border border-gray-300 rounded-full shadow-sm flex-grow px-4  transition duration-200 placeholder:text-black font-medium  outline-none pl-12 bg-none"
-                                                id="email"
-                                                name="email"
                                             />
+                                            {errors?.email && <p className='text-red-600'>{errors?.email.message}</p>}
                                         </div>
                                         <div className='relative mb-3'>
                                             <FaKey className='absolute left-4 top-[30%] text-black '></FaKey>
                                             <input
-                                                onBlur={handleInputData}
+                                                {...register("password", {
+                                                    required: "Password is required!",
+                                                    pattern: { value: /(?=.*[!@#$&*])/, message: 'password should be minimum one special character' },
+                                                    minLength: { value: 6, message: 'password should be must 6 characters' }
+                                                })}
                                                 placeholder="password"
-                                                required
                                                 type="password"
                                                 className="py-3 w-full bg-white border border-gray-300 rounded-full shadow-sm flex-grow px-4  transition duration-200 placeholder:text-black font-medium  outline-none pl-12 bg-none"
-                                                id="password"
-                                                name="password"
                                             />
+                                            {errors?.password && <p className='text-red-600'>{errors?.password.message}</p>}
                                         </div>
                                     </div>
                                     <div className="mt-4 mb-2 sm:mb-4">
@@ -75,7 +81,9 @@ const SignIn = ({ callbackUrl }) => {
                                             type="submit"
                                             className="inline-flex items-center justify-center w-full py-3 px-6 font-semibold tracking-wide text-white transition duration-200 rounded-full shadow-md outline-none bg-black hover:bg-gray-700 "
                                         >
-                                            Login
+                                            {
+                                                load ? <span className='border-2 border-dashed border-white animate-spin w-7 h-7 rounded-full'></span> : ' Register'
+                                            }
                                         </button>
                                     </div>
                                 </form>
