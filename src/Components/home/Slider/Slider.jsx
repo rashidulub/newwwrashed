@@ -3,7 +3,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import person from "../../../asstes/images/person.jpg";
+import person from "../../../assets/images/person.jpg";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -27,7 +27,7 @@ const Slider = () => {
 	}, [])
 
 	return (
-		<>
+		<div className=" relative -z-50">
 			<h1 className="text-center text-[#0083db] font-semibold text-4xl my-2">
 				Insights from Our Users
 			</h1>
@@ -276,7 +276,7 @@ const Slider = () => {
 				}
 
 			</Swiper>
-		</>
+		</div>
 	);
 };
 

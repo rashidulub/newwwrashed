@@ -2,8 +2,14 @@ import Link from "next/link";
 import { FaUserGraduate } from "react-icons/fa";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import LogOut from "@/Components/auth/LogOut";
 
-const Navbar = () => {
+
+const Navbar = async () => {
+	const session = await getServerSession(authOptions)
+	// console.log(session, 'user session')
 	const menu = (
 		<>
 			<div className="lg:flex items-center text-xl">
@@ -16,12 +22,15 @@ const Navbar = () => {
 				<li>
 					<Link href="/blogs">Blogs</Link>
 				</li>
+				{session && <li>
+					<Link href="/dashboard">Dashboard</Link>
+				</li>}
 			</div>
 		</>
 	);
 	return (
-		<div className="fixed w-full bg-white">
-			<div className="navbar z-50 py-4 lg:w-3/4 mx-auto">
+		<div className=" mx-auto px-4 sm:px-10 lg:px-20  sticky top-0 bg-white z-50 shadow-sm">
+			<div className="navbar">
 				<div className="navbar-start">
 					<div className="dropdown">
 						<label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -55,7 +64,8 @@ const Navbar = () => {
 					<ul className="menu menu-horizontal px-1 mt-3">{menu}</ul>
 				</div>
 				<div className="navbar-end">
-					<div className="dropdown dropdown-end">
+
+					{session ? <div className="dropdown dropdown-end">
 						<label
 							tabIndex={0}
 							className="btn btn-ghost btn-circle avatar bg-[#0083db] mr-3"
@@ -64,21 +74,6 @@ const Navbar = () => {
 								<FaUserGraduate className="flex justify-center items-center text-white text-xl ml-[10px] mt-[10px]" />
 							</div>
 						</label>
-
-						{/* ADDED THIS FOR RENDERING. IF USER IS LOGED IN, HIS IMAGE WILL APPEAR. OTHERWISE THIS LOGIN AND SIGNUP WILL APPEAR. */}
-
-						{/* <div className="flex items-center gap-3 lg:text-xl">
-							<Link href="/login">
-								<button className="w-24 py-1 rounded-md font-semibold border-2 border-[#0083db]">
-									Login
-								</button>
-							</Link>
-							<Link href="/signup">
-								<button className="text-white bg-[#0083db] w-24 py-1 border-2 border-[#0083db] rounded-md font-semibold">
-									Signup
-								</button>
-							</Link>
-						</div> */}
 						<ul
 							tabIndex={0}
 							className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
@@ -87,7 +82,7 @@ const Navbar = () => {
 								<div>
 									<div className="flex items-center gap-2">
 										<CgProfile className="text-lg" />
-										<a className="justify-between">Profile</a>
+										<Link href="/profile" className="justify-between">Profile</Link>
 									</div>
 									<div className="badge bg-[#0083db] text-white">New</div>
 								</div>
@@ -96,20 +91,29 @@ const Navbar = () => {
 								<div>
 									<div className="flex items-center gap-2">
 										<FiSettings className="text-lg" />
-										<a className="justify-between">Settings</a>
+										<Link href="/settings" className="justify-between">Settings</Link>
 									</div>
 								</div>
 							</li>
 							<li>
 								<div>
 									<div className="flex items-center gap-2">
+
 										<FiLogOut className="text-lg" />
-										<a className="justify-between">Logout</a>
+										<LogOut />
 									</div>
 								</div>
 							</li>
 						</ul>
 					</div>
+						:
+						<div className="flex items-center gap-3 lg:text-xl">
+							<Link href="/login">
+								<button className="text-white bg-[#0083db] w-24 py-1 border-2 border-[#0083db] rounded-md font-semibold">
+									Login
+								</button>
+							</Link>
+						</div>}
 				</div>
 			</div>
 		</div>
