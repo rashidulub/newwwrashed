@@ -5,7 +5,7 @@ import bannerImage from '../../../assets/banner.png'
 
 const Banner = () => {
 	return (
-		<div className="px-[1.3rem] pt-10">
+		<div className="px-[1.3rem] pt-32">
 			<div className="flex flex-col lg:flex-row gap-20 lg:gap-10 items-center justify-between">
 				<ContentBanner />
 				<div>

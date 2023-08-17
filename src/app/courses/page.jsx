@@ -1,8 +1,12 @@
+import ClassCard from '@/Components/courses/ClassCard'
+import Link from 'next/link'
 import React from 'react'
 
 const courses = () => {
   return (
-    <div>courses page</div>
+    <div className='pt-32 w-3/4 mx-auto'>
+      <ClassCard />
+    </div>
   )
 }
 
