@@ -13,17 +13,26 @@
     "bcryptjs": "^2.4.3",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
+<<<<<<< HEAD
+    "lottie-react": "^2.4.0",
+=======
     "jsonwebtoken": "^9.0.1",
     "lottie-react": "^2.4.0",
     "mongoose": "^7.4.3",
+>>>>>>> 8a0421aa29ba2f9bdf5ffdf795fd5511babf47b4
     "next": "13.4.12",
     "next-auth": "^4.23.0",
     "react": "18.2.0",
+    "react-awesome-reveal": "^4.2.5",
     "react-countup": "^6.4.2",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1",
+<<<<<<< HEAD
+    "react-lottie": "^1.2.3",
+=======
     "react-toastify": "^9.1.3",
+>>>>>>> 8a0421aa29ba2f9bdf5ffdf795fd5511babf47b4
     "swiper": "^10.1.0"
   },
   "devDependencies": {

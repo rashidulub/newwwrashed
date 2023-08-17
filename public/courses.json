@@ -1,0 +1,62 @@
+[
+    {
+        "_id": 1,
+        "courseName": "MERN Stack Development",
+        "picture": "https://i.ibb.co/fD2GFWd/Mern.png",
+        "membersNo": 150,
+        "instructorName": "John Smith",
+        "notices": [
+            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
+            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
+            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
+        ]
+    },
+    {
+        "_id": 2,
+        "courseName": "Web Development with PHP",
+        "picture": "https://i.ibb.co/hg4p7QB/php.png",
+        "membersNo": 120,
+        "instructorName": "Jane Doe",
+        "notices": [
+            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
+            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
+            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
+        ]
+    },
+    {
+        "_id": 3,
+        "courseName": "Laravel Development",
+        "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
+        "membersNo": 90,
+        "instructorName": "Michael Johnson",
+        "notices": [
+            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
+            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
+            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
+        ]
+    },
+    {
+        "_id": 4,
+        "courseName": "Mobile App Development",
+        "picture": "https://i.ibb.co/yd0Qkvs/MoAD.jpg",
+        "membersNo": 200,
+        "instructorName": "Emily Williams",
+        "notices": [
+            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
+            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
+            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
+        ]
+    },
+    {
+        "_id": 5,
+        "courseName": "Programming in Java",
+        "picture": "https://i.ibb.co/B6RkY4Z/java.png",
+        "membersNo": 180,
+        "instructorName": "David Brown",
+        "notices": [
+            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
+            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
+            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
+        ]
+    }
+]
