@@ -1,18 +1,18 @@
 import React from "react";
 import Image from "next/image";
-import userInterface from "../../../../src/asstes/images/usersui.png";
-import collaboration from "../../../../src/asstes/images/collab.png";
-import features from "../../../../src/asstes/images/features3.png";
-import grading from "../../../../src/asstes/images/gradin.png";
-import secure from "../../../../src/asstes/images/secure.png";
-import analytics from "../../../../src/asstes/images/analytics.png";
+import userInterface from "../../../assets/images/usersui.png";
+import collaboration from "../../../assets/images/collab.png";
+import features from "../../../assets/images/features3.png";
+import grading from "../../../assets/images/gradin.png";
+import secure from "../../../assets/images/secure.png";
+import analytics from "../../../assets/images/analytics.png";
 
 const Features = () => {
 
 	return (
 		<div className="py-40">
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
-                  <div className="mx-auto text-center space-y-2">
+				<div className="mx-auto text-center space-y-2">
 					<Image
 						className="mx-auto bg-blue-200 rounded-lg p-3 shadow-md shadow-blue-300 hover:scale-110 duration-300"
 						src={userInterface}

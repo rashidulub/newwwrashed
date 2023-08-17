@@ -1,7 +1,10 @@
 import Navbar from '@/Components/Shared/Navbar/Navbar'
 import './globals.css'
 import { Saira } from 'next/font/google'
-import Footer from '@/Components/Shared/Footer/Footer'
+import Footer from '@/Components/Shared/Footer/Footer';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AuthProvider from '@/Context/authContext/AuthProvider';
 
 const inter = Saira({ subsets: ['latin'] })
 
@@ -16,9 +19,12 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div>
           <Navbar />
-          <div className='lg:w-3/4 w-11/12 mx-auto'>
-            {children}
-          </div>
+          <AuthProvider>
+            <main className=''>
+              {children}
+              <ToastContainer />
+            </main>
+          </AuthProvider>
           <Footer />
         </div>
       </body>

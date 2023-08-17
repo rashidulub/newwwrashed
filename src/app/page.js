@@ -6,7 +6,7 @@ import Slider from '@/Components/home/Slider/Slider'
 
 export default function Home() {
   return (
-    <main>
+    <main className='lg:w-3/4 w-11/12 mx-auto'>
       <Banner />
       <MoreInfo />
       <Counter />
