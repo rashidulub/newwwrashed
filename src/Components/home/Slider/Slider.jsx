@@ -7,7 +7,7 @@ import person from "../../../assets/images/person.jpg";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import ReactStars from "react-rating-stars-component";
+// import ReactStars from "react-rating-stars-component";
 import Rating from 'react-rating';
 import { FaHeart, FaRegHeart, FaRegStar, FaStar } from 'react-icons/fa';
 
