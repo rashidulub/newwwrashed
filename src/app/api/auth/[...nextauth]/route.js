@@ -3,6 +3,7 @@ import bdConnect from "@/utils/dbConnect";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from 'bcryptjs';
 
 bdConnect()
 export const authOptions = {
@@ -15,16 +16,20 @@ export const authOptions = {
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                name: { label: "name", type: "text", placeholder: "jsmith" },
-                email: { label: "email", type: "text", placeholder: "example@gmail.com" },
+                email: { label: "email", type: "email", placeholder: "example@gmail.com" },
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials, req) {
-                const { name, email, password } = credentials;
-                console.log(name, email, password)
+                const { email, password } = credentials;
                 try {
-                    const hashedPassword = await bcrypt.hash(password, 10);
-                    const user = await User.create({ name, email, password: hashedPassword });
+                    const user = await User.findOne({ email: email })
+                    if (!user) {
+                        return null;
+                    }
+                    const isPasswordValid = await bcrypt.compare(password, user.password);
+                    if (!isPasswordValid) {
+                        return null;
+                    }
                     return user;
                 } catch (error) {
 
@@ -36,22 +41,15 @@ export const authOptions = {
 
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
-            console.log(credentials, 'credentials')
-            console.log(user, 'user credentials')
-            console.log(account, 'account credentials')
-            console.log(profile, 'profile credentials')
-            console.log(email, 'email credentials')
             if (account.type === 'oauth') {
                 return await signInWithOAuth({ account, profile })
             }
             return true;
         },
         async jwt({ token, trigger, session }) {
-            console.log(token, trigger,)
             return token;
         },
         async session({ session, token }) {
-            console.log(session, 'session ')
             return session;
         }
     },
@@ -71,7 +69,6 @@ export { handler as GET, handler as POST }
 async function signInWithOAuth({ account, profile }) {
     console.log(account)
     const user = await User.findOne({ email: profile.email })
-    console.log(user)
     if (user) {
         return true
     }
@@ -82,6 +79,5 @@ async function signInWithOAuth({ account, profile }) {
         provider: account.provider
     })
     await newUser.save()
-    console.log(newUser)
     return true;
 }

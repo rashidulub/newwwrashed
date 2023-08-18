@@ -3,18 +3,21 @@ import bcrypt from "bcryptjs";
 import bdConnect from "@/utils/dbConnect";
 import User from "@/models/userModels/userModel";
 
-export async function POST(req) {
-    const { name, email, password } = await req.json();
+export async function POST(request) {
+    const { name, email, password } = await request.json();
     console.log(name, email, password)
+
     try {
-        // await bdConnect()
-        // const user = await User.findOne({ email: email })
-        // console.log(user)
-        // const hashedPassword = await bcrypt.hash(password, 10);
+        await bdConnect()
+        const exsistUser = await User.findOne({ email: email })
+        if (exsistUser) {
+            return NextResponse.json({ meg: 'user alredy exsist' })
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        // await User.create({ name, email, password: hashedPassword });
+        const newUser = await User.create({ name, email, password: hashedPassword });
 
-        // return NextResponse.json({ message: "User registered." }, { status: 201 });
+        return NextResponse.json({ user: newUser, message: "User registered." }, { status: 200 });
     } catch (error) {
         return NextResponse.json(
             { message: "An error occurred while registering the user." },
