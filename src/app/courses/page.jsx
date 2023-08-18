@@ -23,7 +23,7 @@ const Courses = () => {
     }
   };
   return (
-    <div className="text-justify px-7 mb-10 pt-44">
+    <div className="text-justify px-7 w-3/4 mx-auto mb-10 pt-32">
       {/* When a student or teacher doesn't have any classes it will show below lottie file and text */}
       <div >
         {/* <div className='rounded md:w-3/4 mx-auto'>
@@ -36,8 +36,8 @@ const Courses = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-4">
           {
             course.map((item) => (
-              <Link href="/blogs" key={item._id}>
-                <div className="card bg-base-100 shadow-xl my-10 p-2 dark:bg-slate-400">
+              <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
+                <div className="card shadow-xl my-10 p-2">
                   <figure className="avatar">
                     <div className="w-1/2 rounded-xl mx-auto">
                       <Image src={item.picture} alt="My Image" width={200} height={200} />
