@@ -11,7 +11,7 @@ export default function Home() {
       <MoreInfo />
       <Counter />
       <Features />
-      <Slider></Slider>
+      <Slider />
     </main>
   )
 }
