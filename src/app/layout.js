@@ -5,6 +5,7 @@ import Footer from '@/Components/Shared/Footer/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthProvider from '@/Context/authContext/AuthProvider';
+import "react-datepicker/dist/react-datepicker.css";
 
 const inter = Saira({ subsets: ['latin'] })
 
