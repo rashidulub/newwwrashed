@@ -24,6 +24,8 @@ const CourseDashboard = () => {
     formState: { errors },
   } = useForm();
 
+  const [oldassignment,setOldssignment] = useState([]);
+
   const handleTabClick = (index) => {
     setTabIndex(index);
   };
@@ -77,8 +79,26 @@ const CourseDashboard = () => {
       console.error("An error occurred:", error);
     }
   };
-  
 
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/assignment");
+        if (response.ok) {
+          const data = await response.json();
+          setOldssignment(data);
+        } else {
+          console.error("Failed to fetch assignments.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+
+    fetchAssignments();
+  }, []);
+
+  console.log(oldassignment)
   const categoryContent = {
     Notice: (
       <div>
@@ -491,7 +511,7 @@ const CourseDashboard = () => {
                     className="btn bg-[#0083db] text-white"
                     type="submit"
                   >Assign</button>
-                  <button className="btn bg-[#d83e26] text-white">
+                  <button className="btn bg-[#d83e26] text-white" onClick={() => window.my_modal_4.close()}>
                     Cancel
                   </button>
                 </div>
@@ -499,6 +519,17 @@ const CourseDashboard = () => {
             </dialog>
           </div>
         </div>
+        {oldassignment.map((item) => (
+        <div key={item.course_id} className="card bg-base-100 my-5 p-2 shadow">
+          <div className="card-body">
+            <h2 className="card-title text-[#0083db]">{item.title}</h2>
+            <p className=" font-semibold">
+              Due: {new Date(item.due_date).toLocaleString()}
+            </p>
+            <p className="text-base text-gray-600">{item.description}</p>
+          </div>
+        </div>
+      ))}
       </div>
     ),
     Grades: "Grades content goes here",
