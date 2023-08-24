@@ -1,0 +1,115 @@
+[
+  {
+    "course_id": "",
+    "title": "Introduction to Computer Science 1",
+    "description": "A beginner's guide to computer science concepts.",
+    "due_date": "2023-09-15T23:59:00Z",
+    "attachments": [
+      {
+        "url": "https://example.com/lecture_slides_1.pdf"
+      },
+      {
+        "url": "https://example.com/assignment1.pdf"
+      }
+    ],
+    "submissions": [],
+    "notices": [],
+    "comments": [],
+    "reviews": [],
+    "For": "",
+    "topic": "",
+    "total_mark": ""
+  },
+  {
+    "course_id": "",
+    "title": "Introduction to Computer Science 2",
+    "description": "A beginner's guide to computer science concepts.",
+    "due_date": "2023-09-15T23:59:00Z",
+    "attachments": [
+      {
+        "name": "Lecture Slides 2",
+        "url": "https://example.com/lecture_slides_2.pdf"
+      },
+      {
+        "name": "Assignment 1",
+        "url": "https://example.com/assignment1.pdf"
+      }
+    ],
+    "submissions": [],
+    "notices": [],
+    "comments": [],
+    "reviews": [],
+    "For": "",
+    "topic": "",
+    "total_mark": ""
+  },
+  {
+    "course_id": "",
+    "title": "Introduction to Computer Science 3",
+    "description": "A beginner's guide to computer science concepts.",
+    "due_date": "2023-09-15T23:59:00Z",
+    "attachments": [
+      {
+        "name": "Lecture Slides 3",
+        "url": "https://example.com/lecture_slides_3.pdf"
+      },
+      {
+        "name": "Assignment 1",
+        "url": "https://example.com/assignment1.pdf"
+      }
+    ],
+    "submissions": [],
+    "notices": [],
+    "comments": [],
+    "reviews": [],
+    "For": "",
+    "topic": "",
+    "total_mark": ""
+  },
+  {
+    "course_id": "",
+    "title": "Introduction to Computer Science 4",
+    "description": "A beginner's guide to computer science concepts.",
+    "due_date": "2023-09-15T23:59:00Z",
+    "attachments": [
+      {
+        "name": "Lecture Slides 4",
+        "url": "https://example.com/lecture_slides_4.pdf"
+      },
+      {
+        "name": "Assignment 1",
+        "url": "https://example.com/assignment1.pdf"
+      }
+    ],
+    "submissions": [],
+    "notices": [],
+    "comments": [],
+    "reviews": [],
+    "For": "",
+    "topic": "",
+    "total_mark": ""
+  },
+  {
+    "course_id": "",
+    "title": "Introduction to Computer Science 5",
+    "description": "A beginner's guide to computer science concepts.",
+    "due_date": "2023-09-15T23:59:00Z",
+    "attachments": [
+      {
+        "name": "Lecture Slides 5",
+        "url": "https://example.com/lecture_slides_5.pdf"
+      },
+      {
+        "name": "Assignment 1",
+        "url": "https://example.com/assignment1.pdf"
+      }
+    ],
+    "submissions": [],
+    "notices": [],
+    "comments": [],
+    "reviews": [],
+    "For": "",
+    "topic": "",
+    "total_mark": ""
+  }
+]
