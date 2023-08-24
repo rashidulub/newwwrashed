@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import DatePicker from "react-datepicker";
 import { setHours, setMinutes } from "date-fns";
+import { useForm } from "react-hook-form";
 
 const CourseDashboard = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -17,6 +18,11 @@ const CourseDashboard = () => {
     "Resourses",
   ];
   const [rangeValue, setRangeValue] = useState(0);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const handleTabClick = (index) => {
     setTabIndex(index);
@@ -30,6 +36,48 @@ const CourseDashboard = () => {
 
     return currentDate.getTime() < selectedDate.getTime();
   };
+
+  const onSubmit = async (data) => {
+    const { title, description,startDate,For,topic,attachments } = data;
+    const newAssignment = {
+      course_id: "",
+      title,
+      description,
+      due_date: startDate,
+      attachments: [
+        {
+          url: attachments
+        }
+      ],
+      submissions: [],
+      notices: [],
+      comments: [],
+      reviews: [],
+      For: For,
+      topic: topic,
+      total_mark: rangeValue
+    };
+  
+    try {
+      const result = await fetch("http://localhost:3000/api/assignment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newAssignment),
+      });
+  
+      if (result.ok) {
+        const responseData = await result.json();
+        console.log("Assignment added:", responseData);
+      } else {
+        console.error("Failed to add assignment.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+  
 
   const categoryContent = {
     Notice: (
@@ -308,7 +356,11 @@ const CourseDashboard = () => {
               New Assignment
             </button>
             <dialog id="my_modal_4" className="modal">
-              <form method="dialog" className="modal-box w-11/12 max-w-5xl">
+              <form
+                method="dialog"
+                className="modal-box w-11/12 max-w-5xl"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <h2 className="font-bold text-4xl text-[#0083db] text-center">
                   Assignment
                 </h2>
@@ -322,9 +374,14 @@ const CourseDashboard = () => {
                       </label>
                       <input
                         type="text"
+                        {...register("title", { required: true })}
+                        name="title"
                         placeholder="Type here"
                         className="input input-bordered input-primary w-full"
                       />
+                      {errors.name && (
+                        <span className="text-red-600">title is required</span>
+                      )}
                       <label className="label">
                         <span className="label-text text-xl font-bold">
                           Instruction
@@ -333,17 +390,22 @@ const CourseDashboard = () => {
                       <textarea
                         className="textarea textarea-primary"
                         placeholder="Instruction (optional)"
+                        {...register("description")}
+                        name="description"
                       ></textarea>
                     </div>
                     <div className="form-control w-full space-y-3 shadow-2xl rounded-2xl p-5 mt-5">
                       <label className="label">
                         <span className="label-text text-xl font-bold">
-                          Attach File
+                          Attach Link
                         </span>
                       </label>
                       <input
-                        type="file"
-                        className="file-input file-input-bordered file-input-primary w-full"
+                        type="text"
+                        className="file-input file-input-bordered file-input-primary w-full px-4"
+                        {...register("attachments")}
+                        name="attachments"
+                        placeholder="Give Link Here"
                       />
                     </div>
                   </div>
@@ -384,6 +446,8 @@ const CourseDashboard = () => {
                         type="text"
                         placeholder="Type here"
                         className="input input-bordered input-primary w-full"
+                        {...register("topic")}
+                        name="topic"
                       />
                     </div>
                     <div className="form-control w-full">
@@ -409,7 +473,11 @@ const CourseDashboard = () => {
                           For
                         </span>
                       </label>
-                      <select className="select select-bordered w-full max-w-xs">
+                      <select
+                        className="select select-bordered w-full max-w-xs"
+                        {...register("For")}
+                        name="For"
+                      >
                         <option disabled selected>
                           Select
                         </option>
@@ -419,9 +487,10 @@ const CourseDashboard = () => {
                   </div>
                 </div>
                 <div className="modal-action">
-                  <button className="btn bg-[#0083db] text-white">
-                    Assign
-                  </button>
+                  <button
+                    className="btn bg-[#0083db] text-white"
+                    type="submit"
+                  >Assign</button>
                   <button className="btn bg-[#d83e26] text-white">
                     Cancel
                   </button>
