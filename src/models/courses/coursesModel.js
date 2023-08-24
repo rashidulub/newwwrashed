@@ -5,15 +5,15 @@ import { Schema, model, models } from "mongoose";
 const coursesSchema = new Schema({
     courseName: {
         type: String,
-        requre: true
+        require: true
     },
     picture: {
         type: String,
-        requre: true
+        require: true
     },
-    description: {
-        type: [String],
-        requre: true
+    password: {
+        type: String,
+        require: true
     },
     teacher: {
         type: mongoose.Types.ObjectId,
