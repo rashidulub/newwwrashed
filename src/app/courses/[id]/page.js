@@ -7,6 +7,14 @@ import Link from 'next/link';
 
 const CourseDashboard = () => {
     const [tabIndex, setTabIndex] = useState(0);
+    const [courses, setCourses] = useState([]);
+    const file = '../../../../public/courses.json'
+    console.log(file);
+    useEffect(() => {
+        fetch('courses.json')
+            .then(res => res.json())
+            .then(data => console.log(data))
+    }, [])
     const categories = ['Notice', 'Members', 'Assignments', 'Grades', 'Resourses'];
     const handleTabClick = (index) => {
         setTabIndex(index);
@@ -277,7 +285,7 @@ const CourseDashboard = () => {
                         <p className='text-red-600 cursor-pointer font-semibold text-xl'>Delete this class</p>
                     </div>
                 </div>
-                <div className='border-4 border-[#0083db] h-[670px] overflow-y-scroll p-5 col-span-2 rounded-lg'>
+                <div className='border-4 border-[#0083db] h-[711px] overflow-y-scroll p-5 col-span-2 rounded-lg'>
                     {/* {menu.filter((item) => item.category === categories[tabIndex]).map(item => (
                         <div item={item} key={item._id}>
 

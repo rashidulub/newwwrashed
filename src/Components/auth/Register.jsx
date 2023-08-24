@@ -25,15 +25,15 @@ const Register = ({ callbackUrl }) => {
         const formData = new FormData()
         formData.append('image', image)
         try {
-            imageUpload(formData)
-                .then(data => {
-                    if (data.success) {
-                        setPhoto(data.data.display_url)
-                    }
-                })
-                .catch(error => {
-                    setLoad(false)
-                })
+            // imageUpload(formData)
+            //     .then(data => {
+            //         if (data.success) {
+            //             setPhoto(data.data.display_url)
+            //         }
+            //     })
+            //     .catch(error => {
+            //         setLoad(false)
+            //     })
             console.log(photo)
             const res = await axios.post("http://localhost:3000/api/register", { name, email, password, image: photo });
             const data = res.data;
