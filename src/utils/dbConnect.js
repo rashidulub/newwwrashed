@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const bdConnect = async () => {
     if (mongoose.connections[0].readyState) {
         return true;

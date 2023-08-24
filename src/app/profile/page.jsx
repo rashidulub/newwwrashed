@@ -5,7 +5,7 @@ import PinnedClasses from '@/Components/profile/PinnedClasses/PinnedClasses';
 
 const Profile = () => {
     return (
-        <div className='pt-32 pb-20 px-[25px]'>
+        <div className='w-3/4 mx-auto pt-32 pb-20 px-[25px]'>
             <div className='grid grid-cols-3 gap-5'>
                 <div>
                     <UserInfo />

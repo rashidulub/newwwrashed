@@ -12,7 +12,7 @@ const Navbar = async () => {
 	// console.log(session, 'user session')
 	const menu = (
 		<>
-			<div className="lg:flex items-center text-xl">
+			<div className="lg:flex items-center lg:text-xl">
 				<li>
 					<Link href="/">Home</Link>
 				</li>
@@ -29,8 +29,8 @@ const Navbar = async () => {
 		</>
 	);
 	return (
-		<div className=" mx-auto px-4 sm:px-10 lg:px-20  sticky top-0 bg-white z-50 shadow-sm">
-			<div className="navbar">
+		<div className="fixed w-full bg-white z-50 shadow-sm">
+			<div className="navbar lg:w-3/4 w-11/12 mx-auto">
 				<div className="navbar-start">
 					<div className="dropdown">
 						<label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -107,9 +107,9 @@ const Navbar = async () => {
 						</ul>
 					</div>
 						:
-						<div className="flex items-center gap-3 lg:text-xl">
+						<div className="">
 							<Link href="/login">
-								<button className="text-white bg-[#0083db] w-24 py-1 border-2 border-[#0083db] rounded-md font-semibold">
+								<button className="text-white lg:text-xl bg-[#0083db] w-24 py-1 border-2 border-[#0083db] rounded-md font-semibold">
 									Login
 								</button>
 							</Link>

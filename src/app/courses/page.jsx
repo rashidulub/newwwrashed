@@ -198,10 +198,7 @@ const Courses = () => {
                   <div className="card-body items-center">
                     <h2 className="card-title">{item.courseName}</h2>
                     <p className="text-sm text-gray-600">
-                      Instructor: {item.instructorName}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      Total Students: {item.membersNo}
+                      Instructor: {item.courseName}
                     </p>
                   </div>
                 </div>
