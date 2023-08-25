@@ -28,6 +28,7 @@ const CourseDashboard = () => {
   } = useForm();
 
   const [oldassignment, setOldssignment] = useState([]);
+  const [member, setMember] = useState([]);
 
   const handleTabClick = (index) => {
     setTabIndex(index);
@@ -83,6 +84,7 @@ const CourseDashboard = () => {
     }
   };
 
+  // For Assignment
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
@@ -100,8 +102,25 @@ const CourseDashboard = () => {
 
     fetchAssignments();
   }, []);
+    // For Member
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/user");
+        if (response.ok) {
+          const data = await response.json();
+          setMember(data);
+        } else {
+          console.error("Failed to fetch assignments.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
 
-  console.log(oldassignment);
+    fetchAssignments();
+  }, []);
+
   const categoryContent = {
     Notice: (
       <div>
@@ -198,171 +217,40 @@ const CourseDashboard = () => {
     ),
     Members: (
       <div>
-        <h2 className="font-semibold text-2xl text-[#0083db]">Members</h2>
-        <div className="shadow grid grid-cols-3 font-semibold p-3 rounded-lg mt-4">
-          <h4 className="col-span-1">Name</h4>
-          <h4>Roll No.</h4>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>01</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Habiba Khatun</h4>
-          </div>
-          <h4>02</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>03</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>04</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>05</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>06</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>07</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>08</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>09</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>10</h4>
-          <p>...</p>
-        </div>
+        <h2 className="font-bold text-2xl text-[#0083db] mx-10 mb-2">Members</h2>
+        <div className="overflow-x-auto">
+        <table className="table">
+          <thead>
+            <tr className="text-center font-bold text-xl">
+              <th>SL</th>
+              <th>Profile</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+          {member.map((item, index) => (
+          <tr className="text-center" key={index}>
+            <td className="text-xl font-bold">
+              {index+1}
+            </td>
+            <td>
+              <div className="avatar">
+                <div className="mask mask-squircle w-12 h-12">
+                  <img src={item.image} alt="Avatar" />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div className="font-bold text-xl">{item.name}</div>
+              <span className="badge badge-accent font-bold badge-md">
+                {item.role}
+              </span>
+            </td>
+          </tr>
+        ))}
+          </tbody>
+        </table>
+      </div>
       </div>
     ),
     Assignments: (
@@ -556,8 +444,12 @@ const CourseDashboard = () => {
                 </div>
               </div>
               <div className="flex justify-end gap-2">
-              <button className="btn btn-outline btn-info text-lg font-bold">View</button>
-              <button className="btn btn-outline btn-error text-lg font-bold">Edit</button>
+                <button className="btn btn-outline btn-info text-lg font-bold">
+                  View
+                </button>
+                <button className="btn btn-outline btn-error text-lg font-bold">
+                  Edit
+                </button>
               </div>
             </div>
           </div>
