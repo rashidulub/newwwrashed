@@ -8,7 +8,7 @@ const assignmentSchema = new Schema(
     title: {
       type: String,
     },
-  description: {
+    description: {
       type: String,
     },
     due_date: {
