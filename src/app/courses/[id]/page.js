@@ -7,6 +7,9 @@ import Link from "next/link";
 import DatePicker from "react-datepicker";
 import { setHours, setMinutes } from "date-fns";
 import { useForm } from "react-hook-form";
+import { GiClockwork } from "react-icons/gi";
+import { MdOutlineSubject, MdDateRange } from "react-icons/md";
+import { RiFileList2Line } from "react-icons/ri";
 
 const CourseDashboard = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -24,7 +27,7 @@ const CourseDashboard = () => {
     formState: { errors },
   } = useForm();
 
-  const [oldassignment,setOldssignment] = useState([]);
+  const [oldassignment, setOldssignment] = useState([]);
 
   const handleTabClick = (index) => {
     setTabIndex(index);
@@ -40,7 +43,7 @@ const CourseDashboard = () => {
   };
 
   const onSubmit = async (data) => {
-    const { title, description,startDate,For,topic,attachments } = data;
+    const { title, description, startDate, For, topic, attachments } = data;
     const newAssignment = {
       course_id: "",
       title,
@@ -48,8 +51,8 @@ const CourseDashboard = () => {
       due_date: startDate,
       attachments: [
         {
-          url: attachments
-        }
+          url: attachments,
+        },
       ],
       submissions: [],
       notices: [],
@@ -57,9 +60,9 @@ const CourseDashboard = () => {
       reviews: [],
       For: For,
       topic: topic,
-      total_mark: rangeValue
+      total_mark: rangeValue,
     };
-  
+
     try {
       const result = await fetch("http://localhost:3000/api/assignment", {
         method: "POST",
@@ -68,7 +71,7 @@ const CourseDashboard = () => {
         },
         body: JSON.stringify(newAssignment),
       });
-  
+
       if (result.ok) {
         const responseData = await result.json();
         console.log("Assignment added:", responseData);
@@ -98,7 +101,7 @@ const CourseDashboard = () => {
     fetchAssignments();
   }, []);
 
-  console.log(oldassignment)
+  console.log(oldassignment);
   const categoryContent = {
     Notice: (
       <div>
@@ -507,11 +510,13 @@ const CourseDashboard = () => {
                   </div>
                 </div>
                 <div className="modal-action">
+                  <button className="btn bg-[#0083db] text-white" type="submit">
+                    Assign
+                  </button>
                   <button
-                    className="btn bg-[#0083db] text-white"
-                    type="submit"
-                  >Assign</button>
-                  <button className="btn bg-[#d83e26] text-white" onClick={() => window.my_modal_4.close()}>
+                    className="btn bg-[#d83e26] text-white"
+                    onClick={() => window.my_modal_4.close()}
+                  >
                     Cancel
                   </button>
                 </div>
@@ -520,16 +525,43 @@ const CourseDashboard = () => {
           </div>
         </div>
         {oldassignment.map((item) => (
-        <div key={item.course_id} className="card bg-base-100 my-5 p-2 shadow">
-          <div className="card-body">
-            <h2 className="card-title text-[#0083db]">{item.title}</h2>
-            <p className=" font-semibold">
-              Due: {new Date(item.due_date).toLocaleString()}
-            </p>
-            <p className="text-base text-gray-600">{item.description}</p>
+          <div
+            key={item.course_id}
+            className="card bg-base-100 my-5 shadow-2xl border-t-4 border-[#0083db]"
+          >
+            <div className="card-body">
+              <div className="flex justify-between items-center">
+                <button className="btn bg-[#0083db] text-white w-1/5 font-bold">
+                  Active
+                </button>
+                <div className="flex items-center gap-2">
+                  <GiClockwork size="2em" color="#0083db" />
+                  <h1 className="text-lg font-bold">20 days left</h1>
+                </div>
+              </div>
+              <div className="space-y-2 mt-3">
+                <h2 className="card-title text-[#0083db] text-2xl">
+                  <MdOutlineSubject size="1.4em" />
+                  {item.title}
+                </h2>
+                <div className="flex gap-2">
+                  <MdDateRange size="1.3em" />
+                  <p className=" font-semibold">
+                    Last submission: {new Date(item.due_date).toLocaleString()}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <RiFileList2Line size="1.3em" />
+                  <p className="text-base text-gray-600">{item.description}</p>
+                </div>
+              </div>
+              <div className="flex justify-end gap-2">
+              <button className="btn btn-outline btn-info text-lg font-bold">View</button>
+              <button className="btn btn-outline btn-error text-lg font-bold">Edit</button>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
       </div>
     ),
     Grades: "Grades content goes here",
