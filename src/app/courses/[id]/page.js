@@ -237,11 +237,7 @@ const CourseDashboard = () => {
                           className="input input-bordered input-primary w-full"
                           dateFormat="MMMM d, yyyy h:mm aa"
                         />
-
                       </div>
-
-
-
                     </div>
                   </div>
                   <div className="modal-action">
@@ -257,7 +253,6 @@ const CourseDashboard = () => {
                   </div>
                 </form>
               </dialog>
-
             </div>
           </div>
         </div>
@@ -282,7 +277,7 @@ const CourseDashboard = () => {
               </figure> */}
 
           {
-            noticeData.map((item) => (
+            noticeData?.map((item) => (
               <div key={item._id}>
                 <div className="card-body ">
                   <h2 className="card-title text-[#0083db]">{item.title}</h2>
