@@ -59,11 +59,14 @@ const Courses = () => {
     fetchCourses();
   }, []);
 
-  useEffect(() => {
-    fetch('courses.json')
-      .then(res => res.json())
-      .then(data => setCourse(data))
-  }, [])
+  // useEffect(() => {
+  //   fetch('courses.json')
+  //     .then(res => res.json())
+  //     .then(data => setCourse(data))
+  // }, [])
+
+
+  console.log(typeof courseData);
 
   const defaultOptions = {
     loop: true,
