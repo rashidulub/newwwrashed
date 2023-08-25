@@ -1,37 +1,25 @@
 import { Schema, model, models } from "mongoose";
 
-
 const userSchema = new Schema({
-    name: {
-        type: String,
-        require: true
-    },
-    email: {
-        type: String,
-        require: true,
-        unique: true
-    },
-    password: {
+    user_id: {
         type: String,
     },
     image: {
         type: String,
-        require: true
+    },
+    name: {
+        type: String,
+    },
+    email: {
+        type: String,
     },
     role: {
         type: String,
-        enum: ["student", "teacher", "user"],
-        default: 'user'
+        enum: ["Student", "Teacher", "User"],
+        default: 'User'
     },
-    provider: {
-        type: String,
-        default: 'credentials'
-    },
-    status: {
-        type: String,
-        enum: ["active", "inactive", "bloked"],
-        default: "inactive"
-    }
+    enrolled_courses: [],
+    created_courses: []
 }, { timestamps: true })
 
 const User = models.user || model('user', userSchema);

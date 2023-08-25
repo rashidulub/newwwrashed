@@ -1,0 +1,48 @@
+[
+    {
+      "user_id": "",
+      "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "role": "Teacher",
+      "enrolled_courses": [],
+      "created_courses": []
+    },
+    {
+      "user_id": "",
+      "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "role": "Student",
+      "enrolled_courses": [],
+      "created_courses": []
+    },
+    {
+      "user_id": "",
+      "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg",
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "role": "Student",
+      "enrolled_courses": [],
+      "created_courses": []
+    },
+    {
+      "user_id": "",
+      "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg",
+      "name": "Robert Brown",
+      "email": "robert.brown@example.com",
+      "role": "Student",
+      "enrolled_courses": [],
+      "created_courses": []
+    },
+    {
+      "user_id": "",
+      "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg",
+      "name": "Ella Wilson",
+      "email": "ella.wilson@example.com",
+      "role": "Student",
+      "enrolled_courses": [],
+      "created_courses": []
+    }
+  ]
+  
