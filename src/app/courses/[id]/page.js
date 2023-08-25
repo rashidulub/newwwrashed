@@ -7,8 +7,15 @@ import Link from "next/link";
 import DatePicker from "react-datepicker";
 import { setHours, setMinutes } from "date-fns";
 import { useForm } from "react-hook-form";
+import { da } from "date-fns/locale";
 
 const CourseDashboard = () => {
+
+  const [notice, setNotice] = useState([]);
+  const [course, SetCourse] = useState([]);
+  const [loader, setLoader] = useState(false);
+
+
   const [tabIndex, setTabIndex] = useState(0);
   const categories = [
     "Notice",
@@ -38,7 +45,7 @@ const CourseDashboard = () => {
   };
 
   const onSubmit = async (data) => {
-    const { title, description,startDate,For,topic,attachments } = data;
+    const { title, description, startDate, For, topic, attachments } = data;
     const newAssignment = {
       course_id: "",
       title,
@@ -57,7 +64,7 @@ const CourseDashboard = () => {
       topic: topic,
       total_mark: rangeValue
     };
-  
+
     try {
       const result = await fetch("http://localhost:3000/api/assignment", {
         method: "POST",
@@ -66,7 +73,7 @@ const CourseDashboard = () => {
         },
         body: JSON.stringify(newAssignment),
       });
-  
+
       if (result.ok) {
         const responseData = await result.json();
         console.log("Assignment added:", responseData);
@@ -77,51 +84,187 @@ const CourseDashboard = () => {
       console.error("An error occurred:", error);
     }
   };
-  
+
+
+
+  // 
+  const noticeSubmit = async (data) => {
+    const { title, description, due_date, For, topic } = data;
+    const newNotice = {
+      notice_id: "",
+      title,
+      description,
+      due_date: startDate,
+
+
+      For: For,
+      topic: topic,
+
+    };
+
+    try {
+      const result = await fetch("http://localhost:3000/api/notice", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newNotice),
+      });
+
+      if (result.ok) {
+        const responseData = await result.json();
+        console.log("notice added:", responseData);
+      } else {
+        console.error("Failed to add notice.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
+  //
+
+  // const getNotice = async () => {
+  //   let data = await fetch("http://localhost:3000/api/notice");
+  //   data = await data.json();
+  //   if (data.success) {
+  //     return data.result;
+
+  //   } else {
+  //     return { success: false }
+  //   }
+
+  //   return
+
+  // }
+
+  // ???
+  useEffect(() => {
+    const fetchNotice = async () => {
+      setLoader(true);
+      try {
+        const response = await fetch("http://localhost:3000/api/notice");
+        if (response.ok) {
+          const data = await response.json();
+          setLoader(false)
+          setNotice(data);
+        } else {
+          console.error("Failed to fetch Notice.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+
+    fetchNotice();
+  }, []);
+
+
+
+  // console.log("notice", notice?.notices);
+
+  const noticeData = notice?.notices;
+  console.log(noticeData);
 
   const categoryContent = {
     Notice: (
       <div>
-        <div className="flex justify-between items-center">
-          <h2 className="font-bold text-2xl text-[#0083db] mx-10">Notices</h2>
-          <div className="me-10">
-            {/* Open the modal using ID.showModal() method */}
-            <button
-              className="btn bg-[#0083db] text-white"
-              onClick={() => window.my_modal_5.showModal()}
-            >
-              New Notice
-            </button>
-            <dialog
-              id="my_modal_5"
-              className="modal modal-bottom sm:modal-middle"
-            >
-              <form method="dialog" className="modal-box">
-                <textarea
-                  className="textarea textarea-info w-full flex"
-                  placeholder="Notice Text"
-                ></textarea>
+        <div>
+          <div className="flex justify-between items-center">
+            <h2 className="font-bold text-2xl text-[#0083db] mx-10">
+              Assignment
+            </h2>
+            <div className="me-10">
+              <button
+                className="btn bg-[#0083db] text-white"
+                onClick={() => window.my_modal_4.showModal()}
+              >
+                New Notice
+              </button>
+              <dialog id="my_modal_4" className="modal">
+                <form
+                  method="dialog"
+                  className="modal-box w-6/12 max-w-5xl"
+                  onSubmit={handleSubmit(noticeSubmit)}
+                >
+                  <h2 className="font-bold text-4xl text-[#0083db] text-center">
+                    Notice
+                  </h2>
+                  <div className=" gap-5">
+                    <div>
+                      <div className="form-control w-full space-y-3  rounded-2xl p-5">
+                        <label className="label">
+                          <span className="label-text text-xl font-bold">
+                            Title
+                          </span>
+                        </label>
+                        <input
+                          type="text"
+                          {...register("title", { required: true })}
+                          name="title"
+                          placeholder="Type here"
+                          className="input input-bordered input-primary w-full"
+                        />
+                        {errors.name && (
+                          <span className="text-red-600">Notice Description</span>
+                        )}
+                        <label className="label">
+                          <span className="label-text text-xl font-bold">
+                            Notice Description
+                          </span>
+                        </label>
+                        <textarea
+                          className="textarea textarea-primary"
+                          placeholder="Notice Write Here"
+                          {...register("description")}
+                          name="description"
+                        ></textarea>
+                      </div>
 
-                <div className="modal-action">
-                  {/* if there is a button in form, it will close the modal */}
-                  <button className="btn bg-[#0083db] text-white">POST</button>
-                  <button className="btn bg-[#d83e26] text-white">
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </dialog>
+                    </div>
+                    <div className="space-y-2  rounded-2xl p-5">
+                      <div className="form-control w-full">
+                        <label className="label">
+                          <span className="label-text text-xl font-bold">
+                            Due
+                          </span>
+                        </label>
+                        <DatePicker
+                          selected={startDate}
+                          onChange={(date) => setStartDate(date)}
+                          showTimeSelect
+                          filterTime={filterPassedTime}
+                          className="input input-bordered input-primary w-full"
+                          dateFormat="MMMM d, yyyy h:mm aa"
+                        />
+
+                      </div>
+
+
+
+                    </div>
+                  </div>
+                  <div className="modal-action">
+                    <button className="btn bg-[#0083db] text-white" type="submit">
+                      Submit
+                    </button>
+                    <button
+                      className="btn bg-[#d83e26] text-white"
+                      onClick={() => window.my_modal_4.close()}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </dialog>
+
+            </div>
           </div>
         </div>
 
         <div className="card bg-base-100 my-5 p-2 shadow">
-          {/* <figure className="avatar">
-                <div className="w-1/2 rounded-xl mx-auto">
-                  <Image src={item.picture} alt="My Image" width={200} height={200} />
-                </div>
-              </figure> */}
           <div className="card-body ">
-            <h2 className="card-title text-[#0083db]">Robert Bruce</h2>
+            <h2 className="card-title text-[#0083db]">hello</h2>
             <p className=" font-semibold">
               <span>27/07/2023</span> <span className="px-6">7.30 PM</span>{" "}
             </p>
@@ -132,45 +275,33 @@ const CourseDashboard = () => {
               beatae velit quas!
             </p>
           </div>
-        </div>
-        <div className="card bg-base-100 my-5 p-2 shadow">
           {/* <figure className="avatar">
                 <div className="w-1/2 rounded-xl mx-auto">
                   <Image src={item.picture} alt="My Image" width={200} height={200} />
                 </div>
               </figure> */}
-          <div className="card-body ">
-            <h2 className="card-title text-[#0083db]">Robert Bruce</h2>
-            <p className=" font-semibold">
-              <span>07/07/2023</span> <span className="px-6">5.30 PM</span>{" "}
-            </p>
-            <p className="text-base text-gray-600">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-              aliquam aliquid doloremque quod suscipit optio maxime quia sed,
-              natus voluptates alias veritatis unde, nobis hic temporibus vitae
-              beatae velit quas!
-            </p>
-          </div>
-        </div>
-        <div className="card bg-base-100 my-5 p-2 shadow">
-          {/* <figure className="avatar">
-                <div className="w-1/2 rounded-xl mx-auto">
-                  <Image src={item.picture} alt="My Image" width={200} height={200} />
+
+          {
+            noticeData.map((item) => (
+              <div key={item._id}>
+                <div className="card-body ">
+                  <h2 className="card-title text-[#0083db]">{item.title}</h2>
+                  <p className=" font-semibold">
+                    <span>{item.
+                      updatedAt}</span>
+                  </p>
+                  <p className="text-base text-gray-600">
+                    {item.description}
+                  </p>
                 </div>
-              </figure> */}
-          <div className="card-body ">
-            <h2 className="card-title text-[#0083db]">Robert Bruce</h2>
-            <p className=" font-semibold">
-              <span>02/07/2023</span> <span className="px-6">4.15 PM</span>{" "}
-            </p>
-            <p className="text-base text-gray-600">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Deserunt, iste libero reprehenderit quis sit ea ducimus beatae
-              laudantium totam doloremque, eos, voluptatum distinctio voluptatem
-              incidunt in. Omnis eum sapiente non!
-            </p>
-          </div>
+              </div>
+            ))
+          }
+
+
         </div>
+
+
       </div>
     ),
     Members: (
@@ -528,11 +659,10 @@ const CourseDashboard = () => {
               <Link
                 href="#"
                 key={index}
-                className={`font-semibold text-xl mb-2 flex flex-col ${
-                  tabIndex === index
-                    ? "tab-active text-[#0083db] pl-2 border-l-2 border-[#0083db]"
-                    : ""
-                }`}
+                className={`font-semibold text-xl mb-2 flex flex-col ${tabIndex === index
+                  ? "tab-active text-[#0083db] pl-2 border-l-2 border-[#0083db]"
+                  : ""
+                  }`}
                 onClick={() => handleTabClick(index)}
               >
                 {category.charAt(0).toUpperCase() + category.slice(1)}
