@@ -1,16 +1,17 @@
-import Notices from "@/models/notices/notices.model";
+
+import Resources from "@/models/resource/resourceModel";
 import bdConnect from "@/utils/dbConnect";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  const { notice_id, title, description, due_date, For, topic} = await request.json();
+  const { course_id, title, description,attachments,topic } = await request.json();
 
   await bdConnect();
   try {
-    const notice = await Notices.create({
-        notice_id, title, description, due_date, For, topic
+    const resources = await Resources.create({
+        course_id, title, description,attachments,topic
     });
-    return NextResponse.json(notice);
+    return NextResponse.json(resources);
   } catch (error) {
     return NextResponse.json({
       meg: "data not added",
@@ -21,7 +22,7 @@ export async function POST(request) {
 export async function GET() {
   await bdConnect();
   try {
-    const data = await Notices.find();
+    const data = await Resources.find();
     return NextResponse.json(data);
   } catch (error) { }
 }

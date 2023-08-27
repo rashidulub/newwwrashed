@@ -16,8 +16,6 @@ const noticesSchema = new Schema(
         due_date: {
             type: String,
         },
-
-
         For: {
             type: String,
         },

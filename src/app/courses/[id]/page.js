@@ -7,15 +7,14 @@ import Link from "next/link";
 import DatePicker from "react-datepicker";
 import { setHours, setMinutes } from "date-fns";
 import { useForm } from "react-hook-form";
-import { da } from "date-fns/locale";
+import { GiClockwork } from "react-icons/gi";
+import { MdOutlineSubject, MdDateRange } from "react-icons/md";
+import { RiFileList2Line } from "react-icons/ri";
+import { AiOutlineSend } from "react-icons/ai";
+import { TbNotebook } from "react-icons/tb";
+import { toast } from "react-toastify";
 
 const CourseDashboard = () => {
-
-  const [notice, setNotice] = useState([]);
-  const [course, SetCourse] = useState([]);
-  const [loader, setLoader] = useState(false);
-
-
   const [tabIndex, setTabIndex] = useState(0);
   const categories = [
     "Notice",
@@ -29,7 +28,13 @@ const CourseDashboard = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
+
+  const [oldassignment, setOldssignment] = useState([]);
+  const [member, setMember] = useState([]);
+  const [notice, setNotice] = useState([]);
+  const [resources, setResources] = useState([]);
 
   const handleTabClick = (index) => {
     setTabIndex(index);
@@ -44,62 +49,30 @@ const CourseDashboard = () => {
     return currentDate.getTime() < selectedDate.getTime();
   };
 
-  const onSubmit = async (data) => {
-    const { title, description, startDate, For, topic, attachments } = data;
-    const newAssignment = {
+  function extractTimeFromISO(isoTimestamp) {
+    const dateObj = new Date(isoTimestamp);
+    const timeOffset = 6 * 60 * 60 * 1000;
+    dateObj.setTime(dateObj.getTime() + timeOffset);
+    const hours = dateObj.getUTCHours().toString().padStart(2, "0");
+    const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
+
+  // For Posting Notice Data
+  const onSubmitNotice = async (data) => {
+    const { title, description, For, attachments } = data;
+    const newNotice = {
       course_id: "",
       title,
       description,
-      due_date: startDate,
+      due_date: "",
       attachments: [
         {
-          url: attachments
-        }
-      ],
-      submissions: [],
-      notices: [],
-      comments: [],
-      reviews: [],
-      For: For,
-      topic: topic,
-      total_mark: rangeValue
-    };
-
-    try {
-      const result = await fetch("http://localhost:3000/api/assignment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+          url: attachments,
         },
-        body: JSON.stringify(newAssignment),
-      });
-
-      if (result.ok) {
-        const responseData = await result.json();
-        console.log("Assignment added:", responseData);
-      } else {
-        console.error("Failed to add assignment.");
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
-
-
-
-  // 
-  const noticeSubmit = async (data) => {
-    const { title, description, due_date, For, topic } = data;
-    const newNotice = {
-      notice_id: "",
-      title,
-      description,
-      due_date: startDate,
-
-
+      ],
+      notices: [],
       For: For,
-      topic: topic,
-
     };
 
     try {
@@ -113,358 +86,445 @@ const CourseDashboard = () => {
 
       if (result.ok) {
         const responseData = await result.json();
-        console.log("notice added:", responseData);
+        setNotice((prevNotice) => [...prevNotice, responseData]);
+        console.log("Notice added:", responseData);
+        toast.success("Notice Added!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        reset();
+        window.my_modal_5.close();
       } else {
-        console.error("Failed to add notice.");
+        toast.error("Failed to add Notice.!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+  // For Posting Assignment Data
+  const onSubmitAssignment = async (data) => {
+    const { title, description, due_date, For, topic, attachments } = data;
+    const newAssignment = {
+      course_id: "",
+      title,
+      description,
+      due_date: startDate,
+      attachments: [
+        {
+          url: attachments,
+        },
+      ],
+      submissions: [],
+      notices: [],
+      comments: [],
+      reviews: [],
+      For: For,
+      topic: topic,
+      total_mark: rangeValue,
+    };
+
+    try {
+      const result = await fetch("http://localhost:3000/api/assignment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newAssignment),
+      });
+
+      if (result.ok) {
+        const responseData = await result.json();
+        setOldssignment((prevNotice) => [...prevNotice, responseData]);
+        console.log("Assignment added:", responseData);
+        toast.success("Assignment Added!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+        reset();
+        window.my_modal_5.close();
+      } else {
+        console.error("Failed to add assignment.");
+        toast.error("Failed to add assignment!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (error) {
       console.error("An error occurred:", error);
+      toast.error("An error occurred!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+  // For Posting Resources Data
+  const onSubmitResources = async (data) => {
+    const { title, description, topic, attachments } = data;
+    const currentDateLocal = new Date();
+    const timeOffset = 6 * 60 * 60 * 1000;
+    const currentDateBD = new Date(currentDateLocal.getTime() + timeOffset);
+    const newResources = {
+      course_id: "",
+      title,
+      description,
+      attachments: [
+        {
+          url: attachments,
+        },
+      ],
+      topic: topic,
+      createdAt: currentDateBD.toISOString(),
+      updatedAt: "",
+    };
+
+    try {
+      const result = await fetch("http://localhost:3000/api/resources", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newResources),
+      });
+
+      if (result.ok) {
+        const responseData = await result.json();
+        setResources((prevResources) => [...prevResources, responseData]);
+        console.log("Resources added:", responseData);
+        toast.success("Resources Added!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+        reset();
+        window.my_modal_5.close();
+      } else {
+        console.error("Failed to add Resources.");
+        toast.error("Failed to add Resources!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      toast.error("An error occurred!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
-  //
-
-  // const getNotice = async () => {
-  //   let data = await fetch("http://localhost:3000/api/notice");
-  //   data = await data.json();
-  //   if (data.success) {
-  //     return data.result;
-
-  //   } else {
-  //     return { success: false }
-  //   }
-
-  //   return
-
-  // }
-
-  // ???
+  // For Getting Assignment Data
   useEffect(() => {
-    const fetchNotice = async () => {
-      setLoader(true);
+    const fetchAssignments = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/notice");
+        const response = await fetch("http://localhost:3000/api/assignment");
         if (response.ok) {
           const data = await response.json();
-          setLoader(false)
-          setNotice(data);
+          setOldssignment(data);
         } else {
-          console.error("Failed to fetch Notice.");
+          console.error("Failed to fetch assignments.");
         }
       } catch (error) {
         console.error("An error occurred:", error);
       }
     };
 
+    fetchAssignments();
+  }, []);
+  // For Getting Member Data
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/user");
+        if (response.ok) {
+          const data = await response.json();
+          setMember(data);
+        } else {
+          console.error("Failed to fetch assignments.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+
+    fetchAssignments();
+  }, []);
+  // For Getting Notice Data
+  useEffect(() => {
+    const fetchNotice = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/notice");
+        if (response.ok) {
+          const data = await response.json();
+          setNotice(data);
+        } else {
+          console.error("Failed to fetch assignments.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
     fetchNotice();
   }, []);
-
-
-
-  // console.log("notice", notice?.notices);
-
-  const noticeData = notice?.notices;
-  console.log(noticeData);
+  // For Getting Resources Data
+  useEffect(() => {
+    const fetchResource = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/resources");
+        if (response.ok) {
+          const data = await response.json();
+          setResources(data);
+        } else {
+          console.error("Failed to fetch assignments.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+    fetchResource();
+  }, []);
 
   const categoryContent = {
     Notice: (
       <div>
-        <div>
-          <div className="flex justify-between items-center">
-            <h2 className="font-bold text-2xl text-[#0083db] mx-10">
-              Assignment
-            </h2>
-            <div className="me-10">
-              <button
-                className="btn bg-[#0083db] text-white"
-                onClick={() => window.my_modal_4.showModal()}
+        <div className="flex justify-between items-center">
+          <h2 className="font-bold text-2xl text-[#0083db] mx-10">Notices</h2>
+          <div className="me-10">
+            <button
+              className="btn bg-[#0083db] text-white"
+              onClick={() => window.my_modal_5.showModal()}
+            >
+              New Notice
+            </button>
+            <dialog id="my_modal_5" className="modal">
+              <form
+                method="dialog"
+                className="modal-box w-11/12 max-w-5xl"
+                onSubmit={handleSubmit(onSubmitNotice)}
               >
-                New Notice
-              </button>
-              <dialog id="my_modal_4" className="modal">
-                <form
-                  method="dialog"
-                  className="modal-box w-6/12 max-w-5xl"
-                  onSubmit={handleSubmit(noticeSubmit)}
-                >
-                  <h2 className="font-bold text-4xl text-[#0083db] text-center">
-                    Notice
-                  </h2>
-                  <div className=" gap-5">
-                    <div>
-                      <div className="form-control w-full space-y-3  rounded-2xl p-5">
-                        <label className="label">
-                          <span className="label-text text-xl font-bold">
-                            Title
-                          </span>
-                        </label>
-                        <input
-                          type="text"
-                          {...register("title", { required: true })}
-                          name="title"
-                          placeholder="Type here"
-                          className="input input-bordered input-primary w-full"
-                        />
-                        {errors.name && (
-                          <span className="text-red-600">Notice Description</span>
-                        )}
-                        <label className="label">
-                          <span className="label-text text-xl font-bold">
-                            Notice Description
-                          </span>
-                        </label>
-                        <textarea
-                          className="textarea textarea-primary"
-                          placeholder="Notice Write Here"
-                          {...register("description")}
-                          name="description"
-                        ></textarea>
-                      </div>
-
-                    </div>
-                    <div className="space-y-2  rounded-2xl p-5">
-                      <div className="form-control w-full">
-                        <label className="label">
-                          <span className="label-text text-xl font-bold">
-                            Due
-                          </span>
-                        </label>
-                        <DatePicker
-                          selected={startDate}
-                          onChange={(date) => setStartDate(date)}
-                          showTimeSelect
-                          filterTime={filterPassedTime}
-                          className="input input-bordered input-primary w-full"
-                          dateFormat="MMMM d, yyyy h:mm aa"
-                        />
-                      </div>
+                <h2 className="font-bold text-4xl text-[#0083db] text-center">
+                  Notice
+                </h2>
+                <div className="grid grid-cols-2 gap-5">
+                  <div>
+                    <div className="form-control w-full space-y-3 shadow-2xl rounded-2xl p-5">
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Title
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        {...register("title", { required: true })}
+                        name="title"
+                        placeholder="Type here"
+                        className="input input-bordered input-primary w-full"
+                      />
+                      {errors.name && (
+                        <span className="text-red-600">title is required</span>
+                      )}
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Instruction
+                        </span>
+                      </label>
+                      <textarea
+                        className="textarea textarea-primary"
+                        placeholder="Instruction (optional)"
+                        {...register("description")}
+                        name="description"
+                      ></textarea>
                     </div>
                   </div>
-                  <div className="modal-action">
-                    <button className="btn bg-[#0083db] text-white" type="submit">
-                      Submit
-                    </button>
-                    <button
-                      className="btn bg-[#d83e26] text-white"
-                      onClick={() => window.my_modal_4.close()}
-                    >
-                      Cancel
-                    </button>
+                  <div className="space-y-2 shadow-2xl rounded-2xl p-5">
+                    <div className="form-control w-full">
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          For
+                        </span>
+                      </label>
+                      <select
+                        className="select select-bordered w-full max-w-xs"
+                        {...register("For")}
+                        name="For"
+                      >
+                        <option disabled selected>
+                          Select
+                        </option>
+                        <option>All Student</option>
+                      </select>
+                    </div>
+                    <div className="form-control w-full">
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Attach Link
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        className="file-input file-input-bordered file-input-primary w-full px-4"
+                        {...register("attachments")}
+                        name="attachments"
+                        placeholder="Give Link Here"
+                      />
+                    </div>
                   </div>
-                </form>
-              </dialog>
-            </div>
+                </div>
+                <div className="modal-action">
+                  <button className="btn bg-[#0083db] text-white" type="submit">
+                    Post
+                  </button>
+                  <button
+                    className="btn bg-[#d83e26] text-white"
+                    onClick={() => window.my_modal_5.close()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </dialog>
           </div>
         </div>
-
-        <div className="card bg-base-100 my-5 p-2 shadow">
-          <div className="card-body ">
-            <h2 className="card-title text-[#0083db]">hello</h2>
-            <p className=" font-semibold">
-              <span>27/07/2023</span> <span className="px-6">7.30 PM</span>{" "}
-            </p>
-            <p className="text-base text-gray-600">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-              aliquam aliquid doloremque quod suscipit optio maxime quia sed,
-              natus voluptates alias veritatis unde, nobis hic temporibus vitae
-              beatae velit quas!
-            </p>
-          </div>
-          {/* <figure className="avatar">
-                <div className="w-1/2 rounded-xl mx-auto">
-                  <Image src={item.picture} alt="My Image" width={200} height={200} />
+        {notice.map((item, index) => (
+          <div
+            key={item.course_id}
+            className="card bg-base-100 my-5 shadow-2xl border-t-4 border-[#0083db]"
+          >
+            <div className="card-body">
+              <div className="flex items-center gap-3">
+                <div className="avatar">
+                  <div className="w-16 rounded-full">
+                    <img src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg" />
+                  </div>
                 </div>
-              </figure> */}
-
-          {
-            noticeData?.map((item) => (
-              <div key={item._id}>
-                <div className="card-body ">
-                  <h2 className="card-title text-[#0083db]">{item.title}</h2>
-                  <p className=" font-semibold">
-                    <span>{item.
-                      updatedAt}</span>
-                  </p>
-                  <p className="text-base text-gray-600">
-                    {item.description}
-                  </p>
+                <div>
+                  <h1 className="text-2xl font-bold">Jane Doe</h1>
+                  <p>{extractTimeFromISO(item.createdAt)}</p>
                 </div>
               </div>
-            ))
-          }
-
-
-        </div>
-
-
+              <div className="space-y-2 mt-3">
+                <h2 className="card-title text-[#0083db] text-2xl font-bold">
+                  <MdOutlineSubject size="1.4em" />
+                  {item.title}
+                </h2>
+                <div className="text-base text-gray-600 ">
+                  <h1>{item.description}</h1>
+                </div>
+              </div>
+              <div className="flex gap-3 mt-5 items-center">
+                <div className="avatar">
+                  <div className="w-12 rounded-full">
+                    <img src="https://i.ibb.co/Pgrgt4S/clf47wwin001nmh08aqvomr5k-1.jpg" />
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Comment here"
+                  className="input input-bordered input-info w-full"
+                />
+                <AiOutlineSend size="2.5em" />
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     ),
     Members: (
       <div>
-        <h2 className="font-semibold text-2xl text-[#0083db]">Members</h2>
-        <div className="shadow grid grid-cols-3 font-semibold p-3 rounded-lg mt-4">
-          <h4 className="col-span-1">Name</h4>
-          <h4>Roll No.</h4>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>01</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Habiba Khatun</h4>
-          </div>
-          <h4>02</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>03</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>04</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>05</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>06</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>07</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>08</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>09</h4>
-          <p>...</p>
-        </div>
-        <div className="shadow justify-between flex font-semibold p-3 rounded-lg mt-4">
-          <div className="flex gap-3 items-center">
-            <div className="w-10 h-10 relative text-center">
-              <Image
-                className="rounded-full w-full h-full object-cover border-2 border-[#0083db]"
-                src={person.src}
-                width={600}
-                height={600}
-                alt="user photo"
-              />
-            </div>
-            <h4 className="col-span-1">Ashraful Khan</h4>
-          </div>
-          <h4>10</h4>
-          <p>...</p>
+        <h2 className="font-bold text-2xl text-[#0083db] mx-10 mb-2">
+          Members
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="table">
+            <thead>
+              <tr className="text-center font-bold text-xl">
+                <th>SL</th>
+                <th>Profile</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {member.map((item, index) => (
+                <tr className="text-center" key={index}>
+                  <td className="text-xl font-bold">{index + 1}</td>
+                  <td>
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img src={item.image} alt="Avatar" />
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="font-bold text-xl">{item.name}</div>
+                    <span className="badge badge-accent font-bold badge-md">
+                      {item.role}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     ),
@@ -477,15 +537,15 @@ const CourseDashboard = () => {
           <div className="me-10">
             <button
               className="btn bg-[#0083db] text-white"
-              onClick={() => window.my_modal_4.showModal()}
+              onClick={() => window.my_modal_5.showModal()}
             >
               New Assignment
             </button>
-            <dialog id="my_modal_4" className="modal">
+            <dialog id="my_modal_5" className="modal">
               <form
                 method="dialog"
                 className="modal-box w-11/12 max-w-5xl"
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(onSubmitAssignment)}
               >
                 <h2 className="font-bold text-4xl text-[#0083db] text-center">
                   Assignment
@@ -613,11 +673,13 @@ const CourseDashboard = () => {
                   </div>
                 </div>
                 <div className="modal-action">
+                  <button className="btn bg-[#0083db] text-white" type="submit">
+                    Assign
+                  </button>
                   <button
-                    className="btn bg-[#0083db] text-white"
-                    type="submit"
-                  >Assign</button>
-                  <button className="btn bg-[#d83e26] text-white">
+                    className="btn bg-[#d83e26] text-white"
+                    onClick={() => window.my_modal_5.close()}
+                  >
                     Cancel
                   </button>
                 </div>
@@ -625,10 +687,177 @@ const CourseDashboard = () => {
             </dialog>
           </div>
         </div>
+        {oldassignment.map((item) => (
+          <div
+            key={item.course_id}
+            className="card bg-base-100 my-5 shadow-2xl border-t-4 border-[#0083db]"
+          >
+            <div className="card-body">
+              <div className="flex justify-between items-center">
+                <button className="btn bg-[#0083db] text-white w-1/5 font-bold">
+                  Active
+                </button>
+                <div className="flex items-center gap-2">
+                  <GiClockwork size="2em" color="#0083db" />
+                  <h1 className="text-lg font-bold">20 days left</h1>
+                </div>
+              </div>
+              <div className="space-y-2 mt-3">
+                <h2 className="card-title text-[#0083db] text-2xl">
+                  <MdOutlineSubject size="1.4em" />
+                  {item.title}
+                </h2>
+                <div className="flex gap-2">
+                  <MdDateRange size="1.3em" />
+                  <p className=" font-semibold">
+                    Last submission: {new Date(item.due_date).toLocaleString()}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <RiFileList2Line size="1.3em" />
+                  <p className="text-base text-gray-600">{item.description}</p>
+                </div>
+              </div>
+              <div className="flex justify-end gap-2">
+                <button className="btn btn-outline btn-info text-lg font-bold">
+                  View
+                </button>
+                <button className="btn btn-outline btn-error text-lg font-bold">
+                  Edit
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     ),
     Grades: "Grades content goes here",
-    Resourses: "Resources content goes here",
+    Resourses: (
+      <div>
+        <div className="flex justify-between items-center">
+          <h2 className="font-bold text-2xl text-[#0083db] mx-10">Resourses</h2>
+          <div className="me-10">
+            <button
+              className="btn bg-[#0083db] text-white"
+              onClick={() => window.my_modal_5.showModal()}
+            >
+              New Resourses
+            </button>
+            <dialog id="my_modal_5" className="modal">
+              <form
+                method="dialog"
+                className="modal-box w-11/12 max-w-5xl"
+                onSubmit={handleSubmit(onSubmitResources)}
+              >
+                <h2 className="font-bold text-4xl text-[#0083db] text-center">
+                  Resourses
+                </h2>
+                <div className="grid grid-cols-2 gap-5">
+                  <div>
+                    <div className="form-control w-full space-y-3 shadow-2xl rounded-2xl p-5">
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Title
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        {...register("title", { required: true })}
+                        name="title"
+                        placeholder="Type here"
+                        className="input input-bordered input-primary w-full"
+                      />
+                      {errors.name && (
+                        <span className="text-red-600">title is required</span>
+                      )}
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Instruction
+                        </span>
+                      </label>
+                      <textarea
+                        className="textarea textarea-primary"
+                        placeholder="Instruction (optional)"
+                        {...register("description")}
+                        name="description"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div className="space-y-2 shadow-2xl rounded-2xl p-5">
+                    <div className="form-control w-full">
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Topic
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Type here"
+                        className="input input-bordered input-primary w-full"
+                        {...register("topic")}
+                        name="topic"
+                      />
+                    </div>
+                    <div className="form-control w-full space-y-3 shadow-2xl rounded-2xl p-5">
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Attach Link
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        className="file-input file-input-bordered file-input-primary w-full px-4"
+                        {...register("attachments")}
+                        name="attachments"
+                        placeholder="Give Link Here"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="modal-action">
+                  <button className="btn bg-[#0083db] text-white" type="submit">
+                    Post
+                  </button>
+                  <button
+                    className="btn bg-[#d83e26] text-white"
+                    onClick={() => window.my_modal_5.close()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </dialog>
+          </div>
+        </div>
+        {resources.map((item) => (
+          <div
+            key={item.course_id}
+            className="card bg-base-100 my-5 shadow-2xl border-t-4 border-[#0083db]"
+          >
+            <div className="collapse bg-base-200">
+              <input type="radio" name="my-accordion-3" />
+              <div className="collapse-title flex items-center justify-between">
+                <div className="flex items-center text-xl font-medium ">
+                  <TbNotebook size="1.5em" color="#0083db"/> {item.title}
+                </div>
+                <h1>Posted {extractTimeFromISO(item.createdAt)}</h1>
+              </div>
+              <div className="collapse-content border-t-8 pt-2 space-y-3">
+                <p className="text-xl font-bold">{item.description}</p>
+                {item.attachments[0].url && (
+                  <h1 className="text-base font-bold">
+                    Link:{" "}
+                    <a className="link link-secondary">
+                      {item.attachments[0].url}
+                    </a>
+                  </h1>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    ),
   };
   return (
     <div className="pt-32 w-3/4 mx-auto mb-10">
@@ -654,10 +883,11 @@ const CourseDashboard = () => {
               <Link
                 href="#"
                 key={index}
-                className={`font-semibold text-xl mb-2 flex flex-col ${tabIndex === index
-                  ? "tab-active text-[#0083db] pl-2 border-l-2 border-[#0083db]"
-                  : ""
-                  }`}
+                className={`font-semibold text-xl mb-2 flex flex-col ${
+                  tabIndex === index
+                    ? "tab-active text-[#0083db] pl-2 border-l-2 border-[#0083db]"
+                    : ""
+                }`}
                 onClick={() => handleTabClick(index)}
               >
                 {category.charAt(0).toUpperCase() + category.slice(1)}
