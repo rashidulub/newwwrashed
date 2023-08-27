@@ -51,6 +51,8 @@ const CourseDashboard = () => {
 
   function extractTimeFromISO(isoTimestamp) {
     const dateObj = new Date(isoTimestamp);
+    const timeOffset = 6 * 60 * 60 * 1000;
+    dateObj.setTime(dateObj.getTime() + timeOffset);
     const hours = dateObj.getUTCHours().toString().padStart(2, "0");
     const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
@@ -198,10 +200,12 @@ const CourseDashboard = () => {
       });
     }
   };
-    // For Posting Resources Data
+  // For Posting Resources Data
   const onSubmitResources = async (data) => {
-    const { title, description,topic, attachments } = data;
-    const currentDate = new Date();
+    const { title, description, topic, attachments } = data;
+    const currentDateLocal = new Date();
+    const timeOffset = 6 * 60 * 60 * 1000;
+    const currentDateBD = new Date(currentDateLocal.getTime() + timeOffset);
     const newResources = {
       course_id: "",
       title,
@@ -212,8 +216,8 @@ const CourseDashboard = () => {
         },
       ],
       topic: topic,
-      createdAt: currentDate.toISOString(),
-      updatedAt: ""
+      createdAt: currentDateBD.toISOString(),
+      updatedAt: "",
     };
 
     try {
@@ -833,15 +837,21 @@ const CourseDashboard = () => {
             <div className="collapse bg-base-200">
               <input type="radio" name="my-accordion-3" />
               <div className="collapse-title flex items-center justify-between">
-              <div className="flex items-center text-xl font-medium "><TbNotebook size="1.5em"/> {item.title}</div>
-            <h1>Posted {extractTimeFromISO(item.createdAt)}</h1>
+                <div className="flex items-center text-xl font-medium ">
+                  <TbNotebook size="1.5em" color="#0083db"/> {item.title}
+                </div>
+                <h1>Posted {extractTimeFromISO(item.createdAt)}</h1>
               </div>
               <div className="collapse-content border-t-8 pt-2 space-y-3">
                 <p className="text-xl font-bold">{item.description}</p>
-                {
-                  item.attachments[0].url &&
-                  <h1 className="text-base font-bold">Link: <a className="link link-secondary">{item.attachments[0].url}</a></h1>
-                }
+                {item.attachments[0].url && (
+                  <h1 className="text-base font-bold">
+                    Link:{" "}
+                    <a className="link link-secondary">
+                      {item.attachments[0].url}
+                    </a>
+                  </h1>
+                )}
               </div>
             </div>
           </div>
