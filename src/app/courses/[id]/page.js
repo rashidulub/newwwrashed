@@ -11,6 +11,7 @@ import { GiClockwork } from "react-icons/gi";
 import { MdOutlineSubject, MdDateRange } from "react-icons/md";
 import { RiFileList2Line } from "react-icons/ri";
 import { AiOutlineSend } from "react-icons/ai";
+import { TbNotebook } from "react-icons/tb";
 import { toast } from "react-toastify";
 
 const CourseDashboard = () => {
@@ -27,12 +28,13 @@ const CourseDashboard = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
 
   const [oldassignment, setOldssignment] = useState([]);
   const [member, setMember] = useState([]);
   const [notice, setNotice] = useState([]);
+  const [resources, setResources] = useState([]);
 
   const handleTabClick = (index) => {
     setTabIndex(index);
@@ -54,6 +56,7 @@ const CourseDashboard = () => {
     return `${hours}:${minutes}`;
   }
 
+  // For Posting Notice Data
   const onSubmitNotice = async (data) => {
     const { title, description, For, attachments } = data;
     const newNotice = {
@@ -83,7 +86,7 @@ const CourseDashboard = () => {
         const responseData = await result.json();
         setNotice((prevNotice) => [...prevNotice, responseData]);
         console.log("Notice added:", responseData);
-        toast.success('Notice Added!', {
+        toast.success("Notice Added!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -92,11 +95,11 @@ const CourseDashboard = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
-          reset();
-          window.my_modal_5.close();
+        });
+        reset();
+        window.my_modal_5.close();
       } else {
-        toast.error('Failed to add Notice.!', {
+        toast.error("Failed to add Notice.!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -105,10 +108,10 @@ const CourseDashboard = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
       }
     } catch (error) {
-      toast.error('An error occurred!', {
+      toast.error("An error occurred!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -117,9 +120,10 @@ const CourseDashboard = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
     }
   };
+  // For Posting Assignment Data
   const onSubmitAssignment = async (data) => {
     const { title, description, due_date, For, topic, attachments } = data;
     const newAssignment = {
@@ -154,7 +158,7 @@ const CourseDashboard = () => {
         const responseData = await result.json();
         setOldssignment((prevNotice) => [...prevNotice, responseData]);
         console.log("Assignment added:", responseData);
-        toast.success('Assignment Added!', {
+        toast.success("Assignment Added!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -163,13 +167,13 @@ const CourseDashboard = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
 
-          reset();
-          window.my_modal_5.close();
+        reset();
+        window.my_modal_5.close();
       } else {
         console.error("Failed to add assignment.");
-        toast.error('Failed to add assignment!', {
+        toast.error("Failed to add assignment!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -178,11 +182,11 @@ const CourseDashboard = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
       }
     } catch (error) {
       console.error("An error occurred:", error);
-      toast.error('An error occurred!', {
+      toast.error("An error occurred!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -191,11 +195,82 @@ const CourseDashboard = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
+      });
+    }
+  };
+    // For Posting Resources Data
+  const onSubmitResources = async (data) => {
+    const { title, description,topic, attachments } = data;
+    const currentDate = new Date();
+    const newResources = {
+      course_id: "",
+      title,
+      description,
+      attachments: [
+        {
+          url: attachments,
+        },
+      ],
+      topic: topic,
+      createdAt: currentDate.toISOString(),
+      updatedAt: ""
+    };
+
+    try {
+      const result = await fetch("http://localhost:3000/api/resources", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newResources),
+      });
+
+      if (result.ok) {
+        const responseData = await result.json();
+        setResources((prevResources) => [...prevResources, responseData]);
+        console.log("Resources added:", responseData);
+        toast.success("Resources Added!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
         });
+
+        reset();
+        window.my_modal_5.close();
+      } else {
+        console.error("Failed to add Resources.");
+        toast.error("Failed to add Resources!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      toast.error("An error occurred!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
-  // For Assignment
+  // For Getting Assignment Data
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
@@ -213,7 +288,7 @@ const CourseDashboard = () => {
 
     fetchAssignments();
   }, []);
-  // For Member
+  // For Getting Member Data
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
@@ -231,7 +306,7 @@ const CourseDashboard = () => {
 
     fetchAssignments();
   }, []);
-  // For Notice
+  // For Getting Notice Data
   useEffect(() => {
     const fetchNotice = async () => {
       try {
@@ -247,6 +322,23 @@ const CourseDashboard = () => {
       }
     };
     fetchNotice();
+  }, []);
+  // For Getting Resources Data
+  useEffect(() => {
+    const fetchResource = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/resources");
+        if (response.ok) {
+          const data = await response.json();
+          setResources(data);
+        } else {
+          console.error("Failed to fetch assignments.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+    fetchResource();
   }, []);
 
   const categoryContent = {
@@ -372,18 +464,22 @@ const CourseDashboard = () => {
                   <MdOutlineSubject size="1.4em" />
                   {item.title}
                 </h2>
-                <div className="text-base text-gray-600 "> 
+                <div className="text-base text-gray-600 ">
                   <h1>{item.description}</h1>
                 </div>
               </div>
               <div className="flex gap-3 mt-5 items-center">
-              <div className="avatar">
+                <div className="avatar">
                   <div className="w-12 rounded-full">
                     <img src="https://i.ibb.co/Pgrgt4S/clf47wwin001nmh08aqvomr5k-1.jpg" />
                   </div>
                 </div>
-                <input type="text" placeholder="Comment here" className="input input-bordered input-info w-full" />  
-              <AiOutlineSend size="2.5em"/>
+                <input
+                  type="text"
+                  placeholder="Comment here"
+                  className="input input-bordered input-info w-full"
+                />
+                <AiOutlineSend size="2.5em" />
               </div>
             </div>
           </div>
@@ -632,7 +728,126 @@ const CourseDashboard = () => {
       </div>
     ),
     Grades: "Grades content goes here",
-    Resourses: "Resources content goes here",
+    Resourses: (
+      <div>
+        <div className="flex justify-between items-center">
+          <h2 className="font-bold text-2xl text-[#0083db] mx-10">Resourses</h2>
+          <div className="me-10">
+            <button
+              className="btn bg-[#0083db] text-white"
+              onClick={() => window.my_modal_5.showModal()}
+            >
+              New Resourses
+            </button>
+            <dialog id="my_modal_5" className="modal">
+              <form
+                method="dialog"
+                className="modal-box w-11/12 max-w-5xl"
+                onSubmit={handleSubmit(onSubmitResources)}
+              >
+                <h2 className="font-bold text-4xl text-[#0083db] text-center">
+                  Resourses
+                </h2>
+                <div className="grid grid-cols-2 gap-5">
+                  <div>
+                    <div className="form-control w-full space-y-3 shadow-2xl rounded-2xl p-5">
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Title
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        {...register("title", { required: true })}
+                        name="title"
+                        placeholder="Type here"
+                        className="input input-bordered input-primary w-full"
+                      />
+                      {errors.name && (
+                        <span className="text-red-600">title is required</span>
+                      )}
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Instruction
+                        </span>
+                      </label>
+                      <textarea
+                        className="textarea textarea-primary"
+                        placeholder="Instruction (optional)"
+                        {...register("description")}
+                        name="description"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div className="space-y-2 shadow-2xl rounded-2xl p-5">
+                    <div className="form-control w-full">
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Topic
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Type here"
+                        className="input input-bordered input-primary w-full"
+                        {...register("topic")}
+                        name="topic"
+                      />
+                    </div>
+                    <div className="form-control w-full space-y-3 shadow-2xl rounded-2xl p-5">
+                      <label className="label">
+                        <span className="label-text text-xl font-bold">
+                          Attach Link
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        className="file-input file-input-bordered file-input-primary w-full px-4"
+                        {...register("attachments")}
+                        name="attachments"
+                        placeholder="Give Link Here"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="modal-action">
+                  <button className="btn bg-[#0083db] text-white" type="submit">
+                    Post
+                  </button>
+                  <button
+                    className="btn bg-[#d83e26] text-white"
+                    onClick={() => window.my_modal_5.close()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </dialog>
+          </div>
+        </div>
+        {resources.map((item) => (
+          <div
+            key={item.course_id}
+            className="card bg-base-100 my-5 shadow-2xl border-t-4 border-[#0083db]"
+          >
+            <div className="collapse bg-base-200">
+              <input type="radio" name="my-accordion-3" />
+              <div className="collapse-title flex items-center justify-between">
+              <div className="flex items-center text-xl font-medium "><TbNotebook size="1.5em"/> {item.title}</div>
+            <h1>Posted {extractTimeFromISO(item.createdAt)}</h1>
+              </div>
+              <div className="collapse-content border-t-8 pt-2 space-y-3">
+                <p className="text-xl font-bold">{item.description}</p>
+                {
+                  item.attachments[0].url &&
+                  <h1 className="text-base font-bold">Link: <a className="link link-secondary">{item.attachments[0].url}</a></h1>
+                }
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    ),
   };
   return (
     <div className="pt-32 w-3/4 mx-auto mb-10">
