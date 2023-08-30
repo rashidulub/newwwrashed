@@ -48,19 +48,25 @@ const Courses = () => {
     }
   };
 
-  // fetching course data from backend
+  // Fetch courses based on user's email
   useEffect(() => {
     async function fetchCourses() {
       try {
-        const response = await fetch('/api/courses');
-        const data = await response.json();
-        setCourseData(data.courses);
+        if (session) {
+          const loggedInUserEmail = session.user.email;
+          const response = await fetch('/api/courses');
+          const data = await response.json();
+          const filteredCourses = data.courses.filter(item =>
+            item.members.some(member => member.email === loggedInUserEmail)
+          );
+          setCourseData(filteredCourses);
+        }
       } catch (error) {
         console.error('Error fetching courses:', error);
       }
     }
     fetchCourses();
-  }, []);
+  }, [session]);
 
   const defaultOptions = {
     loop: true,
