@@ -4,7 +4,7 @@ import { Schema, model, models } from "mongoose";
 
 const noticesSchema = new Schema(
     {
-        notice_id: {
+        course_id: {
             type: String,
         },
         title: {
@@ -13,13 +13,10 @@ const noticesSchema = new Schema(
         description: {
             type: String,
         },
-        due_date: {
+        createdAt: {
             type: String,
         },
-        For: {
-            type: String,
-        },
-        topic: {
+        updatedAt: {
             type: String,
         },
 

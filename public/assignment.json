@@ -12,13 +12,15 @@
         "url": "https://example.com/assignment1.pdf"
       }
     ],
-    "submissions": [],
-    "notices": [],
-    "comments": [],
-    "reviews": [],
-    "For": "",
+    "submissions": [
+      {
+        "url": ""
+      }
+    ],
     "topic": "",
-    "total_mark": ""
+    "total_mark": "",
+    "createdAt": "2023-08-30T12:00:00Z",
+    "updatedAt": "2023-08-30T12:00:00Z"
   },
   {
     "course_id": "",
@@ -35,13 +37,15 @@
         "url": "https://example.com/assignment1.pdf"
       }
     ],
-    "submissions": [],
-    "notices": [],
-    "comments": [],
-    "reviews": [],
-    "For": "",
+    "submissions": [
+      {
+        "url": ""
+      }
+    ],
     "topic": "",
-    "total_mark": ""
+    "total_mark": "",
+    "createdAt": "2023-08-30T12:00:00Z",
+    "updatedAt": "2023-08-30T12:00:00Z"
   },
   {
     "course_id": "",
@@ -58,13 +62,15 @@
         "url": "https://example.com/assignment1.pdf"
       }
     ],
-    "submissions": [],
-    "notices": [],
-    "comments": [],
-    "reviews": [],
-    "For": "",
+    "submissions": [
+      {
+        "url": ""
+      }
+    ],
     "topic": "",
-    "total_mark": ""
+    "total_mark": "",
+    "createdAt": "2023-08-30T12:00:00Z",
+    "updatedAt": "2023-08-30T12:00:00Z"
   },
   {
     "course_id": "",
@@ -81,13 +87,15 @@
         "url": "https://example.com/assignment1.pdf"
       }
     ],
-    "submissions": [],
-    "notices": [],
-    "comments": [],
-    "reviews": [],
-    "For": "",
+    "submissions": [
+      {
+        "url": ""
+      }
+    ],
     "topic": "",
-    "total_mark": ""
+    "total_mark": "",
+    "createdAt": "2023-08-30T12:00:00Z",
+    "updatedAt": "2023-08-30T12:00:00Z"
   },
   {
     "course_id": "",
@@ -104,12 +112,14 @@
         "url": "https://example.com/assignment1.pdf"
       }
     ],
-    "submissions": [],
-    "notices": [],
-    "comments": [],
-    "reviews": [],
-    "For": "",
+    "submissions": [
+      {
+        "url": ""
+      }
+    ],
     "topic": "",
-    "total_mark": ""
+    "total_mark": "",
+    "createdAt": "2023-08-30T12:00:00Z",
+    "updatedAt": "2023-08-30T12:00:00Z"
   }
 ]

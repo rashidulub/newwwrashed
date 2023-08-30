@@ -7,7 +7,7 @@ const submissionsSchema = new Schema({
         ref: "Assignments"
     },
     student: {
-        tyep: mongoose.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "User"
     },
     submission_date: {
@@ -15,7 +15,7 @@ const submissionsSchema = new Schema({
         default: (new Date()).getTime()
     },
     comments: [{
-        tyep: String,
+        type: String,
         require: true
     }]
 }, { timestamps: true })

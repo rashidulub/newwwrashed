@@ -17,23 +17,29 @@ const assignmentSchema = new Schema(
     attachments: [
       {
         url: {
-          type: String,
-        },
+          type: String
+        }
       },
     ],
-    submissions: [],
-    notices: [],
-    comments: [],
-    reviews: [],
-    For: {
-      type: String,
-    },
+    submissions: [
+      {
+        url: {
+          type: String,
+        }
+      },
+    ],
     topic: {
       type: String,
     },
     total_mark: {
       type: String,
-    }
+    },
+    createdAt: {
+      type: String,
+    },
+    updatedAt: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

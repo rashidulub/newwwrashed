@@ -58,21 +58,19 @@ const CourseDashboard = () => {
     return `${hours}:${minutes}`;
   }
 
+  const currentDateLocal = new Date();
+  const timeOffset = 6 * 60 * 60 * 1000;
+  const currentDateBD = new Date(currentDateLocal.getTime() + timeOffset);
+
   // For Posting Notice Data
   const onSubmitNotice = async (data) => {
-    const { title, description, For, attachments } = data;
+    const { title, description} = data;
     const newNotice = {
       course_id: "",
       title,
       description,
-      due_date: "",
-      attachments: [
-        {
-          url: attachments,
-        },
-      ],
-      notices: [],
-      For: For,
+      createdAt: currentDateBD.toISOString(),
+      updatedAt: currentDateBD.toISOString()
     };
 
     try {
@@ -135,16 +133,18 @@ const CourseDashboard = () => {
       due_date: startDate,
       attachments: [
         {
-          url: attachments,
-        },
+          url: attachments
+        }
       ],
-      submissions: [],
-      notices: [],
-      comments: [],
-      reviews: [],
-      For: For,
+      submissions: [
+        {
+          url: ""
+        }
+      ],
       topic: topic,
       total_mark: rangeValue,
+      createdAt: currentDateBD.toISOString(),
+      updatedAt: currentDateBD.toISOString()
     };
 
     try {
@@ -202,10 +202,7 @@ const CourseDashboard = () => {
   };
   // For Posting Resources Data
   const onSubmitResources = async (data) => {
-    const { title, description, topic, attachments } = data;
-    const currentDateLocal = new Date();
-    const timeOffset = 6 * 60 * 60 * 1000;
-    const currentDateBD = new Date(currentDateLocal.getTime() + timeOffset);
+    const { title, description, attachments } = data;
     const newResources = {
       course_id: "",
       title,
@@ -215,9 +212,8 @@ const CourseDashboard = () => {
           url: attachments,
         },
       ],
-      topic: topic,
       createdAt: currentDateBD.toISOString(),
-      updatedAt: "",
+      updatedAt: currentDateBD.toISOString()
     };
 
     try {

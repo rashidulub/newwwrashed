@@ -1,39 +1,106 @@
 [
-    {
-        "name": "MERN Stack Development",
-        "picture": "https://i.ibb.co/fD2GFWd/Mern.png",
-        "description": [
-            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
-            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
-            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
-        ]
-    },
-    {
-        "name": "Web Development with PHP",
-        "picture": "https://i.ibb.co/hg4p7QB/php.png",
-        "description": "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more."
-    },
-    {
-        "name": "Laravel Development",
-        "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
-        "description": "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more."
-    },
-    {
-        "name": "Mobile App Development",
-        "picture": "https://i.ibb.co/yd0Qkvs/MoAD.jpg",
-        "description": [
-            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
-            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
-            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
-        ]
-    },
-    {
-        "name": "Programming in Java",
-        "picture": "https://i.ibb.co/B6RkY4Z/java.png",
-        "description": [
-            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
-            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
-            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
-        ]
-    }
+  {
+    "courseName": "Math",
+    "picture": "https://i.ibb.co/PYsJwcZ/math.webp",
+    "password": "12345",
+    "instructor": "",
+    "member": [
+      {
+        "email": "student1@example.com",
+        "role": "member"
+      }
+    ],
+    "description": "This course covers various topics in mathematics, including algebra, geometry, and calculus."
+  },
+  {
+    "courseName": "MERN Stack Development",
+    "picture": "https://i.ibb.co/fD2GFWd/Mern.png",
+    "password": "12345",
+    "instructor": "",
+    "member": [
+      {
+        "email": "student2@example.com",
+        "role": "member"
+      }
+    ],
+    "description": "Learn how to build modern web applications using the MERN (MongoDB, Express, React, Node.js) stack."
+  },
+  {
+    "courseName": "Web Development with PHP",
+    "picture": "https://i.ibb.co/hg4p7QB/php.png",
+    "password": "12345",
+    "instructor": "",
+    "member": [
+      {
+        "email": "student3@example.com",
+        "role": "member"
+      }
+    ],
+    "description": "Explore web development using PHP and learn to create dynamic and interactive websites."
+  },
+  {
+    "courseName": "Laravel Development",
+    "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
+    "password": "12345",
+    "instructor": "",
+    "member": [
+      {
+        "email": "student4@example.com",
+        "role": "member"
+      }
+    ],
+    "description": "Become proficient in Laravel framework and develop robust and scalable web applications."
+  },
+  {
+    "courseName": "Mobile Apps Development",
+    "picture": "https://i.ibb.co/yd0Qkvs/MoAD.jpg",
+    "password": "12345",
+    "instructor": "",
+    "member": [
+      {
+        "email": "student5@example.com",
+        "role": "member"
+      }
+    ],
+    "description": "Learn to build mobile apps for various platforms, including iOS and Android, using industry-standard tools."
+  },
+  {
+    "courseName": "Programming in JAVA",
+    "picture": "https://i.ibb.co/B6RkY4Z/java.png",
+    "password": "12345",
+    "instructor": "",
+    "member": [
+      {
+        "email": "student6@example.com",
+        "role": "member"
+      }
+    ],
+    "description": "Master the Java programming language and develop applications ranging from desktop to web."
+  },
+  {
+    "courseName": "Laravel Development",
+    "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
+    "password": "12345",
+    "instructor": "",
+    "member": [
+      {
+        "email": "student7@example.com",
+        "role": "member"
+      }
+    ],
+    "description": "Take your skills in Laravel to the next level with advanced techniques and best practices."
+  },
+  {
+    "courseName": "Math",
+    "picture": "https://i.ibb.co/PYsJwcZ/math.webp",
+    "password": "12345",
+    "instructor": "",
+    "member": [
+      {
+        "email": "student8@example.com",
+        "role": "member"
+      }
+    ],
+    "description": "Explore various mathematical concepts and their applications in real-world scenarios."
+  }
 ]
