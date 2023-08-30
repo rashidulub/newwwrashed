@@ -2,24 +2,84 @@ import React from 'react';
 
 const Settings = () => {
     return (
-        <div className='pt-32 w-3/4 mx-auto px-7'>
-            <h3 className='font-semibold text-3xl text-[#0083db] pb-10'>Setting and Privacy</h3>
-            <div className='grid grid-cols-3 border-b mb-4 pb-2'>
-                <h5>Profile Setting</h5>
-                <div className='col-span-1'>
-                    <h6>Who can see your profile</h6>
-                </div>
-                <div className='text-end'>
-                    <button>Edit</button>
+        <div className='pt-32 lg:w-3/4 w-11/12 mx-auto px-7 py-10'>
+            {/* <h3 className='font-semibold text-3xl text-[#0083db] pb-10'>Setting and Privacy</h3> */}
+            <h5 className='font-semibold text-2xl'>Profile Setting</h5>
+            <div className='grid grid-cols-2 mt-2 mb-10'>
+                <div className='col-span-2 border'>
+                    <div className='grid grid-cols-3 border-b p-3'>
+                        <h6>Showcase your achievements</h6>
+                        <p className='text-end'>Yes</p>
+                        <div className='text-end'>
+                            <button className='bg-[#0083db] text-white px-2 rounded'>Edit</button>
+                        </div>
+                    </div>
+                    <div className='grid grid-cols-3 p-3'>
+                        <h6>Change password</h6>
+                        <p className='text-end'>********2e</p>
+                        <div className='text-end'>
+                            <button className='bg-[#0083db] text-white px-2 rounded'>Edit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className='grid grid-cols-3 border-b mb-4 pb-2'>
-                <h5>Password Setting</h5>
-                <div className='col-span-1'>
-                    <h6>Change Password</h6>
+            <h5 className='font-semibold text-2xl'>Privacy Setting</h5>
+            <div className='grid grid-cols-2 mt-2 mb-10'>
+                <div className='col-span-2 border'>
+                    <div className='grid grid-cols-3 border-b p-3'>
+                        <h6>Who can visit your profile</h6>
+                        <p className='text-end'>Everyone</p>
+                        <div className='text-end'>
+                            <button className='bg-[#0083db] text-white px-2 rounded'>Edit</button>
+                        </div>
+                    </div>
+                    <div className='grid grid-cols-3 border-b p-3'>
+                        <h6>Who can add you in a class</h6>
+                        <p className='text-end'>Only me</p>
+                        <div className='text-end'>
+                            <button className='bg-[#0083db] text-white px-2 rounded'>Edit</button>
+                        </div>
+                    </div>
+                    <div className='grid grid-cols-3 p-3'>
+                        <h6>Who can follow your activity</h6>
+                        <p className='text-end'>Everyone</p>
+                        <div className='text-end'>
+                            <button className='bg-[#0083db] text-white px-2 rounded'>Edit</button>
+                        </div>
+                    </div>
                 </div>
-                <div className='text-end'>
-                    <button>Update</button>
+            </div>
+            <h5 className='font-semibold text-2xl'>Notification Setting</h5>
+            <div className='grid grid-cols-2 mt-2 mb-10'>
+                <div className='col-span-2 border'>
+                    <div className='grid grid-cols-3 border-b p-3'>
+                        <h6>How do you want to get notified</h6>
+                        <p className='text-end'>Via email</p>
+                        <div className='text-end'>
+                            <button className='bg-[#0083db] text-white px-2 rounded'>Edit</button>
+                        </div>
+                    </div>
+                    <div className='grid grid-cols-3 p-3'>
+                        <h6>Which classes do you want to notified from</h6>
+                        <p className='text-end'>All classes</p>
+                        <div className='text-end'>
+                            <button className='bg-[#0083db] text-white px-2 rounded'>Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h5 className='font-semibold text-2xl'>Danger Zone</h5>
+            <div className='grid grid-cols-2 border border-red-500 mt-2 mb-10 p-3'>
+                <div className='col-span-2'>
+                    <div className='grid grid-cols-3'>
+                        <h6>Delete this account</h6>
+                        <div className='flex justify-end'>
+                            <input className='bg-[#e9e9e9] rounded w-1/2 px-2' placeholder='please type "Delete"' type="text" />
+                        </div>
+                        <div className='text-end'>
+                            <button disabled className='bg-red-200 px-2 rounded'>Yes</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

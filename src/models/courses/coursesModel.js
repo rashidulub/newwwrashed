@@ -29,7 +29,7 @@ const coursesSchema = new Schema({
         },
     ],
     ownerName: {
-        type: String, 
+        type: String, // Adjust the type based on your needs
         required: true,
     },
 }, { timestamps: true })
