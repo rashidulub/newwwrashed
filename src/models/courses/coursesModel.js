@@ -15,22 +15,23 @@ const coursesSchema = new Schema({
         type: String,
         require: true
     },
-    teacher: {
-        type: mongoose.Types.ObjectId,
-        ref: "Teacher"
+    members: [
+        {
+            email: {
+                type: String,
+                required: true,
+            },
+            role: {
+                type: String,
+                enum: ["owner", "student"],
+                required: true,
+            },
+        },
+    ],
+    ownerName: {
+        type: String, // Adjust the type based on your needs
+        required: true,
     },
-    students: [{
-        type: mongoose.Types.ObjectId,
-        ref: "Students"
-    }],
-    assignments: [{
-        type: mongoose.Types.ObjectId,
-        ref: "Assignments"
-    }],
-    reviews: [{
-        type: mongoose.Types.ObjectId,
-        ref: "Reviews"
-    }]
 }, { timestamps: true })
 
 const Courses = models.Courses || model('Courses', coursesSchema);

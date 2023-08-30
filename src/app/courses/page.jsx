@@ -2,50 +2,53 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 // import Lottie from 'react-lottie';
-// import myImage from '../../asstes/images/secure.png';
 import classroomAnimate from "../../../public/classroom.json";
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 const Courses = () => {
-  const [course, setCourse] = useState([]);
   const [courseName, setCourseName] = useState('');
   const [password, setPassword] = useState('');
   const [picture, setPicture] = useState('');
+  const { data: session } = useSession();
   const [courseData, setCourseData] = useState([]);
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
-    const formData = {
-      courseName,
-      password,
-      picture
-    };
-    console.log(formData);
 
-    // Send formData to backend API for storage in MongoDB
-    const res = await fetch('/api/courses', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    console.log(data);
-  }
+    if (session) {
+      const { user } = session;
+      const loggedInUserEmail = user.email;
+      const loggedInUserName = user.name;
+      console.log(loggedInUserName);
 
-  // const handleCourseNameChange = (event) => {
-  //   setCourseName(event.target.value);
-  // };
+      const formData = {
+        courseName,
+        password,
+        picture,
+        members: [
+          {
+            email: loggedInUserEmail,
+            role: "owner", // The creator of the class is the owner
+          },
+        ],
+        ownerName: loggedInUserName,
+      };
 
-  // const handlePasswordChange = (event) => {
-  //   setPassword(event.target.value);
-  // };
+      // Send formData to backend API for storage in MongoDB
+      const res = await fetch('/api/courses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      console.log(data);
+    }
+  };
 
-  // const handlePictureChange = (event) => {
-  //   setPicture(event.target.value);
-  // };
-  // onClick={createCourse}
+  // fetching course data from backend
   useEffect(() => {
     async function fetchCourses() {
       try {
@@ -58,15 +61,6 @@ const Courses = () => {
     }
     fetchCourses();
   }, []);
-
-  // useEffect(() => {
-  //   fetch('courses.json')
-  //     .then(res => res.json())
-  //     .then(data => setCourse(data))
-  // }, [])
-
-
-  console.log(typeof courseData);
 
   const defaultOptions = {
     loop: true,
@@ -126,7 +120,6 @@ const Courses = () => {
                     className="btn bg-blue-600 text-white hover:bg-blue-700"
                     type="submit"
                     onClick={handleSubmit}
-
                   >
                     Create Class
                   </button>
@@ -201,7 +194,7 @@ const Courses = () => {
                   <div className="card-body items-center">
                     <h2 className="card-title">{item.courseName}</h2>
                     <p className="text-sm text-gray-600">
-                      Instructor: {item.courseName}
+                      Instructor: {item.ownerName}
                     </p>
                   </div>
                 </div>
