@@ -4,7 +4,7 @@ const nextConfig = {}
 // module.exports = nextConfig
 module.exports = {
     images: {
-        domains: ['i.ibb.co'], // Add other allowed domains if needed
+        domains: ['ibb.co', 'i.ibb.co', 'example.com', 'another-domain.com'], // Add other allowed domains if needed
     },
     nextConfig
 };
