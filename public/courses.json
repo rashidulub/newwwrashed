@@ -3,104 +3,146 @@
     "courseName": "Math",
     "picture": "https://i.ibb.co/PYsJwcZ/math.webp",
     "password": "12345",
-    "instructor": "",
-    "member": [
+    "members": [
       {
-        "email": "student1@example.com",
-        "role": "member"
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
       }
     ],
-    "description": "This course covers various topics in mathematics, including algebra, geometry, and calculus."
+    "ownerName": "Towhidul Alam"
+  },
+  {
+    "courseName": "Laravel Development",
+    "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
+    "password": "12345",
+    "members": [
+      {
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Towhidul Alam"
   },
   {
     "courseName": "MERN Stack Development",
     "picture": "https://i.ibb.co/fD2GFWd/Mern.png",
     "password": "12345",
-    "instructor": "",
-    "member": [
+    "members": [
       {
-        "email": "student2@example.com",
-        "role": "member"
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
       }
     ],
-    "description": "Learn how to build modern web applications using the MERN (MongoDB, Express, React, Node.js) stack."
+    "ownerName": "Towhidul Alam"
   },
   {
     "courseName": "Web Development with PHP",
     "picture": "https://i.ibb.co/hg4p7QB/php.png",
     "password": "12345",
-    "instructor": "",
-    "member": [
+    "members": [
       {
-        "email": "student3@example.com",
-        "role": "member"
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
       }
     ],
-    "description": "Explore web development using PHP and learn to create dynamic and interactive websites."
+    "ownerName": "Towhidul Alam"
+  },
+  {
+    "courseName": "digital marketing",
+    "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
+    "password": "hello",
+    "members": [
+      {
+        "email": "farjana@gmail.com",
+        "role": "owner",
+        "username": "mdrashidulislam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      },
+      {
+        "email": "towhid.raiyan@gmail.com",
+        "role": "student",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Md. Rashidul Islam"
   },
   {
     "courseName": "Laravel Development",
     "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
     "password": "12345",
-    "instructor": "",
-    "member": [
+    "members": [
       {
-        "email": "student4@example.com",
-        "role": "member"
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
       }
     ],
-    "description": "Become proficient in Laravel framework and develop robust and scalable web applications."
+    "ownerName": "Towhidul Alam"
+  },
+  {
+    "courseName": "web design",
+    "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
+    "password": "hekki",
+    "members": [
+      {
+        "email": "farjana@gmail.com",
+        "role": "owner",
+        "username": "mdrashidulislam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Md. Rashidul Islam"
+  },
+  {
+    "courseName": "class",
+    "picture": "",
+    "password": "OK",
+    "members": [
+      {
+        "email": "akramhossain.5204@gmail.com",
+        "role": "owner",
+        "username": "akramhossain",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Akram Hossain"
   },
   {
     "courseName": "Mobile Apps Development",
-    "picture": "https://i.ibb.co/yd0Qkvs/MoAD.jpg",
+    "picture": "https://i.ibb.co/0GsKj7g/bike-1.png",
     "password": "12345",
-    "instructor": "",
-    "member": [
+    "members": [
       {
-        "email": "student5@example.com",
-        "role": "member"
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
       }
     ],
-    "description": "Learn to build mobile apps for various platforms, including iOS and Android, using industry-standard tools."
+    "ownerName": "Towhidul Alam"
   },
   {
-    "courseName": "Programming in JAVA",
-    "picture": "https://i.ibb.co/B6RkY4Z/java.png",
+    "courseName": "new",
+    "picture": "",
     "password": "12345",
-    "instructor": "",
-    "member": [
+    "members": [
       {
-        "email": "student6@example.com",
-        "role": "member"
+        "email": "akramhossain.5204@gmail.com",
+        "role": "owner",
+        "username": "akramhossain",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
       }
     ],
-    "description": "Master the Java programming language and develop applications ranging from desktop to web."
-  },
-  {
-    "courseName": "Laravel Development",
-    "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
-    "password": "12345",
-    "instructor": "",
-    "member": [
-      {
-        "email": "student7@example.com",
-        "role": "member"
-      }
-    ],
-    "description": "Take your skills in Laravel to the next level with advanced techniques and best practices."
-  },
-  {
-    "courseName": "Math",
-    "picture": "https://i.ibb.co/PYsJwcZ/math.webp",
-    "password": "12345",
-    "instructor": "",
-    "member": [
-      {
-        "email": "student8@example.com",
-        "role": "member"
-      }
-    ],
-    "description": "Explore various mathematical concepts and their applications in real-world scenarios."
+    "ownerName": "Akram Hossain"
   }
 ]

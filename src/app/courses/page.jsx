@@ -5,6 +5,9 @@ import Image from "next/image";
 import classroomAnimate from "../../../public/classroom.json";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { HiOutlineBookOpen, HiOutlineUserGroup } from "react-icons/hi";
+import { GiTeacher } from "react-icons/gi";
 
 const Courses = () => {
   const [courseName, setCourseName] = useState("");
@@ -12,8 +15,8 @@ const Courses = () => {
   const [picture, setPicture] = useState("");
   const { data: session } = useSession();
   const [courseData, setCourseData] = useState([]);
-  const [courseId, setCourseId] = useState('');
-  const [joinPassword, setJoinPassword] = useState('');
+  const [courseId, setCourseId] = useState("");
+  const [joinPassword, setJoinPassword] = useState("");
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
@@ -22,7 +25,7 @@ const Courses = () => {
       const { user } = session;
       const loggedInUserEmail = user.email;
       const loggedInUserName = user.name;
-      console.log(loggedInUserName);
+      const loggedInUserImage = user.image;
 
       const formData = {
         courseName,
@@ -31,32 +34,32 @@ const Courses = () => {
         members: [
           {
             email: loggedInUserEmail,
-            role: "owner", // The creator of the class is the owner
+            role: "owner",
+            username: loggedInUserName,
+            image: loggedInUserImage,
           },
         ],
         ownerName: loggedInUserName,
       };
 
       // Send formData to backend API for storage in MongoDB
-      const res = await fetch('/api/courses/create', {
-        method: 'POST',
+      const res = await fetch("/api/courses/create", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
     }
   };
-
   // Fetch courses based on user's email
   useEffect(() => {
     async function fetchCourses() {
       try {
         if (session) {
           const loggedInUserEmail = session.user.email;
-          const response = await fetch('/api/courses');
+          const response = await fetch("/api/courses/create");
           const data = await response.json();
           const filteredCourses = data.courses.filter((item) =>
             item.members.some((member) => member.email === loggedInUserEmail)
@@ -74,27 +77,30 @@ const Courses = () => {
   const handleJoin = async (courseId, password) => {
     if (session) {
       const loggedInUserEmail = session.user.email;
+      const loggedInUserName = session.user.name;
+      const loggedInUserImage = session.user.image;
       const formData = {
-        courseId,
+        course_id: courseId,
         password,
         email: loggedInUserEmail,
-        role: 'student', // Assuming students are joining
+        role: "student",
+        username: loggedInUserName,
+        image: loggedInUserImage  // Assuming students are joining
       };
 
-      const res = await fetch('/api/courses/join', {
-        method: 'POST',
+      const res = await fetch("/api/courses/join", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
 
       if (data.success) {
-        // Refresh course data after joining
         fetchCourses();
       } else {
-        console.error('Failed to join class:', data.message);
+        console.error("Failed to join class:", data.message);
       }
     }
   };
@@ -245,61 +251,57 @@ const Courses = () => {
             <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
               <div className="card card-compact w-96 bg-base-100 shadow-2xl">
                 <figure>
-                  <img
-                    src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg"
-                    alt="Shoes"
-                  />
+                  {item.picture ? (
+                    <img src={item.picture} />
+                  ) : (
+                    <img src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg" />
+                  )}
                 </figure>
-                <div className="avatar-group -space-x-6">
-                  <div className="avatar">
-                    <div className="w-12">
-                      <img src="https://i.ibb.co/5TJ9L7r/spiderman1.jpg" />
+                <div className="avatar-group -space-x-7 absolute top-[45%] right-3">
+                  {item.members.slice(0, 4).map((member, index) => (
+                    <div className="avatar" key={index}>
+                      <div className="w-14">
+                        <img src={member.image} />
+                      </div>
                     </div>
-                  </div>
-                  <div className="avatar">
-                    <div className="w-12">
-                      <img src="https://i.ibb.co/5TJ9L7r/spiderman1.jpg" />
-                    </div>
-                  </div>
-                  <div className="avatar">
-                    <div className="w-12">
-                      <img src="https://i.ibb.co/5TJ9L7r/spiderman1.jpg" />
-                    </div>
-                  </div>
+                  ))}
                   <div className="avatar placeholder">
-                    <div className="w-12 bg-neutral-focus text-neutral-content">
-                      <span>+99</span>
+                    <div className="w-14 bg-neutral-focus text-neutral-content">
+                      <span>+{item.members.length}</span>
                     </div>
                   </div>
                 </div>
                 <div className="card-body">
-                  <h2 className="card-title">Shoes!</h2>
-                  <p>4.0(75 reviews) icon</p>
-                  <p>Short description</p>
-                  <div className="card-actions justify-end">
-                    HiOutlineBookOpen
-                    <button className="btn btn-primary">Buy Now</button>
+                  <div className="badge badge-info badge-outline badge-lg font-bold">
+                    Active
+                  </div>
+                  <h2 className="text-3xl font-bold">{item.courseName}</h2>
+                  <div className="flex gap-3">
+                    <GiTeacher size="1.6em" />
+                    <h2 className="text-lg font-bold">{item.ownerName}</h2>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-lg font-medium">4.0(75 reviews)</h1>
+                    <div className="flex items-center">
+                      <AiFillStar size="1.6em" color="#FDCC0D" />
+                      <AiFillStar size="1.6em" color="#FDCC0D" />
+                      <AiFillStar size="1.6em" color="#FDCC0D" />
+                      <AiFillStar size="1.6em" color="#FDCC0D" />
+                      <AiOutlineStar size="1.6em" />
+                    </div>
+                  </div>
+                  <div className="card-actions justify-between mt-6">
+                    <div className="flex items-center gap-2">
+                      <HiOutlineUserGroup size="1.9em" />
+                      <h1 className="text-lg">{item.members.length} people</h1>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <HiOutlineBookOpen size="1.9em" />
+                      <h1 className="text-lg">3 lessons</h1>
+                    </div>
                   </div>
                 </div>
               </div>
-              {/* <div className="card shadow-xl my-10 p-2">
-                <figure className="avatar">
-                  <div className="w-1/2 rounded-xl mx-auto">
-                    <Image
-                      src={item.picture}
-                      alt="My Image"
-                      width={200}
-                      height={200}
-                    />
-                  </div>
-                </figure>
-                <div className="card-body items-center">
-                  <h2 className="card-title">{item.courseName}</h2>
-                  <p className="text-sm text-gray-600">
-                    Instructor: {item.ownerName}
-                  </p>
-                </div>
-              </div> */}
             </Link>
           ))}
         </div>

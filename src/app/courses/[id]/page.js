@@ -15,7 +15,7 @@ import { TbNotebook } from "react-icons/tb";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 
-const CourseDashboard = () => {
+const CourseDashboard = ({ params }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const categories = [
     "Notice",
@@ -36,7 +36,10 @@ const CourseDashboard = () => {
   const [member, setMember] = useState([]);
   const [notice, setNotice] = useState([]);
   const [resources, setResources] = useState([]);
-  const {session} = useSession()
+  const { session } = useSession();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const courseId = params.id;
 
   const handleTabClick = (index) => {
     setTabIndex(index);
@@ -66,13 +69,13 @@ const CourseDashboard = () => {
 
   // For Posting Notice Data
   const onSubmitNotice = async (data) => {
-    const { title, description} = data;
+    const { title, description } = data;
     const newNotice = {
-      course_id: "",
+      course_id: courseId,
       title,
       description,
       createdAt: currentDateBD.toISOString(),
-      updatedAt: currentDateBD.toISOString()
+      updatedAt: currentDateBD.toISOString(),
     };
 
     try {
@@ -129,24 +132,24 @@ const CourseDashboard = () => {
   const onSubmitAssignment = async (data) => {
     const { title, description, due_date, For, topic, attachments } = data;
     const newAssignment = {
-      course_id: "",
+      course_id: courseId,
       title,
       description,
-      due_date: startDate,
+      due_date: due_date,
       attachments: [
         {
-          url: attachments
-        }
+          url: attachments,
+        },
       ],
       submissions: [
         {
-          url: ""
-        }
+          url: "",
+        },
       ],
       topic: topic,
       total_mark: rangeValue,
       createdAt: currentDateBD.toISOString(),
-      updatedAt: currentDateBD.toISOString()
+      updatedAt: currentDateBD.toISOString(),
     };
 
     try {
@@ -206,7 +209,7 @@ const CourseDashboard = () => {
   const onSubmitResources = async (data) => {
     const { title, description, attachments } = data;
     const newResources = {
-      course_id: "",
+      course_id: courseId,
       title,
       description,
       attachments: [
@@ -215,7 +218,7 @@ const CourseDashboard = () => {
         },
       ],
       createdAt: currentDateBD.toISOString(),
-      updatedAt: currentDateBD.toISOString()
+      updatedAt: currentDateBD.toISOString(),
     };
 
     try {
@@ -279,7 +282,10 @@ const CourseDashboard = () => {
         const response = await fetch("http://localhost:3000/api/assignment");
         if (response.ok) {
           const data = await response.json();
-          setOldssignment(data);
+          const filterAssignment = data.filter(
+            (item) => item.course_id === courseId
+          );
+          setOldssignment(filterAssignment);
         } else {
           console.error("Failed to fetch assignments.");
         }
@@ -292,21 +298,25 @@ const CourseDashboard = () => {
   }, []);
   // For Getting Member Data
   useEffect(() => {
-    const fetchAssignments = async () => {
+    const fetchMember = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/user");
+        const response = await fetch(
+          "http://localhost:3000/api/courses/create"
+        );
         if (response.ok) {
           const data = await response.json();
-          setMember(data);
+          const findCourse = data.courses.find((item) => item._id === courseId);
+          setMember(findCourse);
         } else {
           console.error("Failed to fetch assignments.");
         }
       } catch (error) {
         console.error("An error occurred:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
-
-    fetchAssignments();
+    fetchMember();
   }, []);
   // For Getting Notice Data
   useEffect(() => {
@@ -315,7 +325,8 @@ const CourseDashboard = () => {
         const response = await fetch("http://localhost:3000/api/notice");
         if (response.ok) {
           const data = await response.json();
-          setNotice(data);
+          const findNotice = data.filter((item) => item.course_id === courseId);
+          setNotice(findNotice);
         } else {
           console.error("Failed to fetch assignments.");
         }
@@ -332,7 +343,10 @@ const CourseDashboard = () => {
         const response = await fetch("http://localhost:3000/api/resources");
         if (response.ok) {
           const data = await response.json();
-          setResources(data);
+          const findResource = data.filter(
+            (item) => item.course_id === courseId
+          );
+          setResources(findResource);
         } else {
           console.error("Failed to fetch assignments.");
         }
@@ -342,6 +356,10 @@ const CourseDashboard = () => {
     };
     fetchResource();
   }, []);
+
+  if (isLoading) {
+    return <span className="loading loading-spinner text-warning"></span>;
+  }
 
   const categoryContent = {
     Notice: (
@@ -503,7 +521,7 @@ const CourseDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {member.map((item, index) => (
+              {member.members.map((item, index) => (
                 <tr className="text-center" key={index}>
                   <td className="text-xl font-bold">{index + 1}</td>
                   <td>
@@ -514,7 +532,7 @@ const CourseDashboard = () => {
                     </div>
                   </td>
                   <td>
-                    <div className="font-bold text-xl">{item.name}</div>
+                    <div className="font-bold text-xl">{item.username}</div>
                     <span className="badge badge-accent font-bold badge-md">
                       {item.role}
                     </span>
@@ -836,7 +854,7 @@ const CourseDashboard = () => {
               <input type="radio" name="my-accordion-3" />
               <div className="collapse-title flex items-center justify-between">
                 <div className="flex items-center text-xl font-medium ">
-                  <TbNotebook size="1.5em" color="#0083db"/> {item.title}
+                  <TbNotebook size="1.5em" color="#0083db" /> {item.title}
                 </div>
                 <h1>Posted {extractTimeFromISO(item.createdAt)}</h1>
               </div>
@@ -844,7 +862,7 @@ const CourseDashboard = () => {
                 <p className="text-xl font-bold">{item.description}</p>
                 {item.attachments[0].url && (
                   <h1 className="text-base font-bold">
-                    Link:{" "}
+                    Link:
                     <a className="link link-secondary">
                       {item.attachments[0].url}
                     </a>
