@@ -11,14 +11,11 @@ const resourceSchema = new Schema(
     description: {
       type: String,
     },
-    topic: {
-      type: String,
-    },
     attachments: [
       {
         url: {
           type: String,
-        },
+        }
       },
     ],
     createdAt: {

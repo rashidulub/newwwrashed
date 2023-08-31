@@ -3,12 +3,12 @@ import bdConnect from "@/utils/dbConnect";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  const { notice_id, title, description, due_date, For, topic} = await request.json();
+  const { course_id, title, description,createdAt,updatedAt} = await request.json();
 
   await bdConnect();
   try {
     const notice = await Notices.create({
-        notice_id, title, description, due_date, For, topic
+      course_id, title, description,createdAt,updatedAt
     });
     return NextResponse.json(notice);
   } catch (error) {
