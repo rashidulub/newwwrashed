@@ -250,23 +250,28 @@ const Courses = () => {
           {courseData.map((item) => (
             <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
               <div className="card card-compact w-96 bg-base-100 shadow-2xl">
-                <figure>
+                {/* <figure>
                   {item.picture ? (
                     <img src={item.picture} />
                   ) : (
                     <img src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg" />
                   )}
+                </figure> */}
+                <figure>
+                  
+                    <img src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg" />
+                 
                 </figure>
-                <div className="avatar-group -space-x-7 absolute top-[45%] right-3">
+                <div className="avatar-group -space-x-7 absolute top-[47%] right-3">
                   {item.members.slice(0, 4).map((member, index) => (
                     <div className="avatar" key={index}>
-                      <div className="w-14">
+                      <div className="w-12">
                         <img src={member.image} />
                       </div>
                     </div>
                   ))}
                   <div className="avatar placeholder">
-                    <div className="w-14 bg-neutral-focus text-neutral-content">
+                    <div className="w-12 bg-neutral-focus text-neutral-content">
                       <span>+{item.members.length}</span>
                     </div>
                   </div>
@@ -275,7 +280,7 @@ const Courses = () => {
                   <div className="badge badge-info badge-outline badge-lg font-bold">
                     Active
                   </div>
-                  <h2 className="text-3xl font-bold">{item.courseName}</h2>
+                  <h2 className="text-2xl font-bold">{item.courseName}</h2>
                   <div className="flex gap-3">
                     <GiTeacher size="1.6em" />
                     <h2 className="text-lg font-bold">{item.ownerName}</h2>

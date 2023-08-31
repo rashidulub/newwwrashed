@@ -9,7 +9,7 @@ import LogOut from "@/Components/auth/LogOut";
 
 const Navbar = async () => {
 	const session = await getServerSession(authOptions)	
-	// console.log(session, 'user session')
+	// console.log(session, 'user session')ef
 	const menu = (
 		<>
 			<div className="lg:flex items-center lg:text-xl">
