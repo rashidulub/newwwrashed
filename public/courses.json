@@ -1,39 +1,148 @@
 [
-    {
-        "name": "MERN Stack Development",
-        "picture": "https://i.ibb.co/fD2GFWd/Mern.png",
-        "description": [
-            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
-            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
-            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
-        ]
-    },
-    {
-        "name": "Web Development with PHP",
-        "picture": "https://i.ibb.co/hg4p7QB/php.png",
-        "description": "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more."
-    },
-    {
-        "name": "Laravel Development",
-        "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
-        "description": "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more."
-    },
-    {
-        "name": "Mobile App Development",
-        "picture": "https://i.ibb.co/yd0Qkvs/MoAD.jpg",
-        "description": [
-            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
-            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
-            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
-        ]
-    },
-    {
-        "name": "Programming in Java",
-        "picture": "https://i.ibb.co/B6RkY4Z/java.png",
-        "description": [
-            "Dear students, mark your calendars! The midterm examination for the MERN Stack Development course is scheduled for October 15th, 2023. Prepare to showcase your understanding of key concepts from the course material, including MERN stack technologies, frontend and backend development, and more.",
-            "Attention all learners! The practical project assessment for the MERN Stack Development course will take place on November 10th, 2023. This assessment will gauge your ability to apply your knowledge in building a real-world web application using the MERN stack. Get ready to demonstrate your skills and creativity!",
-            "The moment of truth has arrived! The final examination for the MERN Stack Development course is scheduled for December 20th, 2023. This comprehensive assessment will cover all aspects of the course, from frontend development with React to backend setup with Express.js and MongoDB. Best of luck with your preparations!"
-        ]
-    }
+  {
+    "courseName": "Math",
+    "picture": "https://i.ibb.co/PYsJwcZ/math.webp",
+    "password": "12345",
+    "members": [
+      {
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Towhidul Alam"
+  },
+  {
+    "courseName": "Laravel Development",
+    "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
+    "password": "12345",
+    "members": [
+      {
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Towhidul Alam"
+  },
+  {
+    "courseName": "MERN Stack Development",
+    "picture": "https://i.ibb.co/fD2GFWd/Mern.png",
+    "password": "12345",
+    "members": [
+      {
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Towhidul Alam"
+  },
+  {
+    "courseName": "Web Development with PHP",
+    "picture": "https://i.ibb.co/hg4p7QB/php.png",
+    "password": "12345",
+    "members": [
+      {
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Towhidul Alam"
+  },
+  {
+    "courseName": "digital marketing",
+    "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
+    "password": "hello",
+    "members": [
+      {
+        "email": "farjana@gmail.com",
+        "role": "owner",
+        "username": "mdrashidulislam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      },
+      {
+        "email": "towhid.raiyan@gmail.com",
+        "role": "student",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Md. Rashidul Islam"
+  },
+  {
+    "courseName": "Laravel Development",
+    "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
+    "password": "12345",
+    "members": [
+      {
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Towhidul Alam"
+  },
+  {
+    "courseName": "web design",
+    "picture": "https://i.ibb.co/3RK5wPV/laravel.png",
+    "password": "hekki",
+    "members": [
+      {
+        "email": "farjana@gmail.com",
+        "role": "owner",
+        "username": "mdrashidulislam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Md. Rashidul Islam"
+  },
+  {
+    "courseName": "class",
+    "picture": "",
+    "password": "OK",
+    "members": [
+      {
+        "email": "akramhossain.5204@gmail.com",
+        "role": "owner",
+        "username": "akramhossain",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Akram Hossain"
+  },
+  {
+    "courseName": "Mobile Apps Development",
+    "picture": "https://i.ibb.co/0GsKj7g/bike-1.png",
+    "password": "12345",
+    "members": [
+      {
+        "email": "towhid.raiyan@gmail.com",
+        "role": "owner",
+        "username": "towhidulalam",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Towhidul Alam"
+  },
+  {
+    "courseName": "new",
+    "picture": "",
+    "password": "12345",
+    "members": [
+      {
+        "email": "akramhossain.5204@gmail.com",
+        "role": "owner",
+        "username": "akramhossain",
+        "image": "https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+      }
+    ],
+    "ownerName": "Akram Hossain"
+  }
 ]

@@ -1,17 +1,22 @@
-"use client"
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+"use client";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 // import Lottie from 'react-lottie';
 import classroomAnimate from "../../../public/classroom.json";
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { HiOutlineBookOpen, HiOutlineUserGroup } from "react-icons/hi";
+import { GiTeacher } from "react-icons/gi";
 
 const Courses = () => {
-  const [courseName, setCourseName] = useState('');
-  const [password, setPassword] = useState('');
-  const [picture, setPicture] = useState('');
+  const [courseName, setCourseName] = useState("");
+  const [password, setPassword] = useState("");
+  const [picture, setPicture] = useState("");
   const { data: session } = useSession();
   const [courseData, setCourseData] = useState([]);
+  const [courseId, setCourseId] = useState("");
+  const [joinPassword, setJoinPassword] = useState("");
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
@@ -20,7 +25,7 @@ const Courses = () => {
       const { user } = session;
       const loggedInUserEmail = user.email;
       const loggedInUserName = user.name;
-      console.log(loggedInUserName);
+      const loggedInUserImage = user.image;
 
       const formData = {
         courseName,
@@ -29,54 +34,100 @@ const Courses = () => {
         members: [
           {
             email: loggedInUserEmail,
-            role: "owner", // The creator of the class is the owner
+            role: "owner",
+            username: loggedInUserName,
+            image: loggedInUserImage,
           },
         ],
         ownerName: loggedInUserName,
       };
 
       // Send formData to backend API for storage in MongoDB
-      const res = await fetch('/api/courses', {
-        method: 'POST',
+      const res = await fetch("/api/courses/create", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
     }
   };
-
-  // fetching course data from backend
+  // Fetch courses based on user's email
   useEffect(() => {
     async function fetchCourses() {
       try {
-        const response = await fetch('/api/courses');
-        const data = await response.json();
-        setCourseData(data.courses);
+        if (session) {
+          const loggedInUserEmail = session.user.email;
+          const response = await fetch("/api/courses/create");
+          const data = await response.json();
+          const filteredCourses = data.courses.filter((item) =>
+            item.members.some((member) => member.email === loggedInUserEmail)
+          );
+          setCourseData(filteredCourses);
+        }
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.error("Error fetching courses:", error);
       }
     }
     fetchCourses();
-  }, []);
+  }, [session]);
+
+  // joining a class
+  const handleJoin = async (courseId, password) => {
+    if (session) {
+      const loggedInUserEmail = session.user.email;
+      const loggedInUserName = session.user.name;
+      const loggedInUserImage = session.user.image;
+      const formData = {
+        course_id: courseId,
+        password,
+        email: loggedInUserEmail,
+        role: "student",
+        username: loggedInUserName,
+        image: loggedInUserImage  // Assuming students are joining
+      };
+
+      const res = await fetch("/api/courses/join", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        fetchCourses();
+      } else {
+        console.error("Failed to join class:", data.message);
+      }
+    }
+  };
 
   const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: classroomAnimate,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
+      preserveAspectRatio: "xMidYMid slice",
+    },
   };
   return (
     <div className="text-justify px-7 w-3/4 mx-auto mb-10 pt-32">
-      <div className='flex justify-end'>
-        <div className='mr-5'>
+      <div className="flex justify-end">
+        <div className="mr-5">
           {/* Open the modal using ID.showModal() method */}
-          <button className="btn bg-[#0083db] text-white" onClick={() => window.my_modal_5.showModal()}>Create Class</button>
-          <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+          <button
+            className="btn bg-[#0083db] text-white"
+            onClick={() => window.my_modal_5.showModal()}
+          >
+            Create Class
+          </button>
+          <dialog
+            id="my_modal_5"
+            className="modal modal-bottom sm:modal-middle"
+          >
             <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
                 <div className="form-control">
@@ -123,7 +174,9 @@ const Courses = () => {
                   >
                     Create Class
                   </button>
-                  <button className="btn bg-red-600 text-white hover:bg-red-700">Close</button>
+                  <button className="btn bg-red-600 text-white hover:bg-red-700">
+                    Close
+                  </button>
                 </div>
               </div>
             </form>
@@ -131,8 +184,16 @@ const Courses = () => {
         </div>
         <div>
           {/* Open the modal using ID.showModal() method */}
-          <button className="btn bg-[#0083db] text-white" onClick={() => window.my_modal_6.showModal()}>Join Class</button>
-          <dialog id="my_modal_6" className="modal modal-bottom sm:modal-middle">
+          <button
+            className="btn bg-[#0083db] text-white"
+            onClick={() => window.my_modal_6.showModal()}
+          >
+            Join Class
+          </button>
+          <dialog
+            id="my_modal_6"
+            className="modal modal-bottom sm:modal-middle"
+          >
             <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
                 <div className="form-control">
@@ -144,6 +205,7 @@ const Courses = () => {
                     name="course id"
                     placeholder="Course ID"
                     className="input input-bordered"
+                    onChange={(e) => setCourseId(e.target.value)}
                   />
                 </div>
                 <div className="form-control">
@@ -155,17 +217,20 @@ const Courses = () => {
                     name="password"
                     placeholder="password"
                     className="input input-bordered"
+                    onChange={(e) => setJoinPassword(e.target.value)}
                   />
                 </div>
                 <div className="form-control mt-2">
                   <button
                     className="btn bg-blue-600 text-white hover:bg-blue-700"
                     type="submit"
+                    onClick={() => handleJoin(courseId, joinPassword)}
                   >
                     Join Class
                   </button>
-                  <button className="btn bg-red-600 text-white hover:bg-red-700">Close</button>
-
+                  <button className="btn bg-red-600 text-white hover:bg-red-700">
+                    Close
+                  </button>
                 </div>
               </div>
             </form>
@@ -173,7 +238,7 @@ const Courses = () => {
         </div>
       </div>
       {/* When a student or teacher doesn't have any classes it will show below lottie file and text */}
-      <div >
+      <div>
         {/* <div className='rounded md:w-3/4 mx-auto'>
           <Lottie options={defaultOptions} height={400} />
         </div>
@@ -182,29 +247,72 @@ const Courses = () => {
       {/* When a teacher or student have classes it will show classes with information */}
       <div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-4">
-          {
-            courseData.map((item) => (
-              <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
-                <div className="card shadow-xl my-10 p-2">
-                  <figure className="avatar">
-                    <div className="w-1/2 rounded-xl mx-auto">
-                      <Image src={item.picture} alt="My Image" width={200} height={200} />
+          {courseData.map((item) => (
+            <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
+              <div className="card card-compact w-96 bg-base-100 shadow-2xl">
+                {/* <figure>
+                  {item.picture ? (
+                    <img src={item.picture} />
+                  ) : (
+                    <img src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg" />
+                  )}
+                </figure> */}
+                <figure>
+                  
+                    <img src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg" />
+                 
+                </figure>
+                <div className="avatar-group -space-x-7 absolute top-[47%] right-3">
+                  {item.members.slice(0, 4).map((member, index) => (
+                    <div className="avatar" key={index}>
+                      <div className="w-12">
+                        <img src={member.image} />
+                      </div>
                     </div>
-                  </figure>
-                  <div className="card-body items-center">
-                    <h2 className="card-title">{item.courseName}</h2>
-                    <p className="text-sm text-gray-600">
-                      Instructor: {item.ownerName}
-                    </p>
+                  ))}
+                  <div className="avatar placeholder">
+                    <div className="w-12 bg-neutral-focus text-neutral-content">
+                      <span>+{item.members.length}</span>
+                    </div>
                   </div>
                 </div>
-              </Link>
-            ))
-          }
+                <div className="card-body">
+                  <div className="badge badge-info badge-outline badge-lg font-bold">
+                    Active
+                  </div>
+                  <h2 className="text-2xl font-bold">{item.courseName}</h2>
+                  <div className="flex gap-3">
+                    <GiTeacher size="1.6em" />
+                    <h2 className="text-lg font-bold">{item.ownerName}</h2>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-lg font-medium">4.0(75 reviews)</h1>
+                    <div className="flex items-center">
+                      <AiFillStar size="1.6em" color="#FDCC0D" />
+                      <AiFillStar size="1.6em" color="#FDCC0D" />
+                      <AiFillStar size="1.6em" color="#FDCC0D" />
+                      <AiFillStar size="1.6em" color="#FDCC0D" />
+                      <AiOutlineStar size="1.6em" />
+                    </div>
+                  </div>
+                  <div className="card-actions justify-between mt-6">
+                    <div className="flex items-center gap-2">
+                      <HiOutlineUserGroup size="1.9em" />
+                      <h1 className="text-lg">{item.members.length} people</h1>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <HiOutlineBookOpen size="1.9em" />
+                      <h1 className="text-lg">3 lessons</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Courses
+export default Courses;

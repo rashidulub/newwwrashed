@@ -3,7 +3,6 @@
     "course_id": "",
     "title": "Introduction to Computer Science",
     "description": "A comprehensive introduction to the fundamental concepts of computer science.",
-    "topic": "Computer Science",
     "attachments": [
       {
         "url": ""
@@ -16,7 +15,6 @@
     "course_id": "",
     "title": "Mathematics for Beginners",
     "description": "Learn basic mathematical concepts and techniques for everyday applications.",
-    "topic": "Mathematics",
     "attachments": [
       {
         "url": ""
@@ -29,7 +27,6 @@
     "course_id": "",
     "title": "Creative Writing Workshop",
     "description": "Unleash your creativity and improve your writing skills in this interactive workshop.",
-    "topic": "Writing",
     "attachments": [
       {
         "url": ""
@@ -42,7 +39,6 @@
     "course_id": "",
     "title": "Introduction to Physics",
     "description": "Explore the fundamental principles that govern the physical world.",
-    "topic": "Physics",
     "attachments": [
       {
         "url": ""
@@ -55,7 +51,6 @@
     "course_id": "",
     "title": "Beginner's Guide to Guitar",
     "description": "Learn the basics of playing the guitar and start strumming your favorite tunes.",
-    "topic": "Music",
     "attachments": [
       {
         "url": ""
