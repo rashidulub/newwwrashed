@@ -13,6 +13,7 @@ import { RiFileList2Line } from "react-icons/ri";
 import { AiOutlineSend } from "react-icons/ai";
 import { TbNotebook } from "react-icons/tb";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 
 const CourseDashboard = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -35,6 +36,7 @@ const CourseDashboard = () => {
   const [member, setMember] = useState([]);
   const [notice, setNotice] = useState([]);
   const [resources, setResources] = useState([]);
+  const {session} = useSession()
 
   const handleTabClick = (index) => {
     setTabIndex(index);
