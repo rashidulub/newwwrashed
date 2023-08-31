@@ -12,6 +12,8 @@ const Courses = () => {
   const [picture, setPicture] = useState("");
   const { data: session } = useSession();
   const [courseData, setCourseData] = useState([]);
+  const [courseId, setCourseId] = useState('');
+  const [joinPassword, setJoinPassword] = useState('');
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
@@ -36,8 +38,8 @@ const Courses = () => {
       };
 
       // Send formData to backend API for storage in MongoDB
-      const res = await fetch("/api/courses", {
-        method: "POST",
+      const res = await fetch('/api/courses/create', {
+        method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
@@ -54,7 +56,7 @@ const Courses = () => {
       try {
         if (session) {
           const loggedInUserEmail = session.user.email;
-          const response = await fetch("/api/courses");
+          const response = await fetch('/api/courses');
           const data = await response.json();
           const filteredCourses = data.courses.filter((item) =>
             item.members.some((member) => member.email === loggedInUserEmail)
@@ -67,6 +69,35 @@ const Courses = () => {
     }
     fetchCourses();
   }, [session]);
+
+  // joining a class
+  const handleJoin = async (courseId, password) => {
+    if (session) {
+      const loggedInUserEmail = session.user.email;
+      const formData = {
+        courseId,
+        password,
+        email: loggedInUserEmail,
+        role: 'student', // Assuming students are joining
+      };
+
+      const res = await fetch('/api/courses/join', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        // Refresh course data after joining
+        fetchCourses();
+      } else {
+        console.error('Failed to join class:', data.message);
+      }
+    }
+  };
 
   const defaultOptions = {
     loop: true,
@@ -168,6 +199,7 @@ const Courses = () => {
                     name="course id"
                     placeholder="Course ID"
                     className="input input-bordered"
+                    onChange={(e) => setCourseId(e.target.value)}
                   />
                 </div>
                 <div className="form-control">
@@ -179,12 +211,14 @@ const Courses = () => {
                     name="password"
                     placeholder="password"
                     className="input input-bordered"
+                    onChange={(e) => setJoinPassword(e.target.value)}
                   />
                 </div>
                 <div className="form-control mt-2">
                   <button
                     className="btn bg-blue-600 text-white hover:bg-blue-700"
                     type="submit"
+                    onClick={() => handleJoin(courseId, joinPassword)}
                   >
                     Join Class
                   </button>
