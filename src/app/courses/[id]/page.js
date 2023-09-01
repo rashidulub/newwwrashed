@@ -274,7 +274,7 @@ const CourseDashboard = ({ params }) => {
       });
     }
   };
-
+  console.log(member)
   // For Getting Assignment Data
   useEffect(() => {
     const fetchAssignments = async () => {
