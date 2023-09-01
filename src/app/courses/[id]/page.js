@@ -38,6 +38,7 @@ const CourseDashboard = ({ params }) => {
   const [resources, setResources] = useState([]);
   const { session } = useSession();
   const [isLoading, setIsLoading] = useState(true);
+  const [presentCourse, setPresentCourse] = useState([]);
 
   const courseId = params.id;
 
@@ -274,7 +275,7 @@ const CourseDashboard = ({ params }) => {
       });
     }
   };
-  console.log(member)
+  console.log(presentCourse);
   // For Getting Assignment Data
   useEffect(() => {
     const fetchAssignments = async () => {
@@ -307,6 +308,7 @@ const CourseDashboard = ({ params }) => {
           const data = await response.json();
           const findCourse = data.courses.find((item) => item._id === courseId);
           setMember(findCourse);
+          setPresentCourse(findCourse);
         } else {
           console.error("Failed to fetch assignments.");
         }
@@ -880,19 +882,31 @@ const CourseDashboard = ({ params }) => {
       <div className="grid grid-cols-3 gap-5">
         <div className="border-4 border-[#0083db] p-5 rounded-lg">
           <div className="w-80 h-80 relative text-center">
-            <Image
-              className="rounded-lg w-full h-full object-cover border border-[#0083db]"
-              src={"https://i.ibb.co/hg4p7QB/php.png"}
-              width={600}
-              height={600}
-              alt="user photo"
-            />
+            {presentCourse.picture ? (
+              <Image
+                className="rounded-lg w-full h-full object-fill border border-[#0083db]"
+                src={presentCourse.picture}
+                width={400}
+                height={400}
+                alt="user photo"
+              />
+            ) : (
+              <Image
+                className="rounded-lg w-full h-full object-fill border border-[#0083db]"
+                src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg"
+                width={400}
+                height={400}
+                alt="user photo"
+              />
+            )}
           </div>
           <div className="pb-4 pt-2">
             <h3 className="text-4xl text-[#0083db] font-semibold">
-              Web Development with PHP
+              {presentCourse.courseName}
             </h3>
-            <h5 className="font-semibold text-2xl">Jane Doe</h5>
+            <h5 className="font-semibold text-2xl">
+              {presentCourse.ownerName}
+            </h5>
           </div>
           <div className="">
             {categories.map((category, index) => (
