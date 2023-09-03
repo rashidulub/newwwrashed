@@ -151,28 +151,7 @@ const dashboardPage = () => {
       </div> */}
 
       {/* total male and female + exrta one Component Here */}
-      <div className="grid grid-cols-1">
-        <h3 className="text-3xl font-semibold mb-4">Male-Female Graph</h3>
-        <div style={{ width: "400px", height: "500px" }}>
-          <ResponsiveContainer>
-            <BarChart
-              data={data}
-              margin={{
-                top: 15,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="pv" fill="#0083db" />
-              {/* <Bar dataKey="uv" fill="#82ca9d" /> */}
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
+     
 
       {/* All user Detail/table Component Here */}
       <div className="grid grid-cols-1 gap-3 mb-7">
