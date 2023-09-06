@@ -22,7 +22,8 @@ const noticesSchema = new Schema(
 
     }, { timestamps: true })
 
-const Notices = models.Notices || model("Notices", noticesSchema);
+const Assignments = models && models.Assignment ? models.Assignment : model("Assignment", assignmentSchema);
+
 
 export default Notices;
 

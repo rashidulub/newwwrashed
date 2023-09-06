@@ -320,6 +320,8 @@ const CourseDashboard = ({ params }) => {
     };
     fetchMember();
   }, []);
+  console.log(member);
+  console.log(presentCourse);
   // For Getting Notice Data
   useEffect(() => {
     const fetchNotice = async () => {
@@ -913,11 +915,10 @@ const CourseDashboard = ({ params }) => {
               <Link
                 href="#"
                 key={index}
-                className={`font-semibold text-xl mb-2 flex flex-col ${
-                  tabIndex === index
-                    ? "tab-active text-[#0083db] pl-2 border-l-2 border-[#0083db]"
-                    : ""
-                }`}
+                className={`font-semibold text-xl mb-2 flex flex-col ${tabIndex === index
+                  ? "tab-active text-[#0083db] pl-2 border-l-2 border-[#0083db]"
+                  : ""
+                  }`}
                 onClick={() => handleTabClick(index)}
               >
                 {category.charAt(0).toUpperCase() + category.slice(1)}

@@ -8,7 +8,7 @@ import LogOut from "@/Components/auth/LogOut";
 
 
 const Navbar = async () => {
-	const session = await getServerSession(authOptions)	
+	const session = await getServerSession(authOptions)
 	// console.log(session, 'user session')ef
 	const menu = (
 		<>
@@ -24,6 +24,9 @@ const Navbar = async () => {
 				</li>
 				{session && <li>
 					<Link href="/dashboard">Dashboard</Link>
+				</li>}
+				{session && <li>
+					<Link href="/admindashboard">Admin Dashboard</Link>
 				</li>}
 			</div>
 		</>
