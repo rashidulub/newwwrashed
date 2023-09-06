@@ -22,11 +22,11 @@ const Navbar = async () => {
 				<li>
 					<Link href="/blogs">Blogs</Link>
 				</li>
-				{session && <li>
+				{/* {session && <li>
 					<Link href="/dashboard">Dashboard</Link>
-				</li>}
+				</li>} */}
 				{session && <li>
-					<Link href="/admindashboard">Admin Dashboard</Link>
+					<Link href="/admindashboard">Dashboard</Link>
 				</li>}
 			</div>
 		</>
