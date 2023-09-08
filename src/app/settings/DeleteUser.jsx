@@ -23,17 +23,6 @@ const DeleteUser = (props) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                module.exports = {
-                    async redirects() {
-                        return [
-                            {
-                                source: '/settings',
-                                destination: '/',
-                                permanent: true,
-                            },
-                        ]
-                    },
-                }
                 signOut();
                 Swal.fire(
                     'Deleted!',
