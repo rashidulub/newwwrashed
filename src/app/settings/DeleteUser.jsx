@@ -14,7 +14,7 @@ const DeleteUser = (props) => {
             setDisabled(false);
         }
         Swal.fire({
-            title: 'Are you sure?',
+            title: 'Are you sure about this?',
             text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
