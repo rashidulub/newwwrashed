@@ -8,8 +8,8 @@ import LogOut from "@/Components/auth/LogOut";
 
 
 const Navbar = async () => {
-	const session = await getServerSession(authOptions)	
-	// console.log(session, 'user session')ef
+	const session = await getServerSession(authOptions)
+	console.log(session, 'user session from navbar')
 	const menu = (
 		<>
 			<div className="lg:flex items-center lg:text-xl">
@@ -22,8 +22,14 @@ const Navbar = async () => {
 				<li>
 					<Link href="/blogs">Blogs</Link>
 				</li>
-				{session && <li>
+				{/* {session && <li>
 					<Link href="/dashboard">Dashboard</Link>
+				</li>} */}
+				{session && <li>
+					<Link href="/admindashboard">Dashboard</Link>
+				</li>}
+				{session && <li>
+					<Link href="/chat">Chat</Link>
 				</li>}
 			</div>
 		</>

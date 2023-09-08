@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthProvider from "@/Context/authContext/AuthProvider";
 import "react-datepicker/dist/react-datepicker.css";
+import { ChatContextProvider } from "./Context/context";
 
 const inter = Saira({ subsets: ["latin"] });
 
@@ -19,26 +20,28 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <div>
-          <Navbar />
-          <AuthProvider>
-            <main className="">
-              {children}
-              <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-              />
-              <ToastContainer />
-            </main>
-          </AuthProvider>
-          <Footer />
+          <ChatContextProvider>
+            <Navbar />
+            <AuthProvider>
+              <main className="">
+                {children}
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="light"
+                />
+                <ToastContainer />
+              </main>
+            </AuthProvider>
+            <Footer />
+          </ChatContextProvider>
         </div>
       </body>
     </html>

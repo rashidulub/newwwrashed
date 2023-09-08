@@ -21,6 +21,7 @@ export const authOptions = {
             },
             async authorize(credentials, req) {
                 const { email, password } = credentials;
+                console.log(email, password, 'from callback')
                 try {
                     const user = await User.findOne({ email: email })
                     if (!user) {
@@ -30,6 +31,7 @@ export const authOptions = {
                     if (!isPasswordValid) {
                         return null;
                     }
+                    console.log(user, 'callback from user')
                     return user;
                 } catch (error) {
 
@@ -44,9 +46,11 @@ export const authOptions = {
             if (account.type === 'oauth') {
                 return await signInWithOAuth({ account, profile })
             }
+            console.log(user, 'from callback user main user')
             return true;
         },
         async jwt({ token, trigger, session }) {
+            console.log(trigger, 'from jwt callbacks')
             return token;
         },
         async session({ session, token }) {
