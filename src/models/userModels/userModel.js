@@ -1,13 +1,17 @@
 import { Schema, model, models } from "mongoose";
 
 const userSchema = new Schema({
-    username: {
+    name: {
         type: String,
     },
     image: {
         type: String,
+        defalut: 'https://i.ibb.co/GW2pwSv/google.png'
     },
     email: {
+        type: String,
+    },
+    password: {
         type: String,
     }
 }, { timestamps: true })

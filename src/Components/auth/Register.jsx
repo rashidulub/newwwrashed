@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
-import { imageUpload } from '@/apiHook/imageUpload';
+// import { imageUpload } from '@/apiHook/imageUpload';
 
 const Register = ({ callbackUrl }) => {
     const [photo, setPhoto] = useState('')
@@ -35,7 +35,7 @@ const Register = ({ callbackUrl }) => {
             //         setLoad(false)
             //     })
             console.log(photo)
-            const res = await axios.post("http://localhost:3000/api/register", { name, email, password, image: photo });
+            const res = await axios.post("http://localhost:3000/api/register", { name, email, password });
             const data = res.data;
             console.log(data.user);
             if (!data.user) {

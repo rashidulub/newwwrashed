@@ -9,7 +9,7 @@ import LogOut from "@/Components/auth/LogOut";
 
 const Navbar = async () => {
 	const session = await getServerSession(authOptions)
-	// console.log(session, 'user session')ef
+	console.log(session, 'user session from navbar')
 	const menu = (
 		<>
 			<div className="lg:flex items-center lg:text-xl">
@@ -27,6 +27,9 @@ const Navbar = async () => {
 				</li>} */}
 				{session && <li>
 					<Link href="/admindashboard">Dashboard</Link>
+				</li>}
+				{session && <li>
+					<Link href="/chat">Chat</Link>
 				</li>}
 			</div>
 		</>

@@ -104,7 +104,7 @@ const SignIn = ({ callbackUrl }) => {
 											{load ? (
 												<span className="border-2 border-dashed border-white animate-spin w-7 h-7 rounded-full"></span>
 											) : (
-												" Register"
+												"Login"
 											)}
 										</button>
 									</div>
@@ -112,10 +112,9 @@ const SignIn = ({ callbackUrl }) => {
 								<div>
 									<SocialLogin callbackUrl={callbackUrl}></SocialLogin>
 									<p className="text-xs text-gray-600 sm:text-sm mt-5 cursor-pointer">
-										Create an account?{" "}
+										Create an account?
 										<Link href="/signUp" className="font-semibold">
-											{" "}
-											Register Now
+											Register
 										</Link>
 									</p>
 								</div>

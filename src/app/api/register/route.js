@@ -10,6 +10,7 @@ export async function POST(request) {
     try {
         await bdConnect()
         const exsistUser = await User.findOne({ email: email })
+        console.log(exsistUser)
         if (exsistUser) {
             return NextResponse.json({ meg: 'user alredy exsist' })
         }

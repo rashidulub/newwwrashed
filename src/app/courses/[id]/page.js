@@ -12,6 +12,7 @@ import { MdOutlineSubject, MdDateRange } from "react-icons/md";
 import { RiFileList2Line } from "react-icons/ri";
 import { AiOutlineSend } from "react-icons/ai";
 import { TbNotebook } from "react-icons/tb";
+import { BiLogoZoom } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 
@@ -906,9 +907,12 @@ const CourseDashboard = ({ params }) => {
             <h3 className="text-4xl text-[#0083db] font-semibold">
               {presentCourse.courseName}
             </h3>
-            <h5 className="font-semibold text-2xl">
-              {presentCourse.ownerName}
-            </h5>
+            <div className="flex justify-between items-center">
+              <h5 className="font-semibold text-2xl">
+                {presentCourse.ownerName}
+              </h5>
+              <Link href="/video"><BiLogoZoom size="2.5em" color="#0083db"/></Link>
+            </div>
           </div>
           <div className="">
             {categories.map((category, index) => (
