@@ -26,7 +26,7 @@ const DeleteUser = (props) => {
                 signOut();
                 Swal.fire(
                     'Deleted!',
-                    'Your file has been deleted.',
+                    'Your file has been deleted',
                     'success'
                 )
             }
