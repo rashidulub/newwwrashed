@@ -25,6 +25,9 @@ const Navbar = async () => {
 				{session && <li>
 					<Link href="/dashboard">Dashboard</Link>
 				</li>}
+				{session && <li>
+					<Link href="/chat">Chat</Link>
+				</li>}
 			</div>
 		</>
 	);

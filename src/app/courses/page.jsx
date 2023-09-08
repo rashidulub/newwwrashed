@@ -8,6 +8,8 @@ import { useSession } from "next-auth/react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { HiOutlineBookOpen, HiOutlineUserGroup } from "react-icons/hi";
 import { GiTeacher } from "react-icons/gi";
+// import axios from "axios";
+// import { useChatContext } from "../Context/context";
 
 const Courses = () => {
   const [courseName, setCourseName] = useState("");
@@ -17,20 +19,53 @@ const Courses = () => {
   const [courseData, setCourseData] = useState([]);
   const [courseId, setCourseId] = useState("");
   const [joinPassword, setJoinPassword] = useState("");
+  // const { username, setUsername, secret, setSecret, email, setEmail } =
+  //   useChatContext();
+  // const [users, setUsers] = useState([]);
 
+  // // Get User Details from MOngoDB
+  // useEffect(() => {
+  //   if (session) {
+  //     const { user } = session;
+  //     // console.log(user)
+  //     const loggedInUserEmail = user.email;
+  //     const fetchUser = async () => {
+  //       try {
+  //         const response = await fetch("http://localhost:3000/api/user");
+  //         if (response.ok) {
+  //           const data = await response.json();
+  //           const findUser = data.find(
+  //             (item) => item.email === loggedInUserEmail
+  //           );
+  //           // console.log(findUser);
+  //           setUsers(findUser);
+  //         } else {
+  //           console.error("Failed to fetch User.");
+  //         }
+  //       } catch (error) {
+  //         console.error("An error occurred:", error);
+  //       }
+  //     };
+  //     fetchUser();
+  //   }
+  // }, [session]);
+
+  // Create Class
   const handleSubmit = async (e) => {
     // e.preventDefault();
-
     if (session) {
       const { user } = session;
       const loggedInUserEmail = user.email;
       const loggedInUserName = user.name;
       const loggedInUserImage = user.image;
+      // const apiUrl = "https://api.chatengine.io/chats/";
 
       const formData = {
         courseName,
-        password,
         picture,
+        // chatID: "",
+        // chatAccessKey: "",
+        password,
         members: [
           {
             email: loggedInUserEmail,
@@ -51,8 +86,35 @@ const Courses = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
+
+      // Create Chat group for the course
+      // axios
+      //   .put(
+      //     apiUrl,
+      //     {
+      //       username: [loggedInUserName],
+      //       title: courseName,
+      //       is_direct_chat: "true",
+      //     },
+      //     {
+      //       headers: {
+      //         "Project-ID": process.env.REACT_APP_CE_PORJECT_ID,
+      //         "User-Name": loggedInUserName,
+      //         "User-Secret": users._id,
+      //       },
+      //     }
+      //   )
+      //   .then((response) => {
+      //     const userData = response.data;
+      //     console.log("User Data:", userData);
+      //     // console.log(userData);
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error fetching user data:", error);
+      //   });
     }
   };
+  
   // Fetch courses based on user's email
   useEffect(() => {
     async function fetchCourses() {
@@ -85,7 +147,7 @@ const Courses = () => {
         email: loggedInUserEmail,
         role: "student",
         username: loggedInUserName,
-        image: loggedInUserImage  // Assuming students are joining
+        image: loggedInUserImage, // Assuming students are joining
       };
 
       const res = await fetch("/api/courses/join", {
@@ -258,9 +320,7 @@ const Courses = () => {
                   )}
                 </figure> */}
                 <figure>
-                  
-                    <img src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg" />
-                 
+                  <img src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg" />
                 </figure>
                 <div className="avatar-group -space-x-7 absolute top-[47%] right-3">
                   {item.members.slice(0, 4).map((member, index) => (
