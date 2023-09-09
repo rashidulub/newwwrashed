@@ -1,5 +1,6 @@
 'use client';
 
+import { useSession } from "next-auth/react";
 import { createContext, useContext, useState } from "react";
 
 const ChatContext = createContext({})
@@ -9,6 +10,7 @@ export const ChatContextProvider = ({ children }) => {
   const [secret, setSecret] = useState("");
   const [email, setEmail] = useState("");
   
+
   const value = {
     username,
     setUsername,

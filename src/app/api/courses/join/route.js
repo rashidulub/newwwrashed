@@ -15,7 +15,7 @@ export async function POST(request) {
         if (course) {
             const existingMember = course.members.find(member => member.email === email);
             if (!existingMember) {
-                course.members.push({ course_id, password, email, role,username,image });
+                course.members.push({ email, role,username,image });
                 await course.save();
                 return NextResponse.json({ success: true, message: "Successfully joined the class" }, { status: 200 });
             } else {
