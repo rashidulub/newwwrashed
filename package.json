@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@zegocloud/zego-uikit-prebuilt": "^1.8.11",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "date-fns": "^2.30.0",
