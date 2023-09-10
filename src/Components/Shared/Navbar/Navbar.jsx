@@ -5,6 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import LogOut from "@/Components/auth/LogOut";
+import Themes from "./Themes";
 
 
 const Navbar = async () => {
@@ -70,7 +71,7 @@ const Navbar = async () => {
 					<ul className="menu menu-horizontal px-1 mt-3">{menu}</ul>
 				</div>
 				<div className="navbar-end">
-
+					<Themes />
 					{session ? <div className="dropdown dropdown-end">
 						<label
 							tabIndex={0}
