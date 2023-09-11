@@ -5,7 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import LogOut from "@/Components/auth/LogOut";
-import Themes from "./Themes";
+import Themes from "../Themes/Themes";
 
 
 const Navbar = async () => {
@@ -36,7 +36,7 @@ const Navbar = async () => {
 		</>
 	);
 	return (
-		<div className="fixed w-full bg-white z-50 shadow-sm">
+		<div className="fixed w-full p-color z-50 shadow-sm">
 			<div className="navbar lg:w-3/4 w-11/12 mx-auto">
 				<div className="navbar-start">
 					<div className="dropdown">

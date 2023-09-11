@@ -51,7 +51,7 @@ const Slider = () => {
 					users.map(user => <div key={user._id}>
 						<SwiperSlide>
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-8">
-								<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
+								<div className="text-center s-color py-5 px-3 space-y-2 rounded-2xl">
 									<div className="w-24 h-24 mx-auto rounded-full text-center">
 										{/* <img
 											className="rounded-full border-4 border-[#0083db] text-center"
@@ -78,7 +78,7 @@ const Slider = () => {
 										{user.review}
 									</p>
 								</div>
-								<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
+								<div className="text-center s-color py-5 px-3 space-y-2 rounded-2xl">
 									<div className="w-24 h-24 mx-auto rounded-full text-center">
 										<img className="rounded-full border-4 border-[#0083db] text-center" src={user.image1} alt="" />
 									</div>
@@ -99,7 +99,7 @@ const Slider = () => {
 										{user.review1}
 									</p>
 								</div>
-								<div className="text-center border-4 border-[#0083db] py-5 px-3 space-y-2 rounded-2xl">
+								<div className="text-center s-color py-5 px-3 space-y-2 rounded-2xl">
 									<div className="w-24 h-24 mx-auto rounded-full text-center">
 										<img className="rounded-full border-4 border-[#0083db] text-center" src={user.image2} alt="" />
 									</div>
