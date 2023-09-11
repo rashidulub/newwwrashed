@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-// import Lottie from 'react-lottie';
+import Lottie from 'react-lottie';
 import classroomAnimate from "../../../public/classroom.json";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -24,87 +24,6 @@ const Courses = () => {
   //   useChatContext();
   // const [users, setUsers] = useState([]);
 
-  // // Get User Details from MOngoDB
-  // useEffect(() => {
-  //   if (session) {
-  //     const { user } = session;
-  //     // console.log(user)
-  //     const loggedInUserEmail = user.email;
-  //     const fetchUser = async () => {
-  //       try {
-  //         const response = await fetch("http://localhost:3000/api/user");
-  //         if (response.ok) {
-  //           const data = await response.json();
-  //           const findUser = data.find(
-  //             (item) => item.email === loggedInUserEmail
-  //           );
-  //           // console.log(findUser);
-  //           setUsers(findUser);
-  //         } else {
-  //           console.error("Failed to fetch User.");
-  //         }
-  //       } catch (error) {
-  //         console.error("An error occurred:", error);
-  //       }
-  //     };
-  //     fetchUser();
-  //   }
-  // }, [session]);
-
-  // Create Class
-  // const handleSubmit = async (e) => {
-  //   // e.preventDefault();
-  //   if (session) {
-  //     const { user } = session;
-  //     const loggedInUserEmail = user.email;
-  //     const loggedInUserName = user.name;
-  //     const loggedInUserImage = user.image;
-  //     // const apiUrl = "https://api.chatengine.io/chats/";
-
-  //     const formData = {
-  //       courseName,
-  //       picture,
-  //       // chatID: "",
-  //       // chatAccessKey: "",
-  //       password,
-  //       members: [
-  //         {
-  //           email: loggedInUserEmail,
-  //           role: "owner",
-  //           username: loggedInUserName,
-  //           image: loggedInUserImage,
-  //         },
-  //       ],
-  //       ownerName: loggedInUserName,
-  //     };
-
-  //     // Send formData to backend API for storage in MongoDB
-  //     const res = await fetch("/api/courses/create", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-  //     const data = await res.json();
-
-  //     if (data.success) {
-  //       Swal.fire({
-  //         icon: 'success',
-  //         title: 'Class Created Successfully',
-  //         text: 'Your class has been created successfully!',
-  //       });
-  //       // fetchCourses(); // Optionally, you can refresh the course list
-  //     } else {
-  //       Swal.fire({
-  //         icon: 'error',
-  //         title: 'Class Creation Failed',
-  //         text: 'Failed to create the class. Please try again later.',
-  //       });
-  //     }
-
-  //   }
-  // };
   const handleSubmit = async (e) => {
 
     if (!courseName || !password || !picture) {
@@ -377,53 +296,46 @@ const Courses = () => {
           </dialog>
         </div>
       </div>
-      {/* When a student or teacher doesn't have any classes it will show below lottie file and text */}
-      <div>
-        {/* <div className='rounded md:w-3/4 mx-auto'>
-          <Lottie options={defaultOptions} height={400} />
+
+      {courseData.length === 0 ? (
+        // Showing picture when there is no course data
+        <div className="w-full flex flex-col items-center justify-center">
+          <Lottie className='mx-auto my-5' options={defaultOptions} height={400} width={400} />
+          <div>
+            <p className="mx-auto text-xl font-semibold my-3">You have no classes Yet !!!</p>
+          </div>
         </div>
-        <h3 className='text-2xl font-semibold text-center py-5 text-[#0083db]'>You have no classes...</h3> */}
-      </div>
-      {/* When a teacher or student have classes it will show classes with information */}
-      <div>
-        <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6 my-4">
-          {courseData.map((item) => (
-            <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
-              <div className="card card-compact w-96 h-96 bg-base-100 shadow-2xl">
-                {/* <figure>
-                  {item.picture ? (
+      ) : (
+        // Show courses when there is course data
+        <div>
+          <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6 my-4">
+            {courseData.map((item) => (
+              <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
+                <div className="card card-compact w-96 h-96 bg-base-100 shadow-2xl">
+                  <figure className="h-[72%]">
                     <img src={item.picture} />
-                  ) : (
-                    <img src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg" />
-                  )}
-                </figure> */}
-                <figure className="h-[72%]">
-                  <img src={item.picture} />
-                </figure>
-                <div className="avatar-group -space-x-7 absolute top-[47%] right-3">
-                  {item.members.slice(0, 4).map((member, index) => (
-                    <div className="avatar" key={index}>
-                      <div className="w-12">
-                        <img src={member.image} />
+                  </figure>
+                  <div className="avatar-group -space-x-7 absolute top-[47%] right-3">
+                    {item.members.slice(0, 4).map((member, index) => (
+                      <div className="avatar" key={index}>
+                        <div className="w-12">
+                          <img src={member.image} />
+                        </div>
+                      </div>
+                    ))}
+                    <div className="avatar placeholder">
+                      <div className="w-12 bg-neutral-focus text-neutral-content">
+                        <span>+{item.members.length}</span>
                       </div>
                     </div>
-                  ))}
-                  <div className="avatar placeholder">
-                    <div className="w-12 bg-neutral-focus text-neutral-content">
-                      <span>+{item.members.length}</span>
+                  </div>
+                  <div className="card-body">
+                    <h2 className="text-2xl font-bold">{item.courseName}</h2>
+                    <div className="flex gap-3">
+                      <GiTeacher size="1.6em" />
+                      <h2 className="text-lg font-bold">{item.ownerName}</h2>
                     </div>
-                  </div>
-                </div>
-                <div className="card-body">
-                  {/* <div className="badge badge-info badge-outline badge-lg font-bold">
-                    Active
-                  </div> */}
-                  <h2 className="text-2xl font-bold">{item.courseName}</h2>
-                  <div className="flex gap-3">
-                    <GiTeacher size="1.6em" />
-                    <h2 className="text-lg font-bold">{item.ownerName}</h2>
-                  </div>
-                  {/* <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                     <h1 className="text-lg font-medium">4.0(75 reviews)</h1>
                     <div className="flex items-center">
                       <AiFillStar size="1.6em" color="#FDCC0D" />
@@ -433,22 +345,23 @@ const Courses = () => {
                       <AiOutlineStar size="1.6em" />
                     </div>
                   </div> */}
-                  <div className="card-actions justify-between mt-6">
-                    <div className="flex items-center gap-2">
-                      <HiOutlineUserGroup size="1.9em" />
-                      <h1 className="text-lg">{item.members.length} people</h1>
-                    </div>
-                    {/* <div className="flex items-center gap-2">
+                    <div className="card-actions justify-between mt-6">
+                      <div className="flex items-center gap-2">
+                        <HiOutlineUserGroup size="1.9em" />
+                        <h1 className="text-lg">{item.members.length} people</h1>
+                      </div>
+                      {/* <div className="flex items-center gap-2">
                       <HiOutlineBookOpen size="1.9em" />
                       <h1 className="text-lg">3 lessons</h1>
                     </div> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
