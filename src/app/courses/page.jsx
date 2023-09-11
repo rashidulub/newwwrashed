@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { HiOutlineBookOpen, HiOutlineUserGroup } from "react-icons/hi";
 import { GiTeacher } from "react-icons/gi";
+import Swal from 'sweetalert2';
 // import axios from "axios";
 // import { useChatContext } from "../Context/context";
 
@@ -51,20 +52,80 @@ const Courses = () => {
   // }, [session]);
 
   // Create Class
+  // const handleSubmit = async (e) => {
+  //   // e.preventDefault();
+  //   if (session) {
+  //     const { user } = session;
+  //     const loggedInUserEmail = user.email;
+  //     const loggedInUserName = user.name;
+  //     const loggedInUserImage = user.image;
+  //     // const apiUrl = "https://api.chatengine.io/chats/";
+
+  //     const formData = {
+  //       courseName,
+  //       picture,
+  //       // chatID: "",
+  //       // chatAccessKey: "",
+  //       password,
+  //       members: [
+  //         {
+  //           email: loggedInUserEmail,
+  //           role: "owner",
+  //           username: loggedInUserName,
+  //           image: loggedInUserImage,
+  //         },
+  //       ],
+  //       ownerName: loggedInUserName,
+  //     };
+
+  //     // Send formData to backend API for storage in MongoDB
+  //     const res = await fetch("/api/courses/create", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+  //     const data = await res.json();
+
+  //     if (data.success) {
+  //       Swal.fire({
+  //         icon: 'success',
+  //         title: 'Class Created Successfully',
+  //         text: 'Your class has been created successfully!',
+  //       });
+  //       // fetchCourses(); // Optionally, you can refresh the course list
+  //     } else {
+  //       Swal.fire({
+  //         icon: 'error',
+  //         title: 'Class Creation Failed',
+  //         text: 'Failed to create the class. Please try again later.',
+  //       });
+  //     }
+
+  //   }
+  // };
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+
+    if (!courseName || !password || !picture) {
+      // Check if required fields are empty
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill out all required fields.',
+      });
+      return; // Don't proceed with the API call if validation fails
+    }
+
     if (session) {
       const { user } = session;
       const loggedInUserEmail = user.email;
       const loggedInUserName = user.name;
       const loggedInUserImage = user.image;
-      // const apiUrl = "https://api.chatengine.io/chats/";
 
       const formData = {
         courseName,
         picture,
-        // chatID: "",
-        // chatAccessKey: "",
         password,
         members: [
           {
@@ -77,44 +138,43 @@ const Courses = () => {
         ownerName: loggedInUserName,
       };
 
-      // Send formData to backend API for storage in MongoDB
-      const res = await fetch("/api/courses/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
+      try {
+        const res = await fetch("/api/courses/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
 
-      // Create Chat group for the course
-      // axios
-      //   .put(
-      //     apiUrl,
-      //     {
-      //       username: [loggedInUserName],
-      //       title: courseName,
-      //       is_direct_chat: "true",
-      //     },
-      //     {
-      //       headers: {
-      //         "Project-ID": process.env.REACT_APP_CE_PORJECT_ID,
-      //         "User-Name": loggedInUserName,
-      //         "User-Secret": users._id,
-      //       },
-      //     }
-      //   )
-      //   .then((response) => {
-      //     const userData = response.data;
-      //     console.log("User Data:", userData);
-      //     // console.log(userData);
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error fetching user data:", error);
-      //   });
+        if (res.ok) {
+          // Course creation was successful
+          Swal.fire({
+            icon: 'success',
+            title: 'Class Created Successfully',
+            text: 'Your class has been created successfully!',
+          });
+
+        } else {
+          // Course creation failed
+          Swal.fire({
+            icon: 'error',
+            title: 'Class Creation Failed',
+            text: 'Failed to create the class. Please try again later.',
+          });
+        }
+      } catch (error) {
+        // An error occurred while making the API call
+        console.error("Error creating class:", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Class Creation Failed',
+          text: 'An error occurred while creating the class. Please try again later.',
+        });
+      }
     }
   };
-  
+
   // Fetch courses based on user's email
   useEffect(() => {
     async function fetchCourses() {
@@ -160,9 +220,18 @@ const Courses = () => {
       const data = await res.json();
 
       if (data.success) {
-        fetchCourses();
+        Swal.fire({
+          icon: 'success',
+          title: 'Class Joined Successfully',
+          text: 'You have successfully joined the class!',
+        });
+
       } else {
-        console.error("Failed to join class:", data.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Class Joining Failed',
+          text: 'Failed to join the class. Please check the course ID and password.',
+        });
       }
     }
   };
@@ -176,7 +245,7 @@ const Courses = () => {
     },
   };
   return (
-    <div className="text-justify px-7 w-3/4 mx-auto mb-10 pt-32">
+    <div className="text-justify px-7 w-full lg:w-3/4 mx-auto mb-10 pt-32">
       <div className="flex justify-end">
         <div className="mr-5">
           {/* Open the modal using ID.showModal() method */}
@@ -188,7 +257,7 @@ const Courses = () => {
           </button>
           <dialog
             id="my_modal_5"
-            className="modal modal-bottom sm:modal-middle"
+            className="modal sm:modal-middle"
           >
             <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
@@ -229,16 +298,22 @@ const Courses = () => {
                   />
                 </div>
                 <div className="form-control mt-2">
-                  <button
-                    className="btn bg-blue-600 text-white hover:bg-blue-700"
-                    type="submit"
-                    onClick={handleSubmit}
-                  >
-                    Create Class
-                  </button>
-                  <button className="btn bg-red-600 text-white hover:bg-red-700">
+
+                  <form method="dialog">
+                    <button
+                      className="btn bg-blue-600 text-white hover:bg-blue-700 px-[110px]"
+                      type="submit"
+                      onClick={handleSubmit}
+                    >
+                      Create Class
+                    </button>
+                  </form>
+                  <form method="dialog">
+                    <button className="btn bg-red-600 text-white hover:bg-red-700 px-[139px]">Close</button>
+                  </form>
+                  {/* <button method="dialog" className="btn bg-red-600 text-white hover:bg-red-700">
                     Close
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </form>
@@ -254,7 +329,7 @@ const Courses = () => {
           </button>
           <dialog
             id="my_modal_6"
-            className="modal modal-bottom sm:modal-middle"
+            className="modal sm:modal-middle"
           >
             <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
@@ -283,16 +358,19 @@ const Courses = () => {
                   />
                 </div>
                 <div className="form-control mt-2">
-                  <button
-                    className="btn bg-blue-600 text-white hover:bg-blue-700"
-                    type="submit"
-                    onClick={() => handleJoin(courseId, joinPassword)}
-                  >
-                    Join Class
-                  </button>
-                  <button className="btn bg-red-600 text-white hover:bg-red-700">
-                    Close
-                  </button>
+
+                  <form method="dialog">
+                    <button
+                      className="btn bg-blue-600 text-white hover:bg-blue-700 px-[121px]"
+                      type="submit"
+                      onClick={() => handleJoin(courseId, joinPassword)}
+                    >
+                      Join Class
+                    </button>
+                  </form>
+                  <form method="dialog">
+                    <button className="btn bg-red-600 text-white hover:bg-red-700 px-[139px]">Close</button>
+                  </form>
                 </div>
               </div>
             </form>
@@ -308,10 +386,10 @@ const Courses = () => {
       </div>
       {/* When a teacher or student have classes it will show classes with information */}
       <div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-4">
+        <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6 my-4">
           {courseData.map((item) => (
             <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
-              <div className="card card-compact w-96 bg-base-100 shadow-2xl">
+              <div className="card card-compact w-96 h-96 bg-base-100 shadow-2xl">
                 {/* <figure>
                   {item.picture ? (
                     <img src={item.picture} />
@@ -319,8 +397,8 @@ const Courses = () => {
                     <img src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg" />
                   )}
                 </figure> */}
-                <figure>
-                  <img src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg" />
+                <figure className="h-[72%]">
+                  <img src={item.picture} />
                 </figure>
                 <div className="avatar-group -space-x-7 absolute top-[47%] right-3">
                   {item.members.slice(0, 4).map((member, index) => (
@@ -337,15 +415,15 @@ const Courses = () => {
                   </div>
                 </div>
                 <div className="card-body">
-                  <div className="badge badge-info badge-outline badge-lg font-bold">
+                  {/* <div className="badge badge-info badge-outline badge-lg font-bold">
                     Active
-                  </div>
+                  </div> */}
                   <h2 className="text-2xl font-bold">{item.courseName}</h2>
                   <div className="flex gap-3">
                     <GiTeacher size="1.6em" />
                     <h2 className="text-lg font-bold">{item.ownerName}</h2>
                   </div>
-                  <div className="flex items-center gap-2">
+                  {/* <div className="flex items-center gap-2">
                     <h1 className="text-lg font-medium">4.0(75 reviews)</h1>
                     <div className="flex items-center">
                       <AiFillStar size="1.6em" color="#FDCC0D" />
@@ -354,16 +432,16 @@ const Courses = () => {
                       <AiFillStar size="1.6em" color="#FDCC0D" />
                       <AiOutlineStar size="1.6em" />
                     </div>
-                  </div>
+                  </div> */}
                   <div className="card-actions justify-between mt-6">
                     <div className="flex items-center gap-2">
                       <HiOutlineUserGroup size="1.9em" />
                       <h1 className="text-lg">{item.members.length} people</h1>
                     </div>
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                       <HiOutlineBookOpen size="1.9em" />
                       <h1 className="text-lg">3 lessons</h1>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
