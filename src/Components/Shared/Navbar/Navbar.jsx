@@ -10,7 +10,7 @@ import Themes from "./Themes";
 
 const Navbar = async () => {
 	const session = await getServerSession(authOptions)
-	console.log(session, 'user session from navbar')
+	// console.log(session, 'user session from navbar')
 	const menu = (
 		<>
 			<div className="lg:flex items-center lg:text-xl">
