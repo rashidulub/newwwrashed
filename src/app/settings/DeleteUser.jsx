@@ -1,4 +1,5 @@
 "use client";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useEffect } from "react";
@@ -33,6 +34,7 @@ const DeleteUser = (props) => {
                         if (response.status === 200) {
                             Swal.fire("Deleted!", "Your file has been deleted.", "success")
                                 .then(() => {
+                                    // signOut();
                                     router.push("/");
                                 });
                         } else if (response.status === 404) {
