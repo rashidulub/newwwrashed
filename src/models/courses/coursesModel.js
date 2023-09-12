@@ -15,6 +15,14 @@ const coursesSchema = new Schema({
         type: String,
         require: true
     },
+    chatID: {
+        type: String,
+        require: true
+    },
+    chatAccessKey: {
+        type: String,
+        require: true
+    },
     members: [
         {
             email: {
@@ -39,7 +47,11 @@ const coursesSchema = new Schema({
         },
     ],
     ownerName: {
-        type: String, // Adjust the type based on your needs
+        type: String,
+        required: true,
+    },
+    ownerEmail: {
+        type: String,
         required: true,
     },
 }, { timestamps: true })

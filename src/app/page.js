@@ -1,4 +1,5 @@
 import Banner from '@/Components/home/Banner/Banner'
+import Contact from '@/Components/home/Contact/Contact'
 import Counter from '@/Components/home/Counter/Counter'
 import Features from '@/Components/home/Features/Features'
 import MoreInfo from '@/Components/home/MoreInfo/MoreInfo'
@@ -12,6 +13,7 @@ export default function Home() {
       <Counter />
       <Features />
       <Slider />
+      <Contact />
     </main>
   )
 }

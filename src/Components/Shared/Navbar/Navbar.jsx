@@ -5,11 +5,12 @@ import { CgProfile } from "react-icons/cg";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import LogOut from "@/Components/auth/LogOut";
+import Themes from "../Themes/Themes";
 
 
 const Navbar = async () => {
 	const session = await getServerSession(authOptions)
-	console.log(session, 'user session from navbar')
+	// console.log(session, 'user session from navbar')
 	const menu = (
 		<>
 			<div className="lg:flex items-center lg:text-xl">
@@ -22,14 +23,18 @@ const Navbar = async () => {
 				<li>
 					<Link href="/blogs">Blogs</Link>
 				</li>
+
 				<li>
-					<Link href="/dashboard">Dashboard</Link>
+					<Link href="/admindashboard">Dashboard</Link>
 				</li>
+				{session && <li>
+					<Link href="/chat">Chat</Link>
+				</li>}
 			</div>
 		</>
 	);
 	return (
-		<div className="fixed w-full bg-white z-50 shadow-sm">
+		<div className="fixed w-full p-color z-50 shadow-sm">
 			<div className="navbar lg:w-3/4 w-11/12 mx-auto">
 				<div className="navbar-start">
 					<div className="dropdown">
@@ -64,7 +69,7 @@ const Navbar = async () => {
 					<ul className="menu menu-horizontal px-1 mt-3">{menu}</ul>
 				</div>
 				<div className="navbar-end">
-
+					<Themes />
 					{session ? <div className="dropdown dropdown-end">
 						<label
 							tabIndex={0}
