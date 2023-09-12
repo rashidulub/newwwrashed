@@ -8,8 +8,7 @@ import { useSession } from "next-auth/react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { HiOutlineBookOpen, HiOutlineUserGroup } from "react-icons/hi";
 import { GiTeacher } from "react-icons/gi";
-// import axios from "axios";
-// import { useChatContext } from "../Context/context";
+import axios from "axios";
 
 const Courses = () => {
   const [courseName, setCourseName] = useState("");
@@ -19,38 +18,8 @@ const Courses = () => {
   const [courseData, setCourseData] = useState([]);
   const [courseId, setCourseId] = useState("");
   const [joinPassword, setJoinPassword] = useState("");
-  // const { username, setUsername, secret, setSecret, email, setEmail } =
-  //   useChatContext();
-  // const [users, setUsers] = useState([]);
 
-  // // Get User Details from MOngoDB
-  // useEffect(() => {
-  //   if (session) {
-  //     const { user } = session;
-  //     // console.log(user)
-  //     const loggedInUserEmail = user.email;
-  //     const fetchUser = async () => {
-  //       try {
-  //         const response = await fetch("http://localhost:3000/api/user");
-  //         if (response.ok) {
-  //           const data = await response.json();
-  //           const findUser = data.find(
-  //             (item) => item.email === loggedInUserEmail
-  //           );
-  //           // console.log(findUser);
-  //           setUsers(findUser);
-  //         } else {
-  //           console.error("Failed to fetch User.");
-  //         }
-  //       } catch (error) {
-  //         console.error("An error occurred:", error);
-  //       }
-  //     };
-  //     fetchUser();
-  //   }
-  // }, [session]);
-
-  // Create Class
+  // Create Class and Create unique chat for course
   const handleSubmit = async (e) => {
     // e.preventDefault();
     if (session) {
@@ -58,63 +27,63 @@ const Courses = () => {
       const loggedInUserEmail = user.email;
       const loggedInUserName = user.name;
       const loggedInUserImage = user.image;
-      // const apiUrl = "https://api.chatengine.io/chats/";
+      const apiUrl = "https://api.chatengine.io/chats/";
 
-      const formData = {
-        courseName,
-        picture,
-        // chatID: "",
-        // chatAccessKey: "",
-        password,
-        members: [
+      try {
+        // Create Chat group for the course
+        const chatResponse = await axios.put(
+          apiUrl,
           {
-            email: loggedInUserEmail,
-            role: "owner",
-            username: loggedInUserName,
-            image: loggedInUserImage,
+            username: [loggedInUserName],
+            title: courseName,
+            is_direct_chat: "true",
           },
-        ],
-        ownerName: loggedInUserName,
-      };
+          {
+            headers: {
+              "Project-ID": "41415912-8be4-4c8a-9d10-1fe5e47be186",
+              "User-Name": loggedInUserName,
+              "User-Secret": loggedInUserEmail,
+            },
+          }
+        );
 
-      // Send formData to backend API for storage in MongoDB
-      const res = await fetch("/api/courses/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
+        const userData = chatResponse.data;
+        // console.log(userData);
 
-      // Create Chat group for the course
-      // axios
-      //   .put(
-      //     apiUrl,
-      //     {
-      //       username: [loggedInUserName],
-      //       title: courseName,
-      //       is_direct_chat: "true",
-      //     },
-      //     {
-      //       headers: {
-      //         "Project-ID": process.env.REACT_APP_CE_PORJECT_ID,
-      //         "User-Name": loggedInUserName,
-      //         "User-Secret": users._id,
-      //       },
-      //     }
-      //   )
-      //   .then((response) => {
-      //     const userData = response.data;
-      //     console.log("User Data:", userData);
-      //     // console.log(userData);
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error fetching user data:", error);
-      //   });
+        const formData = {
+          courseName,
+          picture,
+          password,
+          chatID: userData.id,
+          chatAccessKey: userData.access_key,
+          members: [
+            {
+              email: loggedInUserEmail,
+              role: "owner",
+              username: loggedInUserName,
+              image: loggedInUserImage,
+            },
+          ],
+          ownerName: loggedInUserName,
+          ownerEmail: loggedInUserEmail,
+        };
+
+        // Send formData to backend API for storage in MongoDB
+        const res = await fetch("/api/courses/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Error creating chat or course:", error);
+      }
     }
   };
-  
+
   // Fetch courses based on user's email
   useEffect(() => {
     async function fetchCourses() {
@@ -147,7 +116,7 @@ const Courses = () => {
         email: loggedInUserEmail,
         role: "student",
         username: loggedInUserName,
-        image: loggedInUserImage, // Assuming students are joining
+        image: loggedInUserImage,
       };
 
       const res = await fetch("/api/courses/join", {
@@ -159,10 +128,40 @@ const Courses = () => {
       });
       const data = await res.json();
 
-      if (data.success) {
-        fetchCourses();
-      } else {
-        console.error("Failed to join class:", data.message);
+      try {
+        const res = await fetch(
+          "http://localhost:3000/api/courses/" + courseId,
+          {
+            method: "GET",
+          }
+        );
+
+        if (res.ok) {
+          const data = await res.json();
+          const chatID = data.chatID;
+          const ownerName = data.ownerName;
+          const ownerEmail = data.ownerEmail
+          console.log(data);
+          const chatMember = await axios.post(
+            `https://api.chatengine.io/chats/${chatID}/people/`,
+            {
+              username: loggedInUserName,
+            },
+            {
+              headers: {
+                "Project-ID": "41415912-8be4-4c8a-9d10-1fe5e47be186",
+                "User-Name": ownerName,
+                "User-Secret": ownerEmail,
+              },
+            }
+          );
+          const userData = chatMember.data;
+          console.log(userData);
+        } else {
+          console.error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("Error joining class:", error);
       }
     }
   };
@@ -283,13 +282,15 @@ const Courses = () => {
                   />
                 </div>
                 <div className="form-control mt-2">
-                  <button
-                    className="btn bg-blue-600 text-white hover:bg-blue-700"
-                    type="submit"
-                    onClick={() => handleJoin(courseId, joinPassword)}
-                  >
-                    Join Class
-                  </button>
+                  <form method="dialog">
+                    <button
+                      className="btn bg-blue-600 text-white hover:bg-blue-700 px-[121px]"
+                      type="submit"
+                      onClick={() => handleJoin(courseId, joinPassword)}
+                    >
+                      Join Class
+                    </button>
+                  </form>
                   <button className="btn bg-red-600 text-white hover:bg-red-700">
                     Close
                   </button>
