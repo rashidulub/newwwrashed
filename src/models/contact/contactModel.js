@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 import { Schema, model, models } from "mongoose";
 
 
-const noticesSchema = new Schema(
+const contactSchema = new Schema(
     {
-        course_id: {
+        name: {
             type: String,
         },
-        title: {
+        email: {
             type: String,
         },
         description: {
@@ -22,9 +22,9 @@ const noticesSchema = new Schema(
 
     }, { timestamps: true })
 
-    const Notices = models.Notices || model("Notices", noticesSchema);
+    const Contact = models.contacts || model("contacts", contactSchema);
 
 
-export default Notices;
+export default Contact;
 
 
