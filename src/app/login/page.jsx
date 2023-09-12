@@ -4,7 +4,7 @@ import SignIn from '@/Components/auth/SignIn';
 
 
 const Login = ({ searchParams: { callbackUrl } }) => {
-    console.log(callbackUrl, 'callbackUrl')
+    console.log(callbackUrl, 'callbackUrl for login page')
     return (
         <div>
             <SignIn callbackUrl={callbackUrl || "/dashboard"} />

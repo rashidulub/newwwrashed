@@ -1,8 +1,19 @@
 'use client'
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const Blogs = () => {
+	const { data: session, status } = useSession()
+	console.log(status)
+	console.log(session)
+	if (status === "loading") {
+		return <p>Loading...</p>
+	}
+
+	if (status === "unauthenticated") {
+		return <p>Access Denied</p>
+	}
 	const [formData, setFormData] = useState({
 		fastName: "",
 		lastName: "",

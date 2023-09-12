@@ -45,7 +45,7 @@ const Register = ({ callbackUrl }) => {
             await signIn('credentials', {
                 email,
                 password,
-                callbackUrl: '/dashboard',
+                callbackUrl,
             });
             reset()
             setLoad(false)

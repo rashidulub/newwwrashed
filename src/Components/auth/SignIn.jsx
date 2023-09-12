@@ -25,13 +25,13 @@ const SignIn = ({ callbackUrl }) => {
 		await signIn("credentials", {
 			email,
 			password,
-			callbackUrl: "/dashboard",
+			callbackUrl
 		});
 		reset();
 		setLoad(false);
 		toast.success("Welcome our ED_Nexus", { position: "top-center" });
 	};
-
+	console.log({ callbackUrl })
 	return (
 		<div className="relative">
 			<img
