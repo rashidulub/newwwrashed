@@ -25,13 +25,13 @@ const SignIn = ({ callbackUrl }) => {
 		await signIn("credentials", {
 			email,
 			password,
-			callbackUrl: "/dashboard",
+			callbackUrl
 		});
 		reset();
 		setLoad(false);
 		toast.success("Welcome our ED_Nexus", { position: "top-center" });
 	};
-
+	console.log({ callbackUrl })
 	return (
 		<div className="relative">
 			<img
@@ -104,7 +104,7 @@ const SignIn = ({ callbackUrl }) => {
 											{load ? (
 												<span className="border-2 border-dashed border-white animate-spin w-7 h-7 rounded-full"></span>
 											) : (
-												" Register"
+												"Login"
 											)}
 										</button>
 									</div>

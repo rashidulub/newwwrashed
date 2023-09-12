@@ -40,6 +40,10 @@ export const authOptions = {
         })
 
     ],
+    pages: {
+        signIn: '/login'
+    },
+    secret: process.env.NEXTAUTH_SECRET,
 
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
@@ -57,13 +61,6 @@ export const authOptions = {
             return session;
         }
     },
-    pages: {
-        signIn: '/signin'
-    },
-    session: {
-        strategy: 'jwt',
-    },
-    secret: process.env.JWT_SECRET,
 }
 
 const handler = NextAuth(authOptions);
