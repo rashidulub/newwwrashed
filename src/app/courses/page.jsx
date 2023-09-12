@@ -1,16 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Lottie from 'react-lottie';
+import Lottie from "react-lottie";
 import classroomAnimate from "../../../public/classroom.json";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { HiOutlineBookOpen, HiOutlineUserGroup } from "react-icons/hi";
 import { GiTeacher } from "react-icons/gi";
-import Swal from 'sweetalert2';
-// import axios from "axios";
-// import { useChatContext } from "../Context/context";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Courses = () => {
   const [courseName, setCourseName] = useState("");
@@ -20,18 +19,15 @@ const Courses = () => {
   const [courseData, setCourseData] = useState([]);
   const [courseId, setCourseId] = useState("");
   const [joinPassword, setJoinPassword] = useState("");
-  // const { username, setUsername, secret, setSecret, email, setEmail } =
-  //   useChatContext();
-  // const [users, setUsers] = useState([]);
 
+  // Create Class and Create unique chat for course
   const handleSubmit = async (e) => {
-
     if (!courseName || !password || !picture) {
       // Check if required fields are empty
       Swal.fire({
-        icon: 'error',
-        title: 'Validation Error',
-        text: 'Please fill out all required fields.',
+        icon: "error",
+        title: "Validation Error",
+        text: "Please fill out all required fields.",
       });
       return; // Don't proceed with the API call if validation fails
     }
@@ -41,23 +37,48 @@ const Courses = () => {
       const loggedInUserEmail = user.email;
       const loggedInUserName = user.name;
       const loggedInUserImage = user.image;
-
-      const formData = {
-        courseName,
-        picture,
-        password,
-        members: [
-          {
-            email: loggedInUserEmail,
-            role: "owner",
-            username: loggedInUserName,
-            image: loggedInUserImage,
-          },
-        ],
-        ownerName: loggedInUserName,
-      };
+      const apiUrl = "https://api.chatengine.io/chats/";
 
       try {
+        // Create Chat group for the course
+        const chatResponse = await axios.put(
+          apiUrl,
+          {
+            username: [loggedInUserName],
+            title: courseName,
+            is_direct_chat: "true",
+          },
+          {
+            headers: {
+              "Project-ID": "41415912-8be4-4c8a-9d10-1fe5e47be186",
+              "User-Name": loggedInUserName,
+              "User-Secret": loggedInUserEmail,
+            },
+          }
+        );
+
+        const userData = chatResponse.data;
+        console.log(userData);
+
+        const formData = {
+          courseName,
+          picture,
+          password,
+          chatID: userData.id,
+          chatAccessKey: userData.access_key,
+          members: [
+            {
+              email: loggedInUserEmail,
+              role: "owner",
+              username: loggedInUserName,
+              image: loggedInUserImage,
+            },
+          ],
+          ownerName: loggedInUserName,
+          ownerEmail: loggedInUserEmail,
+        };
+
+        // Send formData to backend API for storage in MongoDB
         const res = await fetch("/api/courses/create", {
           method: "POST",
           headers: {
@@ -69,31 +90,29 @@ const Courses = () => {
         if (res.ok) {
           // Course creation was successful
           Swal.fire({
-            icon: 'success',
-            title: 'Class Created Successfully',
-            text: 'Your class has been created successfully!',
+            icon: "success",
+            title: "Class Created Successfully",
+            text: "Your class has been created successfully!",
           });
-
         } else {
           // Course creation failed
           Swal.fire({
-            icon: 'error',
-            title: 'Class Creation Failed',
-            text: 'Failed to create the class. Please try again later.',
+            icon: "error",
+            title: "Class Creation Failed",
+            text: "Failed to create the class. Please try again later.",
           });
         }
       } catch (error) {
         // An error occurred while making the API call
         console.error("Error creating class:", error);
         Swal.fire({
-          icon: 'error',
-          title: 'Class Creation Failed',
-          text: 'An error occurred while creating the class. Please try again later.',
+          icon: "error",
+          title: "Class Creation Failed",
+          text: "An error occurred while creating the class. Please try again later.",
         });
       }
     }
   };
-
   // Fetch courses based on user's email
   useEffect(() => {
     async function fetchCourses() {
@@ -140,17 +159,51 @@ const Courses = () => {
 
       if (data.success) {
         Swal.fire({
-          icon: 'success',
-          title: 'Class Joined Successfully',
-          text: 'You have successfully joined the class!',
+          icon: "success",
+          title: "Class Joined Successfully",
+          text: "You have successfully joined the class!",
         });
-
       } else {
         Swal.fire({
-          icon: 'error',
-          title: 'Class Joining Failed',
-          text: 'Failed to join the class. Please check the course ID and password.',
+          icon: "error",
+          title: "Class Joining Failed",
+          text: "Failed to join the class. Please check the course ID and password.",
         });
+      }
+      try {
+        const res = await fetch(
+          "http://localhost:3000/api/courses/" + courseId,
+          {
+            method: "GET",
+          }
+        );
+
+        if (res.ok) {
+          const data = await res.json();
+          const chatID = data.chatID;
+          const ownerName = data.ownerName;
+          const ownerEmail = data.ownerEmail;
+          console.log(data);
+          const chatMember = await axios.post(
+            `https://api.chatengine.io/chats/${chatID}/people/`,
+            {
+              username: loggedInUserName,
+            },
+            {
+              headers: {
+                "Project-ID": "41415912-8be4-4c8a-9d10-1fe5e47be186",
+                "User-Name": ownerName,
+                "User-Secret": ownerEmail,
+              },
+            }
+          );
+          const userData = chatMember.data;
+          console.log(userData);
+        } else {
+          console.error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("Error joining class:", error);
       }
     }
   };
@@ -174,10 +227,7 @@ const Courses = () => {
           >
             Create Class
           </button>
-          <dialog
-            id="my_modal_5"
-            className="modal sm:modal-middle"
-          >
+          <dialog id="my_modal_5" className="modal sm:modal-middle">
             <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
                 <div className="form-control">
@@ -217,7 +267,6 @@ const Courses = () => {
                   />
                 </div>
                 <div className="form-control mt-2">
-
                   <form method="dialog">
                     <button
                       className="btn bg-blue-600 text-white hover:bg-blue-700 px-[110px]"
@@ -228,7 +277,9 @@ const Courses = () => {
                     </button>
                   </form>
                   <form method="dialog">
-                    <button className="btn bg-red-600 text-white hover:bg-red-700 px-[139px]">Close</button>
+                    <button className="btn bg-red-600 text-white hover:bg-red-700 px-[139px]">
+                      Close
+                    </button>
                   </form>
                   {/* <button method="dialog" className="btn bg-red-600 text-white hover:bg-red-700">
                     Close
@@ -246,10 +297,7 @@ const Courses = () => {
           >
             Join Class
           </button>
-          <dialog
-            id="my_modal_6"
-            className="modal sm:modal-middle"
-          >
+          <dialog id="my_modal_6" className="modal sm:modal-middle">
             <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
                 <div className="form-control">
@@ -277,7 +325,6 @@ const Courses = () => {
                   />
                 </div>
                 <div className="form-control mt-2">
-
                   <form method="dialog">
                     <button
                       className="btn bg-blue-600 text-white hover:bg-blue-700 px-[121px]"
@@ -288,7 +335,9 @@ const Courses = () => {
                     </button>
                   </form>
                   <form method="dialog">
-                    <button className="btn bg-red-600 text-white hover:bg-red-700 px-[139px]">Close</button>
+                    <button className="btn bg-red-600 text-white hover:bg-red-700 px-[139px]">
+                      Close
+                    </button>
                   </form>
                 </div>
               </div>
@@ -300,9 +349,16 @@ const Courses = () => {
       {courseData.length === 0 ? (
         // Showing picture when there is no course data
         <div className="w-full flex flex-col items-center justify-center">
-          <Lottie className='mx-auto my-5' options={defaultOptions} height={400} width={400} />
+          <Lottie
+            className="mx-auto my-5"
+            options={defaultOptions}
+            height={400}
+            width={400}
+          />
           <div>
-            <p className="mx-auto text-xl font-semibold my-3">You have no classes Yet !!!</p>
+            <p className="mx-auto text-xl font-semibold my-3">
+              You have no classes Yet !!!
+            </p>
           </div>
         </div>
       ) : (
@@ -315,7 +371,7 @@ const Courses = () => {
                   <figure className="h-[72%]">
                     <img src={item.picture} />
                   </figure>
-                  <div className="avatar-group -space-x-7 absolute top-[47%] right-3">
+                  <div className="avatar-group -space-x-7 absolute top-[50%] right-3">
                     {item.members.slice(0, 4).map((member, index) => (
                       <div className="avatar" key={index}>
                         <div className="w-12">
@@ -348,7 +404,9 @@ const Courses = () => {
                     <div className="card-actions justify-between mt-6">
                       <div className="flex items-center gap-2">
                         <HiOutlineUserGroup size="1.9em" />
-                        <h1 className="text-lg">{item.members.length} people</h1>
+                        <h1 className="text-lg">
+                          {item.members.length} people
+                        </h1>
                       </div>
                       {/* <div className="flex items-center gap-2">
                       <HiOutlineBookOpen size="1.9em" />
