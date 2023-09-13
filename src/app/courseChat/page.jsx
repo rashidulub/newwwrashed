@@ -8,6 +8,7 @@ import {
   ChatSocket,
 } from "react-chat-engine";
 import { useChatContext } from "../Context/context";
+import './style.css'
 // import axios from "axios";
 
 const MessageFormSocial = dynamic(() =>
@@ -18,6 +19,7 @@ const CourseChat = ({ courseData }) => {
   // console.log("courseChat",courseData)
   const { value } = useChatContext();
   const { username } = value;
+  console.log("name",username)
   const { chatAccessKey, chatID } = courseData;
   return (
     <div className="relativen">
@@ -31,7 +33,6 @@ const CourseChat = ({ courseData }) => {
         <div className="chatBox">
           <ChatFeed
             activeChat={chatID}
-            
             renderNewMessageForm={() => <MessageFormSocial />}
           />
           {/* <ChatSettings /> */}
