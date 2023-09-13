@@ -9,7 +9,6 @@ import { FiLogOut, FiSettings } from 'react-icons/fi';
 import Themes from '../Themes/Themes';
 
 const NavMenu = (session) => {
-    console.log(session);
     const pathName = usePathname();
     const menu = (
         <ul className="lg:flex gap-10 lg:py-6 items-center lg:text-xl ">
@@ -91,8 +90,6 @@ const NavMenu = (session) => {
                                 </div>}
                         </div>
                     </div> : null
-
-                // <ul className="menu menu-horizontal px-1 mt-3">{menu}</ul> : null
             }
         </div>
     );

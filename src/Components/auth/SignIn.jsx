@@ -33,7 +33,7 @@ const SignIn = ({ callbackUrl }) => {
 	};
 	console.log({ callbackUrl })
 	return (
-		<div className="mx-auto pt-44 pb-32 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24">
+		<div className="mx-auto pt-48 pb-32 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24">
 			<div className="flex flex-col-reverse items-center justify-between lg:flex-row ">
 				<div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
 					{<Lottie animationData={login} loop={true}></Lottie>}
