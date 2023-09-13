@@ -15,10 +15,19 @@ import { TbNotebook } from "react-icons/tb";
 import { BiLogoZoom } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import CourseChat from "@/app/courseChat/page";
+import {
+  FaHome,
+  FaSignOutAlt,
+  FaUserFriends,
+  FaUserGraduate,
+} from "react-icons/fa";
+import { MdClass, MdLibraryAdd, MdLibraryBooks, MdPayment } from "react-icons/md";
 
 const CourseDashboard = ({ params }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const categories = [
+    "Chat",
     "Notice",
     "Members",
     "Assignments",
@@ -276,7 +285,6 @@ const CourseDashboard = ({ params }) => {
       });
     }
   };
-  console.log(presentCourse);
   // For Getting Assignment Data
   useEffect(() => {
     const fetchAssignments = async () => {
@@ -321,8 +329,7 @@ const CourseDashboard = ({ params }) => {
     };
     fetchMember();
   }, []);
-  console.log(member);
-  console.log(presentCourse);
+
   // For Getting Notice Data
   useEffect(() => {
     const fetchNotice = async () => {
@@ -367,6 +374,13 @@ const CourseDashboard = ({ params }) => {
   }
 
   const categoryContent = {
+    Chat: (
+      presentCourse ? (
+        <CourseChat courseData={presentCourse} />
+      ) : (
+        <div>Course data is not available</div>
+      )
+    ),
     Notice: (
       <div>
         <div className="flex justify-between items-center">
@@ -881,21 +895,43 @@ const CourseDashboard = ({ params }) => {
     ),
   };
   return (
-    <div className="pt-32 w-3/4 mx-auto mb-10">
-      <div className="grid grid-cols-3 gap-5">
-        <div className="border-4 border-[#0083db] p-5 rounded-lg">
-          <div className="w-80 h-80 relative text-center">
+
+    <div className="drawer lg:drawer-open">
+      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content ">
+        <label
+          htmlFor="my-drawer-2"
+          className="btn btn-primary drawer-button lg:hidden"
+        ></label>
+        <div className="overflow-y-scroll col-span-2 rounded-lg">
+          {/* {menu.filter((item) => item.category === categories[tabIndex]).map(item => (
+                         <div item={item} key={item._id}>
+
+                         </div>
+                     ))} */}
+          <div className="">
+            <div>{categoryContent[categories[tabIndex]]}</div>
+          </div>
+        </div>
+        {/* Page content here */}
+        {/* <Outlet></Outlet> */}
+      </div>
+      <div className="drawer-side pt-10">
+        <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+        <ul className="menu p-4 w-96 h-full bg-[#0083db]  text-white text-lg">
+          {/* Sidebar content here */}
+          <div className="w-full h-56 relative text-center">
             {presentCourse.picture ? (
               <Image
-                className="rounded-lg w-full h-full object-fill border border-[#0083db]"
+                className="rounded-lg w-9/12 h-56 object-fill border border-[#0083db]"
                 src={presentCourse.picture}
-                width={400}
-                height={400}
+                width={200}
+                height={200}
                 alt="user photo"
               />
             ) : (
               <Image
-                className="rounded-lg w-full h-full object-fill border border-[#0083db]"
+                className="rounded-lg w-9/12 h-full object-fill border border-[#0083db]"
                 src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg"
                 width={400}
                 height={400}
@@ -904,14 +940,14 @@ const CourseDashboard = ({ params }) => {
             )}
           </div>
           <div className="pb-4 pt-2">
-            <h3 className="text-4xl text-[#0083db] font-semibold">
+            <h3 className="text-4xl text-white font-semibold">
               {presentCourse.courseName}
             </h3>
             <div className="flex justify-between items-center">
               <h5 className="font-semibold text-2xl">
                 {presentCourse.ownerName}
               </h5>
-              <Link href="/video"><BiLogoZoom size="2.5em" color="#0083db"/></Link>
+              <Link href="/video" ><BiLogoZoom size="2.5em" color="white" /></Link>
             </div>
           </div>
           <div className="">
@@ -920,7 +956,7 @@ const CourseDashboard = ({ params }) => {
                 href="#"
                 key={index}
                 className={`font-semibold text-xl mb-2 flex flex-col ${tabIndex === index
-                  ? "tab-active text-[#0083db] pl-2 border-l-2 border-[#0083db]"
+                  ? "tab-active text-emerald-400 pl-2 border-l-2 border-[#0083db]"
                   : ""
                   }`}
                 onClick={() => handleTabClick(index)}
@@ -932,20 +968,89 @@ const CourseDashboard = ({ params }) => {
               Delete this class
             </p>
           </div>
-        </div>
-        <div className="border-4 border-[#0083db] h-[670px] overflow-y-scroll p-5 col-span-2 rounded-lg">
-          {/* {menu.filter((item) => item.category === categories[tabIndex]).map(item => (
-                        <div item={item} key={item._id}>
-
-                        </div>
-                    ))} */}
-          <div className="">
-            <div>{categoryContent[categories[tabIndex]]}</div>
-          </div>
-        </div>
+          {/* {navOptions} */}
+          <div className="divider"></div>
+          <li>
+            {/* <NavLink to="/"> */}
+            <FaHome></FaHome> Home Page
+            {/* </NavLink> */}
+          </li>
+          {/* {user && ( */}
+          <li>
+            {/* <button onClick={handleLogout}> */}
+            <FaSignOutAlt></FaSignOutAlt> Courses
+            {/* </button> */}
+          </li>
+          {/* )} */}
+        </ul>
       </div>
-      <CoursesDashboard />
     </div>
+
+    // <div className="pt-32 w-3/4 mx-auto mb-10">
+    //   <div className="grid grid-cols-3 gap-5">
+    //     <div className="border-4 border-[#0083db] p-5 rounded-lg">
+    //       <div className="w-80 h-80 relative text-center">
+    //         {presentCourse.picture ? (
+    //           <Image
+    //             className="rounded-lg w-full h-full object-fill border border-[#0083db]"
+    //             src={presentCourse.picture}
+    //             width={400}
+    //             height={400}
+    //             alt="user photo"
+    //           />
+    //         ) : (
+    //           <Image
+    //             className="rounded-lg w-full h-full object-fill border border-[#0083db]"
+    //             src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg"
+    //             width={400}
+    //             height={400}
+    //             alt="user photo"
+    //           />
+    //         )}
+    //       </div>
+    //       <div className="pb-4 pt-2">
+    //         <h3 className="text-4xl text-[#0083db] font-semibold">
+    //           {presentCourse.courseName}
+    //         </h3>
+    //         <div className="flex justify-between items-center">
+    //           <h5 className="font-semibold text-2xl">
+    //             {presentCourse.ownerName}
+    //           </h5>
+    //           <Link href="/video"><BiLogoZoom size="2.5em" color="#0083db"/></Link>
+    //         </div>
+    //       </div>
+    //       <div className="">
+    //         {categories.map((category, index) => (
+    //           <Link
+    //             href="#"
+    //             key={index}
+    //             className={`font-semibold text-xl mb-2 flex flex-col ${tabIndex === index
+    //               ? "tab-active text-[#0083db] pl-2 border-l-2 border-[#0083db]"
+    //               : ""
+    //               }`}
+    //             onClick={() => handleTabClick(index)}
+    //           >
+    //             {category.charAt(0).toUpperCase() + category.slice(1)}
+    //           </Link>
+    //         ))}
+    //         <p className="text-red-600 cursor-pointer font-semibold text-xl">
+    //           Delete this class
+    //         </p>
+    //       </div>
+    //     </div>
+    //     <div className="border-4 border-[#0083db] h-[670px] overflow-y-scroll p-5 col-span-2 rounded-lg">
+    //       {/* {menu.filter((item) => item.category === categories[tabIndex]).map(item => (
+    //                     <div item={item} key={item._id}>
+
+    //                     </div>
+    //                 ))} */}
+    //       <div className="">
+    //         <div>{categoryContent[categories[tabIndex]]}</div>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <CoursesDashboard />
+    // </div>
   );
 };
 

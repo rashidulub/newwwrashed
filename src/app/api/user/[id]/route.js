@@ -11,10 +11,7 @@ export async function DELETE(request, content) {
     const { user } = session;
 
     if (!user) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     const userEmail = content.params.id;
@@ -27,21 +24,36 @@ export async function DELETE(request, content) {
     }
 
     await bdConnect();
-    
+
     // Check if the user exists before deleting
     const existingUser = await User.findOne({ email: userEmail });
 
     if (!existingUser) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
     // Delete the user
     await User.deleteOne({ email: userEmail });
 
     // Find courses owned by the user
-    const coursesOwnedByUser = await Courses.find({ ownerName: user.name });
+    const courses = await Courses.find();
+    
+    // Remove user if he join other course
+    for (const course of courses) {
+      // Use the filter method to remove the user with the specified email
+      course.members = course.members.filter(
+        (member) => member.email !== userEmail
+        );
+    }
+    
+    //  Update courses after remove the user in the database with the modified members arrays
+    for (const updatedCourse of courses) {
+      await Courses.updateOne(
+        { _id: updatedCourse._id },
+        { members: updatedCourse.members }
+        );
+      }
+      
+      const coursesOwnedByUser = await Courses.find({ ownerName: user.name });
 
     for (const course of coursesOwnedByUser) {
       if (course.members.length === 1) {
@@ -49,10 +61,22 @@ export async function DELETE(request, content) {
         await Courses.deleteOne({ _id: course._id });
       } else {
         // If there are other members, transfer ownership to the first member
-        const newOwnerUsername = course.members[0].username;
+        const newOwnerUsername = course.members[1].username;
+        course.ownerName = newOwnerUsername;
+        course.members[1].role = "owner";
+
+        // Remove the previous owner from the members array
+        course.members = course.members.filter(
+          (member) => member.email !== userEmail
+        );
+
+        // Update the course in the database
         await Courses.updateOne(
           { _id: course._id },
-          { ownerName: newOwnerUsername }
+          {
+            ownerName: course.ownerName,
+            members: course.members,
+          }
         );
       }
     }

@@ -25,13 +25,13 @@ const SignIn = ({ callbackUrl }) => {
 		await signIn("credentials", {
 			email,
 			password,
-			callbackUrl: "/dashboard",
+			callbackUrl
 		});
 		reset();
 		setLoad(false);
 		toast.success("Welcome our ED_Nexus", { position: "top-center" });
 	};
-
+	console.log({ callbackUrl })
 	return (
 		<div className="mx-auto pt-44 pb-32 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24">
 			<div className="flex flex-col-reverse items-center justify-between lg:flex-row ">
