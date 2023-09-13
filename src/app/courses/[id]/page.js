@@ -920,12 +920,12 @@ const CourseDashboard = ({ params }) => {
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-96 h-full bg-[#0083db]  text-white text-lg">
           {/* Sidebar content here */}
-          <div className="w-full h-60 relative text-center">
+          <div className="w-full h-56 relative text-center">
             {presentCourse.picture ? (
               <Image
-                className="rounded-lg w-9/12 h-60 object-fill border border-[#0083db]"
+                className="rounded-lg w-9/12 h-56 object-fill border border-[#0083db]"
                 src={presentCourse.picture}
-                width={400}
+                width={200}
                 height={200}
                 alt="user photo"
               />
