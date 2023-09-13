@@ -8,7 +8,7 @@ import { FaUserGraduate } from 'react-icons/fa';
 import { FiLogOut, FiSettings } from 'react-icons/fi';
 import Themes from '../Themes/Themes';
 
-const NavMenu = (session) => {
+const NavMenu = (session, { _id }) => {
     const pathName = usePathname();
     const menu = (
         <ul className="lg:flex gap-10 lg:py-6 items-center lg:text-xl ">
@@ -23,7 +23,7 @@ const NavMenu = (session) => {
     return (
         <div>
             {
-                pathName !== "/login" && pathName !== "/signUp" ?
+                pathName !== "/login" && pathName !== "/signUp" && pathName !== `/courses/${_id}` ?
                     <div className="navbar lg:w-3/4 w-11/12 mx-auto">
                         <div className="navbar-start">
                             <div className="dropdown">
