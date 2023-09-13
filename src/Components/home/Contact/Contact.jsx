@@ -77,7 +77,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 shadow-2xl mb-32 border-t-8 border-[#0083db]">
+    <div className="grid grid-cols-1 lg:grid-cols-2 shadow-2xl mb-32 border-t-8 border-[#0083db] rounded-2xl">
       <div className="p-10">
         <h1 className="text-4xl font-semibold text-[#0083db] mb-7">Contact us</h1>
         <form onSubmit={handleSubmit(onSubmitContact)}>

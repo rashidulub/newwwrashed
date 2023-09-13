@@ -5,6 +5,7 @@ import { useChatContext } from "../Context/context";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import './style.css'
 
 const ChatEngine = dynamic(() =>
   import("react-chat-engine").then((module) => module.ChatEngine)
@@ -61,7 +62,7 @@ const AllChat = () => {
   if (!showChat) return <div />;
 
   return (
-    <div className="lg:w-3/4 w-11/1 mx-auto pt-32 mb-32 ">
+    <div className="lg:w-full w-11/12  mx-auto pt-32 mb-32 ">
       <div className="shadow">
         <ChatEngine
           projectID="41415912-8be4-4c8a-9d10-1fe5e47be186"

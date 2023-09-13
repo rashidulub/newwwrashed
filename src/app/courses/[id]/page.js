@@ -15,10 +15,12 @@ import { TbNotebook } from "react-icons/tb";
 import { BiLogoZoom } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import CourseChat from "@/app/courseChat/page";
 
 const CourseDashboard = ({ params }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const categories = [
+    "Chat",
     "Notice",
     "Members",
     "Assignments",
@@ -321,8 +323,7 @@ const CourseDashboard = ({ params }) => {
     };
     fetchMember();
   }, []);
-  console.log(member);
-  console.log(presentCourse);
+  // console.log(presentCourse)
   // For Getting Notice Data
   useEffect(() => {
     const fetchNotice = async () => {
@@ -367,6 +368,13 @@ const CourseDashboard = ({ params }) => {
   }
 
   const categoryContent = {
+    Chat: (
+      presentCourse ? (
+        <CourseChat courseData={presentCourse} />
+      ) : (
+        <div>Course data is not available</div>
+      )
+    ),
     Notice: (
       <div>
         <div className="flex justify-between items-center">
