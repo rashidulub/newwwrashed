@@ -15,6 +15,7 @@ import { TbNotebook } from "react-icons/tb";
 import { BiLogoZoom } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import CourseChat from "@/app/courseChat/page";
 import {
   FaHome,
   FaSignOutAlt,
@@ -26,6 +27,7 @@ import { MdClass, MdLibraryAdd, MdLibraryBooks, MdPayment } from "react-icons/md
 const CourseDashboard = ({ params }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const categories = [
+    "Chat",
     "Notice",
     "Members",
     "Assignments",
@@ -283,7 +285,6 @@ const CourseDashboard = ({ params }) => {
       });
     }
   };
-  console.log(presentCourse);
   // For Getting Assignment Data
   useEffect(() => {
     const fetchAssignments = async () => {
@@ -328,8 +329,7 @@ const CourseDashboard = ({ params }) => {
     };
     fetchMember();
   }, []);
-  console.log(member);
-  console.log(presentCourse);
+
   // For Getting Notice Data
   useEffect(() => {
     const fetchNotice = async () => {
@@ -374,6 +374,13 @@ const CourseDashboard = ({ params }) => {
   }
 
   const categoryContent = {
+    Chat: (
+      presentCourse ? (
+        <CourseChat courseData={presentCourse} />
+      ) : (
+        <div>Course data is not available</div>
+      )
+    ),
     Notice: (
       <div>
         <div className="flex justify-between items-center">
@@ -889,14 +896,14 @@ const CourseDashboard = ({ params }) => {
   };
   return (
 
-    <div className="drawer lg:drawer-open pt-10">
+    <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content ">
         <label
           htmlFor="my-drawer-2"
           className="btn btn-primary drawer-button lg:hidden"
         ></label>
-        <div className="pt-12 overflow-y-scroll p-5 col-span-2 rounded-lg">
+        <div className="overflow-y-scroll col-span-2 rounded-lg">
           {/* {menu.filter((item) => item.category === categories[tabIndex]).map(item => (
                          <div item={item} key={item._id}>
 

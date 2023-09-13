@@ -34,7 +34,7 @@ const Navbar = async () => {
 		</>
 	);
 	return (
-		<div className="fixed w-full p-color z-50 shadow-sm">
+		<div className=" w-full p-color z-50 shadow-sm">
 			<div className="navbar lg:w-3/4 w-11/12 mx-auto">
 				<div className="navbar-start">
 					<div className="dropdown">
