@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useRef } from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
-import { useSession } from "next-auth/react";
+import { useSession } from 'next-auth/react';
 
 
 function randomID(len) {
@@ -29,8 +29,8 @@ export default function VideoCall() {
     const containerRef = useRef(null);
     const { data: session } = useSession();
 
-    const { user } = session;
-    const loggedInUserName = user.name;
+    // const { user } = session;
+    const loggedInUserName = session?.user?.name || 'UserName';
 
 
     useEffect(() => {
