@@ -895,8 +895,7 @@ const CourseDashboard = ({ params }) => {
     ),
   };
   return (
-
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open pt-10">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content ">
         <label
@@ -920,12 +919,12 @@ const CourseDashboard = ({ params }) => {
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-96 h-full bg-[#0083db]  text-white text-lg">
           {/* Sidebar content here */}
-          <div className="w-full h-60 relative text-center">
+          <div className="w-full h-28 relative text-center">
             {presentCourse.picture ? (
               <Image
-                className="rounded-lg w-9/12 h-60 object-fill border border-[#0083db]"
+                className="rounded-lg w-6/12 h-28 object-fill border border-[#0083db]"
                 src={presentCourse.picture}
-                width={400}
+                width={200}
                 height={200}
                 alt="user photo"
               />
@@ -933,8 +932,8 @@ const CourseDashboard = ({ params }) => {
               <Image
                 className="rounded-lg w-9/12 h-full object-fill border border-[#0083db]"
                 src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg"
-                width={400}
-                height={400}
+                width={200}
+                height={200}
                 alt="user photo"
               />
             )}
@@ -950,36 +949,33 @@ const CourseDashboard = ({ params }) => {
               <Link href="/video" ><BiLogoZoom size="2.5em" color="white" /></Link>
             </div>
           </div>
-          <div className="">
-            {categories.map((category, index) => (
-              <Link
-                href="#"
-                key={index}
-                className={`font-semibold text-xl mb-2 flex flex-col ${tabIndex === index
-                  ? "tab-active text-emerald-400 pl-2 border-l-2 border-[#0083db]"
-                  : ""
-                  }`}
-                onClick={() => handleTabClick(index)}
-              >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </Link>
-            ))}
-            <p className="text-red-600 cursor-pointer font-semibold text-xl">
+          <div className="text-start">
+            <li>
+              {categories.map((category, index) => (
+                <Link
+                  href="#"
+                  key={index}
+                  className={`font-semibold text-xl mb-2 flex flex-col items-start ${tabIndex === index
+                    ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
+                    : ""
+                    }`}
+                  onClick={() => handleTabClick(index)}
+                >
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </Link>
+              ))}
+            </li>
+            <li><p className="text-red-600 cursor-pointer font-semibold text-xl">
               Delete this class
-            </p>
+            </p></li>
           </div>
           {/* {navOptions} */}
           <div className="divider"></div>
           <li>
-            {/* <NavLink to="/"> */}
-            <FaHome></FaHome> Home Page
-            {/* </NavLink> */}
+            <Link href="/"><FaHome></FaHome> Home Page</Link>
           </li>
-          {/* {user && ( */}
           <li>
-            {/* <button onClick={handleLogout}> */}
-            <FaSignOutAlt></FaSignOutAlt> Courses
-            {/* </button> */}
+            <Link href="/courses"><FaSignOutAlt></FaSignOutAlt> Courses</Link>
           </li>
           {/* )} */}
         </ul>
