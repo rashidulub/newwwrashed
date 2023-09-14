@@ -50,7 +50,7 @@ const Courses = () => {
           },
           {
             headers: {
-              "Project-ID": "41415912-8be4-4c8a-9d10-1fe5e47be186",
+              "Project-ID": "27a5ab30-23cb-4d38-9933-71b24af69399",
               "User-Name": loggedInUserName,
               "User-Secret": loggedInUserEmail,
             },
@@ -191,7 +191,7 @@ const Courses = () => {
             },
             {
               headers: {
-                "Project-ID": "41415912-8be4-4c8a-9d10-1fe5e47be186",
+                "Project-ID": "27a5ab30-23cb-4d38-9933-71b24af69399",
                 "User-Name": ownerName,
                 "User-Secret": ownerEmail,
               },
@@ -217,7 +217,7 @@ const Courses = () => {
     },
   };
   return (
-    <div className="text-justify px-7 w-full lg:w-3/4 mx-auto mb-10">
+    <div className="text-justify px-7 w-full lg:w-3/4 mx-auto mb-10 pt-32">
       <div className="flex justify-end">
         <div className="mr-5">
           {/* Open the modal using ID.showModal() method */}

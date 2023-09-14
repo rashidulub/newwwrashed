@@ -29,51 +29,56 @@ export default function VideoCall() {
     const containerRef = useRef(null);
     const { data: session } = useSession();
 
-    const { user } = session;
-    const loggedInUserName = user.name;
+    // const { user } = session;
+    // const loggedInUserName = session?.user?.name || 'Akil';
 
 
     useEffect(() => {
-        async function startVideoCall() {
-            if (typeof window !== 'undefined') { // Check if running in a browser environment
-                // Generate Kit Token
-                const appID = 658986879;
-                const serverSecret = "84b1cb33a6b72b91bc1a7a42d5b2013f";
-                const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-                    appID,
-                    serverSecret,
-                    roomID,
-                    randomID(5),
-                    loggedInUserName
-                );
+        if (session) {
+            const { user } = session;
+            const loggedInUserName = user.name;
+            console.log(loggedInUserName);
+            async function startVideoCall() {
+                if (typeof window !== 'undefined') { // Check if running in a browser environment
+                    // Generate Kit Token
+                    const appID = 658986879;
+                    const serverSecret = "84b1cb33a6b72b91bc1a7a42d5b2013f";
+                    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+                        appID,
+                        serverSecret,
+                        roomID,
+                        randomID(5),
+                        loggedInUserName
+                    );
 
-                // Create instance object from Kit Token
-                const zp = ZegoUIKitPrebuilt.create(kitToken);
+                    // Create instance object from Kit Token
+                    const zp = ZegoUIKitPrebuilt.create(kitToken);
 
-                // Start the call
-                zp.joinRoom({
-                    container: containerRef.current,
-                    sharedLinks: [
-                        {
-                            name: 'Personal link',
-                            url:
-                                window.location.protocol +
-                                '//' +
-                                window.location.host +
-                                window.location.pathname +
-                                '?roomID=' +
-                                roomID,
+                    // Start the call
+                    zp.joinRoom({
+                        container: containerRef.current,
+                        sharedLinks: [
+                            {
+                                name: 'Personal link',
+                                url:
+                                    window.location.protocol +
+                                    '//' +
+                                    window.location.host +
+                                    window.location.pathname +
+                                    '?roomID=' +
+                                    roomID,
+                            },
+                        ],
+                        scenario: {
+                            mode: ZegoUIKitPrebuilt.GroupCall,
                         },
-                    ],
-                    scenario: {
-                        mode: ZegoUIKitPrebuilt.GroupCall,
-                    },
-                });
+                    });
+                }
             }
+            startVideoCall();
         }
 
-        startVideoCall();
-    }, [roomID]);
+    }, [roomID, session]);
 
     return (
         <div
