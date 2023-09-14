@@ -21,8 +21,8 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div>
           <ChatContextProvider>
-            <Navbar />
             <AuthProvider>
+              <Navbar />
               <main className="">
                 {children}
                 <ToastContainer

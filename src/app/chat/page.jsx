@@ -38,7 +38,7 @@ const AllChat = () => {
         .put(
           "https://api.chatengine.io/users/",
           { username, secret, email },
-          { headers: { "Private-Key": "f4b51919-3581-45cd-8489-b3af782bbe07" } }
+          { headers: { "Private-Key": "05508385-30ce-4f31-bdec-ff06092009b2" } }
         )
         .then((r) => {
           const userData = r.data;
@@ -65,7 +65,7 @@ const AllChat = () => {
     <div className="lg:w-full w-11/12  mx-auto mb-32 ">
       <div className="shadow">
         <ChatEngine
-          projectID="41415912-8be4-4c8a-9d10-1fe5e47be186"
+          projectID="27a5ab30-23cb-4d38-9933-71b24af69399"
           userName={username}
           userSecret={secret}
           userEmail={email}

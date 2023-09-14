@@ -42,8 +42,6 @@ const coursesSchema = new Schema({
                 type: String,
                 required: true,
             },
-
-
         },
     ],
     ownerName: {
