@@ -1,14 +1,25 @@
 'use client'
-import LogOut from '@/Components/auth/LogOut';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React from 'react';
+import { useParams, usePathname } from 'next/navigation';
+import React, { useEffect } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { FaUserGraduate } from 'react-icons/fa';
 import { FiLogOut, FiSettings } from 'react-icons/fi';
-import Themes from '../Themes/Themes';
+import Themes from '../../Themes/Themes';
+import LogOut from '@/Components/auth/LogOut';
+import { signOut, useSession } from 'next-auth/react';
 
-const NavMenu = (session, { _id }) => {
+const NavMenu = () => {
+    // const { session } = useParams();
+    const { data: session } = useSession();
+    useEffect(() => {
+        if (session) {
+            const { user } = session;
+            const loggedInUserName = user.name;
+            console.log(loggedInUserName);
+        }
+    }, [session])
+    console.log('from nav', session);
     const pathName = usePathname();
     const menu = (
         <ul className="lg:flex gap-10 lg:py-6 items-center lg:text-xl ">
@@ -23,7 +34,7 @@ const NavMenu = (session, { _id }) => {
     return (
         <div>
             {
-                pathName !== "/login" && pathName !== "/signUp" && pathName !== `/courses/${_id}` ?
+                pathName !== "/login" && pathName !== "/signUp" && pathName !== "/admindashboard" ?
                     <div className="navbar lg:w-3/4 w-11/12 mx-auto">
                         <div className="navbar-start">
                             <div className="dropdown">
@@ -72,9 +83,9 @@ const NavMenu = (session, { _id }) => {
                                     <li>
                                         <div>
                                             <div className="flex items-center gap-2">
-
                                                 <FiLogOut className="text-lg" />
-                                                <LogOut />
+                                                {/* <LogOut /> */}
+                                                <button onClick={signOut}>Sign Out</button>
                                             </div>
                                         </div>
                                     </li>
