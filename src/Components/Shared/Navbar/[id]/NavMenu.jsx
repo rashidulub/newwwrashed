@@ -14,7 +14,7 @@ const NavMenu = () => {
   const pathNames = usePathname();
   console.log('Current path:', pathNames);
 
-  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/courses\/\w+$/];
+  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/,/^\/chat$/,/^\/admindashboard$/,  /^\/courses\/\w+$/];
   const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
     pattern.test(pathNames)
   );

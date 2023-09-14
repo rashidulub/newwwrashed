@@ -1,7 +1,11 @@
-.ce-wrapper{
-    height: 70vh;
-  }
-  
-  .ce-chat-list-column{
-    height: 80vh;
-  }
+.ce-wrapper {
+  height: 99vh !important;
+}
+
+.ce-chat-engine {
+  height: 100% !important;
+}
+
+.ce-chats-container{
+  padding: 0px 10px;
+}
