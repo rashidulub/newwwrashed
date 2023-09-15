@@ -2,11 +2,15 @@
 import { usePathname } from "next/navigation";
 
 const Footer = () => {
-  const pathName = usePathname();
+  const pathNames = usePathname();
+  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/,/^\/chat$/,/^\/admindashboard$/,  /^\/courses\/\w+$/];
+  const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
+    pattern.test(pathNames)
+  );
   return (
     <div>
       {
-        pathName !== "/login" && pathName !== "/signUp" ?
+        !shouldHideNavbar ?
           <div>
             <footer className="footer p-10 bg-[#0083db] text-white text-lg">
               <aside>

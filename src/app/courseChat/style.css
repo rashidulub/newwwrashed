@@ -1,5 +1,6 @@
 .ce-chat-title{
-    width: 72.5% !important; 
+    display: none !important;
+    /* width: 72.5% !important;  */
 }
 .ce-social-message-form-container{
     width: 72.5% !important; 
@@ -15,3 +16,4 @@
     color: rgb(10 10 10 / 58%) !important;
     opacity: initial;
 }
+

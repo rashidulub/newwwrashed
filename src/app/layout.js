@@ -23,9 +23,8 @@ export default function RootLayout({ children }) {
         <div>
 
           <ChatContextProvider>
-            <Navbar />
-
             <AuthProvider>
+              <Navbar />
               <main className="">
                 {children}
                 <ToastContainer
@@ -46,7 +45,7 @@ export default function RootLayout({ children }) {
 
 
 
-            {/* <Footer /> */}
+            <Footer />
           </ChatContextProvider>
         </div>
       </body>

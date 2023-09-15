@@ -6,13 +6,13 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import LogOut from "@/Components/auth/LogOut";
 import Themes from "../Themes/Themes";
-import NavMenu from "./NavMenu";
+import NavMenu from "./[id]/NavMenu";
 
 const Navbar = async () => {
 	const session = await getServerSession(authOptions)
 	console.log(session, 'user session from navbar')
 	return (
-		<div className="fixed w-full p-color z-50">
+		<div className="w-full fixed p-color z-50">
 			<NavMenu session={session} />
 		</div>
 	);

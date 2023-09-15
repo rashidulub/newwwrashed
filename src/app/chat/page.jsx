@@ -5,7 +5,11 @@ import { useChatContext } from "../Context/context";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import './style.css'
+import "./style.css";
+import Link from "next/link";
+import { TbMessageDots } from "react-icons/tb";
+import { AiOutlineHome } from "react-icons/ai";
+import { BiBookBookmark } from "react-icons/bi";
 
 const ChatEngine = dynamic(() =>
   import("react-chat-engine").then((module) => module.ChatEngine)
@@ -20,8 +24,6 @@ const AllChat = () => {
   const { data: session } = useSession();
   const [showChat, setShowChat] = useState(false);
   const router = useRouter();
-  // const chatID = "201493";
-  // const chatAccessKey = "ca-814a721f-7293-4df8-8a47-ea77c93d92fe";
 
   useEffect(() => {
     if (session) {
@@ -29,7 +31,7 @@ const AllChat = () => {
       const loggedInUserEmail = user.email;
       const loggedInUserName = user.name;
       const loggedInUserImage = user.image;
-      const avatar = user.image
+      const avatar = user.image;
       setUsername(loggedInUserName);
       setSecret(loggedInUserEmail);
       setEmail(loggedInUserEmail);
@@ -38,7 +40,7 @@ const AllChat = () => {
         .put(
           "https://api.chatengine.io/users/",
           { username, secret, email },
-          { headers: { "Private-Key": "f4b51919-3581-45cd-8489-b3af782bbe07" } }
+          { headers: { "Private-Key": "05508385-30ce-4f31-bdec-ff06092009b2" } }
         )
         .then((r) => {
           const userData = r.data;
@@ -55,22 +57,55 @@ const AllChat = () => {
 
   useEffect(() => {
     if (username === "" || secret === "" || email === "") {
-      router.push("/");
+      router.push("/chat");
     }
   }, [username, secret, email]);
 
   if (!showChat) return <div />;
 
   return (
-    <div className="lg:w-full w-11/12  mx-auto mb-32 ">
-      <div className="shadow">
-        <ChatEngine
-          projectID="41415912-8be4-4c8a-9d10-1fe5e47be186"
-          userName={username}
-          userSecret={secret}
-          userEmail={email}
-          renderNewMessageForm={() => <MessageFormSocial />}
-        />
+    <div className="drawer lg:drawer-open">
+      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content ">
+        <div className="lg:h-[100vh] h-full">
+          <ChatEngine
+            projectID="27a5ab30-23cb-4d38-9933-71b24af69399"
+            userName={username}
+            userSecret={secret}
+            userEmail={email}
+            renderNewMessageForm={() => <MessageFormSocial />}
+            className="ce-wrapper"
+          />
+        </div>
+        <label
+          htmlFor="my-drawer-2"
+          className="btn btn-primary drawer-button lg:hidden"
+        ></label>
+      </div>
+      <div className="drawer-side">
+        <label htmlFor="my-drawer" className="drawer-overlay"></label>
+        <ul className="menu p-4 w-20 min-h-full bg-base-200 text-base-content justify-evenly">
+          {/* Sidebar content here */}
+          <li>
+            <Link href="/">
+              <button className="text-[#0083db]">
+                <AiOutlineHome size="1.8em" />
+              </button>
+            </Link>
+          </li>
+          <li>
+            <button className="text-[#0083db] active">
+              <TbMessageDots size="1.8em" />
+            </button>
+          </li>
+          <li>
+            <Link href="/courses">
+              <button className="text-[#0083db]">
+                <BiBookBookmark size="1.8em" />
+              </button>
+            </Link>
+          </li>
+        </ul>
       </div>
     </div>
   );

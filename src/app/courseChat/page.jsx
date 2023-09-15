@@ -19,13 +19,13 @@ const CourseChat = ({ courseData }) => {
   // console.log("courseChat",courseData)
   const { value } = useChatContext();
   const { username } = value;
-  console.log("name",username)
+  console.log("name", username)
   const { chatAccessKey, chatID } = courseData;
   return (
     <div className="relativen">
       <ChatEngineWrapper>
         <ChatSocket
-          projectID="41415912-8be4-4c8a-9d10-1fe5e47be186"
+          projectID="27a5ab30-23cb-4d38-9933-71b24af69399"
           chatID={chatID}
           chatAccessKey={chatAccessKey}
           senderUsername={username}
