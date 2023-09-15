@@ -125,8 +125,8 @@ const NavMenu = () => {
                                         <div>
                                             <div className="flex items-center gap-2">
                                                 <FiLogOut className="text-lg" />
-                                                {/* <LogOut /> */}
-                                                <button onClick={signOut}>Sign Out</button>
+                                                <LogOut />
+                                                {/* <button onClick={signOut}>Sign Out</button> */}
                                             </div>
                                         </div>
                                     </li>
