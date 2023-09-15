@@ -62,7 +62,7 @@ const AllChat = () => {
   if (!showChat) return <div />;
 
   return (
-    <div className="lg:w-full w-11/12  mx-auto mb-32 ">
+    <div className="lg:w-full pt-32 w-11/12  mx-auto mb-32 ">
       <div className="shadow">
         <ChatEngine
           projectID="27a5ab30-23cb-4d38-9933-71b24af69399"
