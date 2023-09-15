@@ -19,9 +19,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+
         <div>
+
           <ChatContextProvider>
             <Navbar />
+
             <AuthProvider>
               <main className="">
                 {children}
@@ -40,7 +43,10 @@ export default function RootLayout({ children }) {
                 <ToastContainer />
               </main>
             </AuthProvider>
-            <Footer />
+
+
+
+            {/* <Footer /> */}
           </ChatContextProvider>
         </div>
       </body>

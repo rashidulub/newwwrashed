@@ -2,12 +2,13 @@ import React from "react";
 import DeleteUser from "./DeleteUser";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import Layout from "@/component/Layout";
 
 
 const Settings = async ({ params }) => {
   const session = await getServerSession(authOptions);
   return (
-    <div className="pt-32 lg:w-3/4 w-11/12 mx-auto px-7 py-10">
+    <Layout className="pt-32 lg:w-3/4 w-11/12 mx-auto px-7 py-10">
       <h5 className="font-semibold text-2xl">Profile Setting</h5>
       <div className="grid grid-cols-2 mt-2 mb-10">
         <div className="col-span-2 border">
@@ -92,7 +93,7 @@ const Settings = async ({ params }) => {
           <DeleteUser email={session.user.email} />
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

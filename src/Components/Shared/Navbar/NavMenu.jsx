@@ -17,6 +17,7 @@ const NavMenu = (session, { _id }) => {
             <li><Link href="/blogs">Blogs</Link></li>
             {/* {session && <li><Link href="/dashboard">Dashboard</Link></li>} */}
             {session && <li><Link href="/admindashboard">Dashboard</Link></li>}
+            {session && <li><Link href="/admin">admin</Link></li>}
             {session && <li><Link href="/chat">Chat</Link></li>}
         </ul>
     );
