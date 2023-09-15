@@ -8,7 +8,7 @@ import Layout from "@/component/Layout";
 const Settings = async ({ params }) => {
   const session = await getServerSession(authOptions);
   return (
-    <Layout className="pt-32 lg:w-3/4 w-11/12 mx-auto px-7 py-10">
+    <div className="pt-32 lg:w-3/4 w-11/12 mx-auto px-7 py-10">
       <h5 className="font-semibold text-2xl">Profile Setting</h5>
       <div className="grid grid-cols-2 mt-2 mb-10">
         <div className="col-span-2 border">
@@ -93,7 +93,7 @@ const Settings = async ({ params }) => {
           <DeleteUser email={session.user.email} />
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 
