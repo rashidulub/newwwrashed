@@ -23,7 +23,7 @@ const Blogs = ({ params }) => {
 		};
 
 		try {
-			const result = await fetch("https://ed-nexus.vercel.app/api/blogs", {
+			const result = await fetch("http://localhost:3000/api/blogs", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -75,7 +75,7 @@ const Blogs = ({ params }) => {
 	useEffect(() => {
 		// const fetchBlogs = async () => {
 		// 	try {
-		// 		const response = await fetch("https://ed-nexus.vercel.app/api/blogs");
+		// 		const response = await fetch("http://localhost:3000/api/blogs");
 		// 		if (response.ok) {
 		// 			const data = await response.json();
 		// 			// console.log(data);
@@ -92,7 +92,7 @@ const Blogs = ({ params }) => {
 		// 	}
 		// };
 		// fetchBlogs();
-		fetch('https://ed-nexus.vercel.app/api/blogs')
+		fetch('http://localhost:3000/api/blogs')
 			.then(res => res.json())
 			.then(data => setBlogs(data))
 			.catch(error => console.log(error))
