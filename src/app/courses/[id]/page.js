@@ -329,6 +329,7 @@ const CourseDashboard = ({ params }) => {
     };
     fetchMember();
   }, []);
+  console.log(member);
 
   // For Getting Notice Data
   useEffect(() => {
@@ -540,7 +541,7 @@ const CourseDashboard = ({ params }) => {
               </tr>
             </thead>
             <tbody>
-              {member.members.map((item, index) => (
+              {member?.members?.map((item, index) => (
                 <tr className="text-center" key={index}>
                   <td className="text-xl font-bold">{index + 1}</td>
                   <td>

@@ -18,7 +18,7 @@ const Contact = () => {
   const currentDateBD = new Date(currentDateLocal.getTime() + timeOffset);
 
   const onSubmitContact = async (data) => {
-    const { name,email,description } = data;
+    const { name, email, description } = data;
     const newContact = {
       name,
       email,
@@ -77,42 +77,44 @@ const Contact = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 shadow-2xl mb-32 border-t-8 border-[#0083db] rounded-2xl">
-      <div className="p-10">
-        <h1 className="text-4xl font-semibold text-[#0083db] mb-7">Contact us</h1>
-        <form onSubmit={handleSubmit(onSubmitContact)}>
-          <div className="space-y-6">
-            <input
-              {...register("name")}
-              name="name"
-              type="text"
-              placeholder="Name"
-            className="input input-bordered w-full lg:w-11/12 font-semibold border-2 border-[#EDEFFA]"
-            />
-            <input
-              {...register("email")}
-              name="email"
-              type="email"
-              placeholder="Email"
-              className="input input-bordered w-full lg:w-11/12 font-semibold border-2 border-[#EDEFFA]"
-            />
-            <textarea
-              {...register("description")}
-              name="description"
-              className="textarea textarea-bordered w-full lg:w-11/12 font-semibold border-2 border-[#EDEFFA]"
-              placeholder="Message"
-            ></textarea>
-          </div>
-          <button className="btn btn-outline mt-3 lg:w-11/12" type="submit">
-           <div className="flex items-center gap-2">
-           <span> Send Message</span>
-            <BsSend size="1.4em"/>
-           </div>
-          </button>
-        </form>
-      </div>
-      <div className="w-full">
-      {<Lottie animationData={contactUs} loop={true}></Lottie>}
+    <div>
+      <h1 className="text-4xl font-semibold text-[#0083db] mb-7 text-center">Contact us</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-2 mb-32 rounded-2xl">
+        <div className="pt-10">
+          <form onSubmit={handleSubmit(onSubmitContact)}>
+            <div className="space-y-6">
+              <input
+                {...register("name")}
+                name="name"
+                type="text"
+                placeholder="Name"
+                className="input input-bordered w-full lg:w-11/12 font-semibold border-2 border-[#EDEFFA]"
+              />
+              <input
+                {...register("email")}
+                name="email"
+                type="email"
+                placeholder="Email"
+                className="input input-bordered w-full lg:w-11/12 font-semibold border-2 border-[#EDEFFA]"
+              />
+              <textarea
+                {...register("description")}
+                name="description"
+                className="textarea textarea-bordered w-full lg:w-11/12 font-semibold border-2 border-[#EDEFFA]"
+                placeholder="Message"
+              ></textarea>
+            </div>
+            <button className="btn bg-[#0083db] text-white btn-outline mt-3 lg:w-11/12" type="submit">
+              <div className="flex items-center gap-2">
+                <span className=""> Send Message</span>
+                <BsSend size="1.4em" />
+              </div>
+            </button>
+          </form>
+        </div>
+        <div className="w-full">
+          {<Lottie animationData={contactUs} loop={true}></Lottie>}
+        </div>
       </div>
     </div>
   );

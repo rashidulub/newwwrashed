@@ -1,7 +1,10 @@
 'use client'
+import Layout from "@/component/Layout";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
+import { BiCommentDetail } from 'react-icons/bi';
 
 const Blogs = ({ params }) => {
 
@@ -9,7 +12,7 @@ const Blogs = ({ params }) => {
 	const blogsId = params.id;
 
 	const onSubmitBlog = async (data) => {
-		const { blogs_id, image, title, author, content, date } = data;
+		const { image, title, author, content, date } = data;
 		const newBlog = {
 			blogs_id: blogsId,
 			image,
@@ -96,14 +99,38 @@ const Blogs = ({ params }) => {
 	}, []);
 	return (
 		<div className="py-32 lg:w-3/4 w-11/12 mx-auto">
-			<div className="text-end">
+			<div className="text-end mb-10">
 				<button className="px-3 py-2 bg-[#0083db] rounded font-semibold text-white">Add Blogs</button>
 			</div>
-			{
-				blogs.map(blog => <div key={blog.blogs_id}>
-					<h1>{blog.title}</h1>
-				</div>)
-			}
+			<div className="grid grid-cols-3 w-fit gap-5">
+				{
+					blogs.map(blog => <div className="s-color w-fit p-5 rounded-lg" key={blog.blogs_id}>
+						<div className="relative w-full h-56">
+							<img className="h-full w-full object-cover rounded-t-lg" src={blog.image} alt="" />
+						</div>
+						<h1 className="font-bold text-[#0083db] text-3xl pt-3">{blog.title}</h1>
+						<p className="font-semibold text-xl pt-1">{blog.author}</p>
+						<div className="py-4">
+							<span>{blog.content.slice(0, 120)} . . . </span>
+							<button className="text-[#0083db]">see more</button>
+						</div>
+						<div className="flex justify-between">
+							<div className="flex items-center gap-2">
+								<AiOutlineLike className="text-2xl text-[#0083db]" />
+								<p>Like</p>
+							</div>
+							<div className="flex items-center gap-2">
+								<AiOutlineDislike className="text-2xl text-[#0083db]" />
+								<p>Dislike</p>
+							</div>
+							<div className="flex items-center gap-2">
+								<BiCommentDetail className="text-2xl text-[#0083db]" />
+								<p>Comment</p>
+							</div>
+						</div>
+					</div>)
+				}
+			</div>
 		</div>
 
 	);
