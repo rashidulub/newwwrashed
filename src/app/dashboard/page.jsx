@@ -157,7 +157,7 @@ const dashboardPage = () => {
               </div>
             </div>
             <div className="flex flex-col space-y-3 justify-center">
-              <p className="text-2xl font-bold text-gray-500">Courses</p>
+              <p className="text-2xl font-bold text-white">Courses</p>
               <div className="flex items-center">
                 <CountUp
                   delay={2}

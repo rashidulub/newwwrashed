@@ -14,7 +14,7 @@ const NavMenu = () => {
     const pathNames = usePathname();
     console.log('Current path:', pathNames);
 
-    const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/chat$/, /^\/admindashboard$/, /^\/courses\/\w+$/];
+    const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/];
     const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
         pattern.test(pathNames)
     );
@@ -40,7 +40,7 @@ const NavMenu = () => {
             {/* {session && <li><Link href="/dashboard">Dashboard</Link></li>} */}
             {session && (
                 <li>
-                    <Link href="/admindashboard">Dashboard</Link>
+                    <Link href="/admin">Dashboard</Link>
                 </li>
             )}
             {session && (

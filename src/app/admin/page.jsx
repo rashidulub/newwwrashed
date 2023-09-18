@@ -89,7 +89,7 @@ const dashboardPage = () => {
 
             {/* Mini Card Component Here*/}
             <div className="grid grid-cols-4 gap-3 mt-6 mb-4">
-                <div className="card w-auto  bg-orange-100 shadow-xl">
+                <div className="card w-auto  bg-indigo-300 shadow-xl">
                     <div className="card-body flex-row items-center justify-evenly">
                         <div className="avatar placeholder">
                             <div className="bg-[#D1F3E0] text-neutral-content rounded-full w-24">
@@ -97,7 +97,7 @@ const dashboardPage = () => {
                             </div>
                         </div>
                         <div className="flex flex-col    space-y-3 justify-center">
-                            <p className="text-2xl font-bold text-gray-500">User</p>
+                            <p className="text-2xl font-bold text-white">User</p>
                             <div className="flex items-center">
                                 <CountUp
                                     delay={2}
@@ -109,7 +109,7 @@ const dashboardPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="card w-auto bg-lime-200 shadow-xl">
+                <div className="card w-auto bg-[#1D9BF0] shadow-xl">
                     <div className="card-body flex-row items-center justify-evenly">
                         <div className="avatar placeholder">
                             <div className="bg-[#E1F1FF] text-neutral-content rounded-full w-24">
@@ -117,7 +117,7 @@ const dashboardPage = () => {
                             </div>
                         </div>
                         <div className="flex flex-col space-y-3 justify-center">
-                            <p className="text-2xl font-bold text-gray-500">Blogs</p>
+                            <p className="text-2xl font-bold text-white">Blogs</p>
                             <div className="flex items-center">
                                 <CountUp
                                     delay={2}
@@ -129,7 +129,7 @@ const dashboardPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="card w-auto bg-teal-200 shadow-xl">
+                <div className="card w-auto bg-indigo-300 shadow-xl">
                     <div className="card-body flex-row items-center justify-evenly">
                         <div className="avatar placeholder">
                             <div className="bg-[#FFF2D8] text-neutral-content rounded-full w-24">
@@ -137,7 +137,7 @@ const dashboardPage = () => {
                             </div>
                         </div>
                         <div className="flex flex-col space-y-3 justify-center">
-                            <p className="text-2xl font-bold text-gray-500">Award</p>
+                            <p className="text-2xl font-bold text-white">Award</p>
                             <div className="flex items-center">
                                 <CountUp
                                     delay={2}
@@ -149,7 +149,7 @@ const dashboardPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="card w-auto bg-indigo-300 shadow-xl">
+                <div className="card w-auto bg-[#1D9BF0] shadow-xl">
                     <div className="card-body flex-row items-center justify-evenly">
                         <div className="avatar placeholder">
                             <div className="bg-[#FFEAEA] text-neutral-content rounded-full w-24">
@@ -157,7 +157,7 @@ const dashboardPage = () => {
                             </div>
                         </div>
                         <div className="flex flex-col space-y-3 justify-center">
-                            <p className="text-2xl font-bold text-gray-500">Courses</p>
+                            <p className="text-2xl font-bold text-white">Courses</p>
                             <div className="flex items-center">
                                 <CountUp
                                     delay={2}
@@ -173,7 +173,7 @@ const dashboardPage = () => {
             {/* ??chart */}
 
 
-            <div className=" mb-20 mt-8 h-12 pl-9 ">
+            <div className=" mb-20 mt-8 h-12 pl-32 ">
                 <h1 className="text-3xl font-semibold mb-4">Number Of Students</h1>
                 <ResponsiveContainer c width="80%" height="800%">
                     <BarChart className="h-11"

@@ -4,7 +4,7 @@ import Layout from '@/component/Layout';
 
 import React, { useState, useEffect } from 'react';
 import { FaUser, FaUserTie } from 'react-icons/fa';
-import images from "../../assets/unnamed.png"
+import IMAGE from "../../assets/unnamed.png"
 
 
 function Userlist() {
@@ -144,7 +144,7 @@ function Userlist() {
                                                             <div className='' >
                                                                 <div className='ml-12 text-center'>
                                                                     <FaUserTie className="w-80 h-72  text-center items-center border border-[#0083db]  text-[#0083db] "></FaUserTie>
-                                                                    <img src={images} alt="" />
+                                                                    <img src={IMAGE} alt="" />
                                                                 </div>
                                                                 <h1 className="text-xl mt-8
                                                                 font-bold">Name:Towhidul Islam </h1>

@@ -13,7 +13,7 @@ export default function Sidebar() {
         <div className="">
             <div style={{ height: "200%" }}
                 className={` ${open ? "lg:w-40" : "lg:w-60 "
-                    } flex flex-col  p-3 w-full  text-[#0083db] bg-blue-600 shadow duration-300`}
+                    } flex flex-col  p-3 w-full  bg-[#0083db]  shadow duration-300`}
             >
                 <div className="space-y-3">
                     <div className="flex items-center justify-between">
