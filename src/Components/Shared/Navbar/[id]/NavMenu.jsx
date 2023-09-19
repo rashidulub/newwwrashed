@@ -9,9 +9,11 @@ import { MdNotificationsNone } from "react-icons/md";
 import Themes from "../../Themes/Themes";
 import LogOut from "@/Components/auth/LogOut";
 import { signOut, useSession } from "next-auth/react";
+import { useState } from "react";
 
 const NavMenu = () => {
   const { data: session } = useSession();
+  const [notification, setNotification] = useState([]);
   const pathNames = usePathname();
   console.log("Current path:", pathNames);
 
@@ -32,12 +34,41 @@ const NavMenu = () => {
   );
   console.log("shouldHideNavbar:", shouldHideNavbar);
 
+  function extractTimeFromISO(isoTimestamp) {
+    const dateObj = new Date(isoTimestamp);
+    const timeOffset = 6 * 60 * 60 * 1000;
+    dateObj.setTime(dateObj.getTime() + timeOffset);
+    const hours = dateObj.getUTCHours().toString().padStart(2, "0");
+    const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
+
   useEffect(() => {
     if (session) {
       const { user } = session;
       const loggedInUserName = user.name;
     }
   }, [session]);
+
+  // For Getting Notication Data
+  useEffect(() => {
+    const fetchNotification = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/notification");
+        if (response.ok) {
+          const data = await response.json();
+          setNotification(data);
+        } else {
+          console.error("Failed to fetch Notification.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+    fetchNotification();
+  }, []);
+
+  console.log("notification", notification);
   const menu = (
     <ul className="lg:flex gap-10 lg:py-6 items-center lg:text-xl ">
       <li>
@@ -104,9 +135,9 @@ const NavMenu = () => {
                   tabIndex={0}
                   className="btn btn-circle  bg-[#0083db] m-1 indicator p-3"
                 >
-                  <MdNotificationsNone size="1.8em" color="white"/>
+                  <MdNotificationsNone size="1.8em" color="white" />
                   <span className="indicator-item badge badge-secondary text-white">
-                    99+
+                    {notification.length}
                   </span>
                 </button>
               </div>
@@ -121,50 +152,23 @@ const NavMenu = () => {
                   </div>
                   <div className="flex flex-row items-center border-2 whitespace-nowrap"></div>
                   <div className="overflow-x-auto h-52">
-                    <div className="flex items-center gap-3 px-2 py-4">
-                      <div className="avatar">
-                        <div className="w-10 rounded-full">
-                          <img src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg" />
+                    {notification.map((item) => (
+                      <>
+                        <div key={item._id} className="flex items-center gap-3 px-2 py-4">
+                          <div className="avatar">
+                            <div className="w-10 rounded-full">
+                              <img src={item.image} />
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-black">
+                              {item.description}
+                            </p>
+                            <p>{extractTimeFromISO(item.createdAt)}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <p>Akram Post a Assignment</p>
-                        <p>4:00 pm</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 px-2 py-4">
-                      <div className="avatar">
-                        <div className="w-10 rounded-full">
-                          <img src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg" />
-                        </div>
-                      </div>
-                      <div>
-                        <p>Akram Post a Assignment</p>
-                        <p>4:00 pm</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 px-2 py-4">
-                      <div className="avatar">
-                        <div className="w-10 rounded-full">
-                          <img src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg" />
-                        </div>
-                      </div>
-                      <div>
-                        <p>Akram Post a Assignment</p>
-                        <p>4:00 pm</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 px-2 py-4">
-                      <div className="avatar">
-                        <div className="w-10 rounded-full">
-                          <img src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg" />
-                        </div>
-                      </div>
-                      <div>
-                        <p>Akram Post a Assignment</p>
-                        <p>4:00 pm</p>
-                      </div>
-                    </div>
+                      </>
+                    ))}
                   </div>
                 </div>
               </div>
