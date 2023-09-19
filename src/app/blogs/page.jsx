@@ -39,7 +39,7 @@ const Blogs = ({ params }) => {
 			if (result.ok) {
 				const responseData = await result.json();
 				setBlogs((prevBlogs) => [...prevBlogs, responseData]);
-				console.log("Blog is added:", responseData);
+				console.log("Blog is added:", responseData); 
 				toast.success("Blog is Added!", {
 					position: "top-right",
 					autoClose: 5000,
