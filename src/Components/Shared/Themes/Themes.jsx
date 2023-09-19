@@ -63,7 +63,7 @@ const Themes = () => {
     };
 
     return (
-        <label className="swap swap-rotate bg-[#0083db] hover:bg-[#0083db] mr-3 btn btn-circle btn-ghost duration-200 text-white">
+        <label className="swap swap-rotate bg-[#0083db] hover:bg-[#0083db] btn btn-circle btn-ghost duration-200 text-white">
             <input type="checkbox" onChange={handleToggle} checked={theme === 'dark'} />
 
             {/* Sun icon SVG */}
