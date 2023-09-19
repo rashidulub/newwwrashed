@@ -2,13 +2,18 @@
 import Layout from "@/component/Layout";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
+import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 
 const Blogs = ({ params }) => {
 
 	const [blogs, setBlogs] = useState([]);
+	const [likes, setLikes] = useState(0);
+	const [dislikes, setDislikes] = useState(0);
+	const [liked, setLiked] = useState(false);
+	const [disliked, setDisliked] = useState(false);
 	const blogsId = params.id;
 
 	const onSubmitBlog = async (data) => {
@@ -73,30 +78,27 @@ const Blogs = ({ params }) => {
 		}
 	};
 	useEffect(() => {
-		// const fetchBlogs = async () => {
-		// 	try {
-		// 		const response = await fetch("http://localhost:3000/api/blogs");
-		// 		if (response.ok) {
-		// 			const data = await response.json();
-		// 			// console.log(data);
-		// 			const findBlogs = data.map((item) => item.blogs_id === blogsId);
-		// 			setBlogs(findBlogs);
-		// 			console.log(findBlogs);
-		// 		} else {
-		// 			console.error("Failed to fetch blogs.");
-		// 		}
-		// 	} catch (error) {
-		// 		console.error("An error occurred:", error);
-		// 	} finally {
-		// 		setIsLoading(false);
-		// 	}
-		// };
-		// fetchBlogs();
 		fetch('http://localhost:3000/api/blogs')
 			.then(res => res.json())
 			.then(data => setBlogs(data))
 			.catch(error => console.log(error))
 	}, []);
+	const toggleLike = () => {
+		if (liked) {
+			setLikes(likes - 1);
+		} else {
+			setLikes(likes + 1);
+		}
+		setLiked(!liked);
+	};
+	const toggleDislike = () => {
+		if (disliked) {
+			setDislikes(dislikes - 1);
+		} else {
+			setDislikes(dislikes + 1);
+		}
+		setDisliked(!disliked);
+	};
 	return (
 		<div className="py-32 lg:w-3/4 w-11/12 mx-auto">
 			<div className="text-end mb-10">
@@ -112,16 +114,24 @@ const Blogs = ({ params }) => {
 						<p className="font-semibold text-xl pt-1">{blog.author}</p>
 						<div className="py-4">
 							<span>{blog.content.slice(0, 120)} . . . </span>
-							<button className="text-[#0083db]">see more</button>
+							<Link href={`/blogs/${blog._id}`} item={blog} key={blog._id}><button className="text-[#0083db]">see more</button></Link>
 						</div>
 						<div className="flex justify-between">
 							<div className="flex items-center gap-2">
-								<AiOutlineLike className="text-2xl text-[#0083db]" />
-								<p>Like</p>
+								<button onClick={toggleLike}>
+									{
+										liked ? <AiFillLike className="text-2xl text-[#0083db]" /> : <AiOutlineLike className="text-2xl text-[#0083db]" />
+									}
+								</button>
+								<p>{likes}</p>
 							</div>
 							<div className="flex items-center gap-2">
-								<AiOutlineDislike className="text-2xl text-[#0083db]" />
-								<p>Dislike</p>
+								<button onClick={toggleDislike}>
+									{
+										disliked ? <AiFillDislike className="text-2xl text-[#0083db]" /> : <AiOutlineDislike className="text-2xl text-[#0083db]" />
+									}
+								</button>
+								<p>{dislikes}</p>
 							</div>
 							<div className="flex items-center gap-2">
 								<BiCommentDetail className="text-2xl text-[#0083db]" />
