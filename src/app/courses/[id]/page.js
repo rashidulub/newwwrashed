@@ -896,7 +896,7 @@ const CourseDashboard = ({ params }) => {
     ),
   };
   return (
-    <div className="drawer lg:drawer-open pt-10">
+    <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content ">
         <label
@@ -916,7 +916,7 @@ const CourseDashboard = ({ params }) => {
         {/* Page content here */}
         {/* <Outlet></Outlet> */}
       </div>
-      <div className="drawer-side pt-10">
+      <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-96 h-full bg-[#0083db]  text-white text-lg">
           {/* Sidebar content here */}
