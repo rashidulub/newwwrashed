@@ -5,52 +5,39 @@ import React, { useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaUserGraduate } from "react-icons/fa";
 import { FiLogOut, FiSettings } from "react-icons/fi";
-import { MdNotificationsNone } from "react-icons/md";
 import Themes from "../../Themes/Themes";
 import LogOut from "@/Components/auth/LogOut";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
+import { MdNotificationsNone } from "react-icons/md";
 
 const NavMenu = () => {
-  const { data: session } = useSession();
-  const [notification, setNotification] = useState([]);
-  const pathNames = usePathname();
-  console.log("Current path:", pathNames);
+    const { data: session } = useSession();
+    const [notification, setNotification] = useState([]);
+    const pathNames = usePathname();
+    console.log('Current path:', pathNames);
 
-  const hideNavbarPatterns = [
-    /^\/login$/,
-    /^\/signUp$/,
-    /^\/Userlist$/,
-    /^\/CouseDetails$/,
-    /^\/admin$/,
-    /^\/students$/,
-    /^\/chat$/,
-    /^\/dashboard$/,
-    /^\/admindashboard$/,
-    /^\/courses\/\w+$/,
-  ];
-  const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
-    pattern.test(pathNames)
-  );
-  console.log("shouldHideNavbar:", shouldHideNavbar);
+    const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/];
+    const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
+        pattern.test(pathNames)
+    );
+    console.log('shouldHideNavbar:', shouldHideNavbar);
 
-  function extractTimeFromISO(isoTimestamp) {
-    const dateObj = new Date(isoTimestamp);
-    const timeOffset = 6 * 60 * 60 * 1000;
-    dateObj.setTime(dateObj.getTime() + timeOffset);
-    const hours = dateObj.getUTCHours().toString().padStart(2, "0");
-    const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
-    return `${hours}:${minutes}`;
-  }
-
-  useEffect(() => {
-    if (session) {
-      const { user } = session;
-      const loggedInUserName = user.name;
-    }
-  }, [session]);
-
-  // For Getting Notication Data
+    useEffect(() => {
+        if (session) {
+            const { user } = session;
+            const loggedInUserName = user.name;
+        }
+    }, [session]);
+    function extractTimeFromISO(isoTimestamp) {
+        const dateObj = new Date(isoTimestamp);
+        const timeOffset = 6 * 60 * 60 * 1000;
+        dateObj.setTime(dateObj.getTime() + timeOffset);
+        const hours = dateObj.getUTCHours().toString().padStart(2, "0");
+        const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
+        return `${hours}:${minutes}`;
+      }
+        // For Getting Notication Data
   useEffect(() => {
     const fetchNotification = async () => {
       try {
@@ -67,34 +54,32 @@ const NavMenu = () => {
     };
     fetchNotification();
   }, []);
-
   console.log("notification", notification);
-  const menu = (
-    <ul className="lg:flex gap-10 lg:py-6 items-center lg:text-xl ">
-      <li>
-        <Link href="/">Home</Link>
-      </li>
-      <li>
-        <Link href="/courses">Courses</Link>
-      </li>
-      <li>
-        <Link href="/blogs">Blogs</Link>
-      </li>
-      {/* {session && <li><Link href="/dashboard">Dashboard</Link></li>} */}
-      {session && (
-        <li>
-          <Link href="/admin">Dashboard</Link>
-        </li>
-      )}
-      {session && (
-        <li>
-          <Link href="/chat">Chat</Link>
-        </li>
-      )}
-    </ul>
-  );
-  return (
-    <div>
+    const menu = (
+        <ul className="lg:flex gap-10 lg:py-6 items-center lg:text-xl ">
+            <li>
+                <Link href="/">Home</Link>
+            </li>
+            <li>
+                <Link href="/courses">Courses</Link>
+            </li>
+            <li>
+                <Link href="/blogs">Blogs</Link>
+            </li>
+            {session && (
+                <li>
+                    <Link href="/admin">Dashboard</Link>
+                </li>
+            )}
+            {session && (
+                <li>
+                    <Link href="/chat">Chat</Link>
+                </li>
+            )}
+        </ul>
+    );
+    return (
+        <div>
       {!shouldHideNavbar ? (
         <div className="navbar lg:w-3/4 w-11/12 mx-auto">
           <div className="navbar-start">
@@ -127,7 +112,7 @@ const NavMenu = () => {
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">{menu}</div>
-          <div className="navbar-end gap-3">
+          <div className="navbar-end gap-1">
             <Themes />
             <div className="dropdown dropdown-bottom dropdown-end">
               <div>
@@ -154,16 +139,17 @@ const NavMenu = () => {
                   <div className="overflow-x-auto h-52">
                     {notification.map((item) => (
                       <>
-                        <div key={item._id} className="flex items-center gap-3 px-2 py-4">
+                        <div
+                          key={item._id}
+                          className="flex items-center gap-3 px-2 py-4"
+                        >
                           <div className="avatar">
                             <div className="w-10 rounded-full">
                               <img src={item.image} />
                             </div>
                           </div>
                           <div>
-                            <p className="text-black">
-                              {item.description}
-                            </p>
+                            <p className="text-black">{item.description}</p>
                             <p>{extractTimeFromISO(item.createdAt)}</p>
                           </div>
                         </div>
@@ -232,7 +218,7 @@ const NavMenu = () => {
         </div>
       ) : null}
     </div>
-  );
+    );
 };
 
 export default NavMenu;
